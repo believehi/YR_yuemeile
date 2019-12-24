@@ -1,0 +1,147 @@
+html {
+	overflow: hidden;
+}
+
+body {
+	background-image: url(../../img/page_10.jpg);
+	height: 100%;
+	overflow: hidden;
+}
+
+#fanhui img {
+	width: 4%;
+	height: auto;
+	margin: 2% 0 0 4%;
+}
+
+.follow {
+	width: 60%;
+	height: 80%;
+	margin: auto;
+	overflow: hidden;
+	/* 	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+  flex-direction: column;
+  justify-content: center; */
+}
+
+.cont {
+	position: relative;
+	box-sizing: border-box;
+	width: 100%;
+	height: 80%;
+	padding: 0;
+	background-color: #FFFFFF;
+	border-radius: 0.5rem;
+	box-shadow: 0.1875rem 0.1875rem 0.3125rem #42acb5;
+	font-family: "TongXin";
+	overflow: hidden;
+}
+
+.cont .contimg {
+	margin: 0.625rem;
+	height: 70%;
+	background-size: 100% 100%;
+}
+
+.cont-title {
+	position: relative;
+	height: 24%;
+	padding: 0 0.625rem;
+}
+
+.cont i {
+	position: absolute;
+	display: block;
+	width: 1.5rem;
+	height: 1.25rem;
+	background-image: url(../../img/shenying.png);
+	background-size: 100% auto;
+	background-position: center;
+	background-repeat: no-repeat;
+	;
+}
+
+.cont-title span {
+	display: block;
+	margin-left: 2rem;
+	padding-bottom: 0rem;
+}
+
+.cont-title span p {
+	margin: 0;
+	line-height: 1.25rem;
+	font-weight: 300;
+	font-family: "Cai";
+}
+
+.score {
+	position: absolute;
+	top: 55%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 7.5rem;
+	height: 7.5rem;
+	display: none;
+}
+
+.score img {
+	width: 100%;
+}
+
+.score p {
+	position: absolute;
+	top: 55%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 1.25rem;
+	color: #FFFFFF;
+}
+
+.control {
+	margin: 0 auto;
+	width: 70%;
+	height: 20%;
+	display: table;
+}
+
+/* 播放按钮切换 play-active */
+.play-active {
+	display: none;
+}
+
+.control li {
+	vertical-align: middle;
+	width: 33.33333333333333333%;
+	text-align: center;
+	font-family: 'YueYuan';
+	padding-top: 0.625rem;
+	color: #FFFFFF;
+	display: table-cell;
+}
+
+.control li img {
+	width: auto;
+	height: 20%;
+	display: block;
+	margin: auto;
+}
+
+.control li p {
+	margin-top: 0rem;
+	font-size: 0.75rem;
+	line-height: 0.9375rem;
+}
+
+/* 完成录制弹窗 */
+.popup-content p {
+	color: #71D6D3;
+}
+
+.popup-content .popup-foo span {
+	background-color: #6ED8D6;
+	box-shadow: 0 0.125rem #27ACA7;
+}

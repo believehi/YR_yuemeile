@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-每日一句配音列表</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="CarList.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="sign_out-fanhui mui-action-back" id="fanhui">
+			<img src="../../img/fanhui_03.png">
+		</div>
+		<div class="Car_box">
+			<div class="video_box">
+				<div class="video" id="video_box">
+				</div>
+			</div>
+			<div class="Car_list">
+				<div class="list_box" id="list_box">
+					<ul id="list">
+					</ul>
+					<div class="yl_box" id="yl_box">
+						<span class="yl_but">
+							预览配音
+						</span>
+					</div>
+				</div>
+				<!-- 保存 -->
+				<div class="bc_box" id="bc_box">
+					<div>
+						<span id="bc_but">仅保存</span>
+					</div>
+					<div>
+						<span id="fxbc_but">保存并分享</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws = "",
+					timer = null,
+					js = '',
+					loop = true,
+					videoplay = null,
+					src = '',
+					times = '',
+					m = 0,
+					peiyin = '',
+					silentvideo = '',
+					//oName = localStorage.getItem('$oName'),
+					rid = null,
+					Daypageid = '',
+					Sort = '',
+					zsc = '',
+					pic_aa = true,
+					this_src = '',
+					Audio = null,
+					luying = false,
+					recorder1 = null,
+					liststr = [],
+					name,
+					datasrc, thumbnail, loadPage;
+				var zsj = 0;
+				var time = 0;
+				var currentTime = 0;
+				var html = '';
+				//播放窗口的位置和高度
+				var manxy = $("#video_box").offset();
+				var manheight = $("#video_box").height();
+				var objxy = {};
+				var objheight = 0;
+				var thisi = 0;
+				var gundong = parseFloat(0);
+				var thisScroll = 0;
+				var isSX = true; //是上滚还是下滚,true是上滚
+				var isPD = true;
+				//var oName1 = oName.replace(/(^\"*)|(\"*$)/g, "");
+				//var oName1 = oName;
+				//console.log(oName1);
+				var r = null;
+				mui.plusReady(function() {
+					
+
+					ws = plus.webview.currentWebview();
+					dayid = ws.dayid;
+					silentvideo = ws.silentvideo;
+					datasrc = ws.datasrc;
+					name = ws.name;
+					thumbnail = ws.thumbnail;
+					//播放窗口的位置和高度
+					Audio = plus.audio.createPlayer({});
+					$("#video_box").css("background-image", "url(" + thumbnail + ")");
+					// videoplay = new plus.video.VideoPlayer('video_box', {
+					// 	//poster: thumbnail,
+					// 	loop: true,
+					// 	position: 'static'
+					// });
+					//循环列表
+
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('内容加载中，请稍候...', YiRu.WaitingStyle());
+						YiRu.getajax('day/pagelist', function(data) {
+							w.close();
+
+							rid = data.data.repeatinfo.Id;
+							//console.log(rid)
+							var Data = data.data.baseinfo;
+							//console.log(JSON.stringify(data));
+							var text = '';
+							//videourl = Data[0].DayUrl;
+							//console.log(Data[0].RecordUrl + "  00000");
+							if (Data.length > 0) {
+								for (var i = 0; i < Data.length; i++) {
+									//Data[i].RecordUrl = Data[i].RecordUrl.replace("http://yml.02.t1m.cnhttp://yml.02.t1m.cn/",
+									//	"http://yml.02.t1m.cn/");
+									liststr.push({
+										url: Data[i].DayUrl
+									}, {
+										url: Data[i].SilentDayUrl
+									}, {
+										url: Data[i].RecordUrl
+									});
+									text = Data[i].Text.replace(/\n/g, '<br />')
+									html += '<li video-src="' + Data[i].DayUrl + '">';
+									html += '<p class="shuzi">' + (i + 1) + '/' + Data.length + '</p>';
+									html += '<div class="wz_box"><p>' + text + '</p></div><div class="bottom">';
+									html += '<div class="jdt_box"><div class="jdt_color"></div></div><span class="time"></span>';
+									if (Data[i].RecordUrl != "") {
+										html += '<span class="icon_zt" isok="false" video-src="' + Data[i].DayUrl + '" silentvideo-src="' +
+											Data[
+												i].SilentDayUrl +
+											'" audio_src="' + Data[i].RecordUrl + '" style="display:block"></span>';
+										html +=
+											'<span class="icon_ly" isok="false" video-src="' + Data[i].DayUrl + '" silentvideo-src="' + Data[i].SilentDayUrl +
+											'" audio_src="' +
+											Data[i].RecordUrl + '" Daypageid="' +
+											Data[i].ID + '"  Rid="' + Data[i].ID + '" Sort="' + Data[i].Sort + '"></span>';
+									} else {
+										html += '<span class="icon_zt" isok="false" video-src="' + Data[i].DayUrl +
+											'" silentvideo-src="' +
+											Data[i].SilentDayUrl +
+											'" audio_src=""></span>';
+										html +=
+											'<span class="icon_ly" isok="false" video-src="' + Data[i].DayUrl + '" silentvideo-src="' + Data[i].SilentDayUrl +
+											'" audio_src="" Daypageid="' +
+											Data[i].ID + '"  Rid="' + Data[i].ID + '" Sort="' + Data[i].Sort + '"></span>';
+									}
+									html += '</div>';
+									html += '</li>';
+								}
+								//console.log(html);
+								$("#list").html(html);
+								$("#yl_box").show();
+								$("#list_box").scroll(function() {
+									thisScroll = $(this).scrollTop();
+									if (gundong > thisScroll) {
+										//console.log("下滚");
+										isSX = false;
+									} else if (gundong < thisScroll) {
+										//console.log("上滚");
+										isSX = true;
+									}
+									gundong = thisScroll;
+									//console.log(gundong);
+									$("#list li").each(function(i) {
+										var _this = this;
+
+										objxy = $(_this).offset();
+										objheight = $(_this).height();
+
+										if (thisi != i) {
+											$(_this).find("p.shuzi").removeClass("isshuzi");
+											$(_this).find("span.icon_ly").removeClass("islu");
+											$(_this).find("span.icon_zt").removeClass("isbo");
+											$(_this).find("span.icon_ly").attr("isok", "false");
+											$(_this).find("span.icon_zt").attr("isok", "false");
+											if (isSX) {
+												if (objxy.top > manxy.top && objxy.top < manxy.top + manheight / 2 || (i == Data.length - 1 &&
+														objxy.top + objheight < manxy.top + manheight)) {
+													thisi = i;
+													huadong(_this);
+												}
+											} else {
+												if (objxy.top == $("#list_box").offset().top && thisScroll == 0) {
+													thisi = i;
+													huadong(_this);
+												}
+												if (objxy.top + objheight < manxy.top + manheight && objxy.top + objheight > manxy.top +
+													manheight / 2 && thisScroll != 0) {
+													thisi = i;
+													huadong(_this);
+												}
+											}
+										}
+									});
+								});
+
+								//console.log(JSON.stringify(liststr));
+								//w = plus.nativeUI.showWaiting('资源下载中，请稍候...', YiRu.WaitingStyle());
+
+								//xiazai(0, liststr, function() {
+								//console.log(Data[0].RecordUrl);
+								//w.close();
+
+								videoplay = new plus.video.VideoPlayer('video_box', {
+									//poster: thumbnail,
+									loop: true,
+									position: 'static'
+								});
+								// videoplay.setStyles({
+								// 	src: YiRu.getFileUrlbyLocal(Data[0].DayUrl)
+								// });
+								// videoplay.play();
+								huadong($("#list li").eq(0));
+								//});
+							}
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							dayid: dayid
+						}, w, 'get', {
+							key: dayid + YiRu.getuserinfo().userId,
+							num: CaCheNum
+						});
+					}
+					loadPage();
+
+					// 					function xiazai(i, obj, callback) {
+					// 						YiRu.getFileUrl(obj[i].url, function(_src) {
+					// 
+					// 							var c = parseInt(i / obj.length * 100);
+					// 							if (c) w.setTitle("资源下载中,请稍候...(" + c + "%)");
+					// 
+					// 							if (i < obj.length - 1) {
+					// 								xiazai(i + 1, obj, callback);
+					// 							} else {
+					// 								return callback();
+					// 							}
+					// 						});
+					// 					}
+
+					function huadong(_this) {
+						//setTimeout(function() {
+						$(_this).find("p.shuzi").addClass("isshuzi");
+						$(_this).find("span.icon_ly").addClass("islu");
+						$(_this).find("span.icon_zt").addClass("isbo");
+						$(_this).find("span.icon_ly").attr("isok", "true");
+						$(_this).find("span.icon_zt").attr("isok", "true");
+						//}, 300);
+
+						//console.log("111");
+						//滚到对应的位置,则播放对应的视频
+						src = $(_this).attr('video-src');
+						if (timer != null) clearInterval(timer);
+						if (recorder1) {
+							recorder1.stop();
+						}
+
+						if (Audio != null) Audio.stop();
+
+						videoplay.stop();
+						var thisvideo = YiRu.getFileUrlbyLocal(src);
+						plus.io.getVideoInfo({
+							filePath: plus.io.convertAbsoluteFileSystem(thisvideo),
+							success: function(e) {
+								//alert(e.duration);
+								//console.log("长度：" + e.duration);
+								luying = false;
+								$(_this).find("span.icon_ly").attr("chang", parseFloat(e.duration).toFixed(2));
+							},
+							fail: function(e) {
+								//console.log(JSON.stringify(e)+"/"+thisvideo);
+								// console.log(plus.io.convertAbsoluteFileSystem(thisvideo));
+							}
+						});
+						videoplay.setStyles({
+							src: thisvideo, //'http://vjs.zencdn.net/v/oceans.mp4'							
+							//poster: thumbnail
+						});
+						videoplay.play();
+
+						//视频开始播放
+						// var cc = 0;
+						// videoplay.addEventListener("timeupdate", function(e) {
+						// 	console.log(e.detail.duration + "---" + cc);
+						// 	if (e.detail.duration > 0 && cc == 0) {
+						// 		cc = 1;
+						// 		luying = false;
+						// 		
+						// 		$(_this).find("span.icon_ly").attr("chang", e.detail.duration);
+						// 	}
+						// }, false);
+
+					}
+					//点击录音
+					mui('body').on('tap', '.icon_ly', function() {
+						if ($(this).attr('isok') != "true") {
+							//console.log($(this).attr('isok'));
+							return false;
+						}
+						if (luying) {
+							mui.toast("正在录音中...");
+							return false;
+						}
+						luying = true;
+						if (Audio != null) {
+							Audio.stop();
+							//pic_aa = true;
+						}
+						//state = $(this).attr('state');
+						Daypageid = $(this).attr('Daypageid');
+						Sort = $(this).attr('Sort');
+						var _this = $(this);
+
+						if (timer != null) clearInterval(timer);
+						//zsj = 0;
+						//console.log(zsj);
+						zsc = $(this).attr('chang');
+						zsj = parseFloat(zsc);
+						mui.toast("开始录音");
+						//$(this).parents('li').siblings().find(".icon_ly").attr('state', '1');
+						$(this).siblings('.time').text(zsc + 's');
+						$(this).siblings('.icon_zt').hide();
+						src = $(this).attr('silentvideo-src');
+						//var thisxd = $(this);
+						//videoplay.stop();
+						videoplay.stop();
+
+						//if (YiRu.ios()) {
+						//	videoplay.hide();
+						//} else {
+						videoplay.setStyles({
+							src: YiRu.getFileUrlbyLocal(src)
+						});
+
+						videoplay.play();
+						//}
+						//必须延迟0.1秒,等视频先播放才能切换音频
+						setTimeout(function() {
+							if (YiRu.ios()) {
+								//console.log("111");
+								var AVAudioSession = plus.ios.importClass("AVAudioSession");
+								var AVAudioSessionObj = AVAudioSession.sharedInstance();
+								var a = plus.ios.invoke(AVAudioSessionObj, "setCategory:error:", "AVAudioSessionCategoryPlayAndRecord",
+									"nil");
+								var b = plus.ios.invoke(AVAudioSessionObj, "overrideOutputAudioPort:error:",
+									"AVAudioSessionPortOverrideNone", "nil");
+								//var c = plus.ios.invoke(AVAudioSessionObj, "setActive:error:", "YES", "nil");
+								//console.log(a + "33" + b + "33");
+							}
+
+							//times = zsj * 10;
+							// 2.录音							
+							recorder1 = plus.audio.getRecorder();
+							recorder1.record({
+								filename: "_doc/audio/",
+								format: "mp3"
+							}, function(filePath) {
+								plus.io.resolveLocalFileSystemURL(filePath, function(entry) {
+									//console.log(YiRu.getFileUrlbyLocal(filePath) + "1111111111111111111");
+									//开始上传
+									w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+									var task = plus.uploader.createUpload(URL + "annexes/uploadvoice", {
+											method: "POST"
+										},
+										function(t, status) {
+											// 上传完成
+											if (status == 200) {
+												var fh = JSON.parse(t.responseText);
+												//上传成功
+												if (fh.code == 200) {
+													var rid1 = rid.replace(/(^\"*)|(\"*$)/g, "");
+													delFile(filePath);
+													YiRu.getajax('day/saverecord', function(data) {
+														_this.attr("audio_src", fh.info);
+														_this.siblings('.icon_zt').attr('audio_src', fh.info);
+														YiRu.RemoveItem("day/pagelist" + dayid + YiRu.getuserinfo().userId);
+														//重新下载新的录音
+														YiRu.getFileUrl(fh.info, function(newurl) {
+															//console.log(newurl);
+															//播放三角按钮重新显示
+															//console.log("播放三角按钮重新显示");
+															_this.siblings('.icon_zt').show();
+															w.close();
+															videoplay.stop();
+															videoplay.setStyles({
+																src: YiRu.getFileUrlbyLocal(src)
+															});
+
+															//Audio = plus.audio.createPlayer(newurl);
+															Audio.stop();
+															Audio.setStyles({
+																src: newurl
+															});
+															//pic_aa = false;
+															luying = false;
+															videoplay.show();
+															videoplay.play();
+															Audio.play(function() {
+																//pic_aa = true;
+																videoplay.stop();
+																videoplay.setStyles({
+																	src: YiRu.getFileUrlbyLocal(_this.attr('video-src'))
+																});
+																videoplay.play();
+															}, function(e) {
+																//pic_aa = true;
+																luying = false;
+																console.log("播放错误" + JSON.stringify(e));
+															});
+														});
+													}, {
+														studentid: YiRu.getuserinfo().userId,
+														Daypageid: Daypageid,
+														Sort: Sort,
+														States: "2",
+														Time: parseInt(zsj),
+														Recordurl: fh.info,
+														Rid: rid1
+													}, w, 'get');
+
+													w.close();
+												} else {
+													//pic_aa = true;
+													luying = false;
+													mui.toast("上传失败，请联系客服");
+													w.close();
+												}
+											} else {
+												//pic_aa = true;
+												luying = false;
+												mui.toast("上传失败，请重试");
+												w.close();
+											}
+										}
+									);
+									task.addFile(filePath, {
+										key: "mryj"
+									});
+									task.addData("token", YiRu.getuserinfo().token);
+									task.addData("loginMark", YiRu.getuserinfo().loginMark);
+									task.addData("data", "{\"type\":2}");
+									//task.addEventListener( "statechanged", onStateChanged, false );
+									task.start();
+								}, function(e) {
+									//pic_aa = true;
+									luying = false;
+									console.log("读取录音失败：" + e.message);
+								});
+							});
+							//录音完成
+							var m = 0;
+							//延迟0.1秒开始倒计时
+							//setTimeout(function() {
+							timer = setInterval(function() {
+								djzt = 1;
+								m++;
+								//console.log(zsj);
+								// _this.siblings('.jdt_box').find('.jdt_color').css("width", currentTime / time * 100 + "%");
+								_this.siblings('.jdt_box').find('.jdt_color').css("width", (m * 200) / (zsj * 1000) * 100 + "%");
+								if (m * 200 >= zsj * 1000) {
+									//_this.attr('state', '1');
+									clearInterval(timer);
+									recorder1.stop();
+								}
+							}, 200);
+							//}, 200);
+						}, 100);
+					});
+
+					//点击播放按钮
+					mui('body').on('tap', '.icon_zt', function() {
+						if ($(this).attr('isok') != "true") {
+							console.log($(this).attr('isok'));
+							return false;
+						}
+						if (luying) {
+							mui.toast("正在录音中...");
+							return;
+						}
+						//if (videoplay != null) videoplay.stop();
+						this_src = $(this).attr('audio_src');
+						var this_sivideo = $(this).attr('silentvideo-src');
+						var this_video = $(this).attr('video-src');
+						//console.log(YiRu.getFileUrlbyLocal(this_src));
+						//console.log(YiRu.getFileUrlbyLocal(this_sivideo));
+						//if (pic_aa) {
+						if (videoplay != null) videoplay.stop();
+						videoplay.setStyles({
+							src: YiRu.getFileUrlbyLocal(this_sivideo),
+							loop: false
+						});
+						//pic_aa = false;
+						//播放音乐						
+						if (Audio != null) Audio.stop();
+						Audio.setStyles({
+							src: YiRu.getFileUrlbyLocal(this_src),
+							loop: false
+						});
+						videoplay.play();
+						Audio.play(function() {
+							//pic_aa = true;
+							videoplay.stop();
+							videoplay.setStyles({
+								src: YiRu.getFileUrlbyLocal(this_video),
+								loop: true
+							});
+							videoplay.play();
+						}, function(e) {
+							//pic_aa = true;
+							console.log(JSON.stringify(e));
+						});
+
+						//} else {
+						//	mui.toast("播放中，请稍候...");
+						//}
+					});
+					mui('body').on('tap', '#yl_box', function() {
+						if (luying) {
+							mui.toast("正在录音中...");
+							return false;
+						}
+						if (Audio != null) Audio.stop();
+						if (videoplay != null) videoplay.stop();
+						var cishu = 0;
+						$(this).hide();
+						$("#list_box").hide();
+						$("#bc_box").show();
+
+						var list = $("#list").find("li");
+						var Arr = [];
+						for (var i = 0; i < list.length; i++) {
+							var srcs = list.eq(i).find(".icon_zt").attr('audio_src');
+							if (srcs != undefined && srcs != "") {
+								Arr.push({
+									url: srcs
+								});
+							}
+						}
+
+						YiRu.getFileUrl(silentvideo, function(_silentvideo) {
+
+							videoplay.setStyles({
+								src: _silentvideo,
+								controls: false,
+								loop: false
+							});
+
+							// console.log("开始了" + _silentvideo);
+							// console.log(plus.io.convertAbsoluteFileSystem(_silentvideo));
+							videoplay.addEventListener('play', function(e) {
+								bofang(0, Arr);
+								// console.log("开始了" + e.detail.currentTime);
+								// if (e.detail.currentTime >= 0 && e.detail.currentTime <= 1 && cishu == 0) {
+								// 	cishu = 1;
+								// 	bofang(0, Arr);
+								// }
+								// if (e.detail.currentTime > 1) {
+								// 	cishu = 0;
+								// }
+							}, false);
+							videoplay.play();
+							//bofang(0, Arr);
+						});
+
+					});
+
+					function bofang(i, obj) {
+						//plus.io.convertAbsoluteFileSystem(
+						if (Audio != null) Audio.stop();
+						if (obj[i]) {
+							Audio.setStyles({
+								src: YiRu.getFileUrlbyLocal(obj[i].url)
+							});
+							//播放音乐
+							Audio.play(function() {
+								if (i < obj.length - 1) {
+									bofang(i + 1, obj);
+								}
+							});
+						} else {
+							if (i < obj.length - 1) {
+								bofang(i + 1, obj);
+							}
+						}
+					}
+					//保存			
+					mui('body').on('tap', '#bc_but', function() {
+						var states = getstates();
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('day/saverepeatday', function(data) {
+							w.close();
+							if (Audio != null) Audio.close();
+							if (videoplay != null) videoplay.close();
+							//console.log(states);
+							if (states == 2) {
+								mui.fire(plus.webview.getWebviewById("/pages/cartoonList/cartoonList.html"), "updatedata");
+							}
+							mui.toast("保存成功");
+							YiRu.openVW("/pages/cartoonList/cartoonList.html", {}, true);
+							setTimeout(function() {
+								YiRu.closeAllwebview("/pages/cartoonList/cartoonList.html");
+							}, 300);
+						}, {
+							rid: rid,
+							states: states
+						}, w, 'get');
+					});
+
+					//保存分享
+					mui('body').on('tap', '#fxbc_but', function() {
+						var states = getstates();
+						//分享页面
+						loadShare({
+							title: name,
+							href: wwwUrl + "/Web/web/Shareday?rid=" + rid,
+							pictures: datasrc,
+							thumbs: datasrc,
+							content: name,
+							callBack: function() {
+								w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+								YiRu.getajax('day/sharelist', function(data) {
+									w.close();
+									if (Audio != null) Audio.close();
+									if (videoplay != null) videoplay.close();
+									if (states == 2) {
+										mui.fire(plus.webview.getWebviewById("/pages/cartoonList/cartoonList.html"), "updatedata");
+									}
+									mui.toast("保存并分享成功");
+									YiRu.openVW("/pages/cartoonList/cartoonList.html", {}, true);
+									setTimeout(function() {
+										YiRu.closeAllwebview("/pages/cartoonList/cartoonList.html");
+									}, 300);
+								}, {
+									rid: rid,
+									states: states
+								}, w, 'get');
+							},
+							NocallBack: function() {
+								//mui.toast("分享失败");
+							}
+						});
+					});
+
+					function getstates() {
+						var list = $("#list").find("li");
+						var Arr = [];
+						for (var i = 0; i < list.length; i++) {
+							var srcs = $("#list").find("li").eq(i).find(".icon_zt").attr('audio_src');
+							if (srcs != undefined && srcs != "") {
+								Arr.push(srcs);
+							}
+						};
+						if (Arr.length == list.length) {
+							return 2;
+						} else {
+							return 1;
+						}
+					};
+					var oldback = mui.back;
+					mui.back = function() {
+						if (videoplay != null) {
+							videoplay.close();
+						}
+						if (Audio != null) {
+							Audio.close();
+						}
+						if (timer != null) clearInterval(timer);
+						oldback();
+					}
+
+				});
+
+			})();
+		</script>
+	</body>
+</html>

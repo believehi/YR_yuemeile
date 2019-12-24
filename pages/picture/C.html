@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div id="Play_Content">
+			<div class="mui-fanhui mui-action-back" id="fanhui" style="position: absolute;left: 0;top: 0;z-index: 9999;">
+				<img src="../../img/fanhui_02.png">
+			</div>
+			<img src="../../img/letsread_background.jpg" id="Yue_img1" width="100%" height="100%">
+			<img src="../../img/letsread_1a.png" id="Yue_img5">
+			<img src="../../img/icon_17.png" id="stop1">
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, typename, name, filename, src, Audio = null;
+				mui.plusReady(function() {
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					typename = ws.typename;
+					name = ws.name;
+					filename = ws.filename;
+					
+					src = YiRu.getpicture(filename, typename);
+					//console.log(src);
+					DVDRotate($("#Yue_img5"));
+					// $('#Yue_img5').css("animation","10s linear infinite CDturn")
+					//read_1a1.mp3				
+					//a11_media.mp3
+					Audio = plus.audio.createPlayer({
+						src: src,
+						autoplay: true,
+						backgroundControl: true,
+						coverImgUrl: '../../img/letsread_1a.png',
+						epname: name,
+						loop: true,
+						singer: 'Happy Rhythm',
+						title: name
+					});
+					mui('body').on('tap', '#stop1', function() {
+						Audio.pause();
+						$(this).attr("src", "../../img/icon_28.png");
+						$(this).attr("id", "zanting");
+						$("#Yue_img5").css("animation-play-state", "paused")
+					});
+					mui('body').on('tap', '#zanting', function() {
+						Audio.play();
+						$(this).attr("src", "../../img/icon_17.png");
+						$(this).attr("id", "stop1");
+						$("#Yue_img5").css("animation", "CDturn 5s linear 0s infinite normal none running")
+					});
+					var oldback = mui.back;
+					mui.back = function() {
+						if (Audio != null) Audio.close();
+						ws.close("none");
+						oldback();
+					};
+				});
+			})();
+		</script>
+	</body>
+</html>

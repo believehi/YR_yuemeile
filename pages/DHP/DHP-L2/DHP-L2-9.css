@@ -1,0 +1,408 @@
+html,
+body {
+	height: 100%;
+}
+
+#bd12 .text {
+	background-size: 100% 100%;
+}
+
+.bd {
+	transition: translate3d 5s;
+}
+
+.bd-DHR img,
+.bd-DHR div {
+	position: absolute;
+}
+
+/* 1 */
+#DHP-pic_A1 {
+	top: 6%;
+	left: 8%;
+	height: 20%;
+}
+
+#DHP-A-01 {
+	top: 68%;
+	left: 4%;
+	height: 26%;
+	width: 19%;
+}
+
+#DHP-A-02 {
+	top: 31%;
+	left: 7%;
+	height: 34%;
+	width: 21%;
+}
+
+#DHP-A-03 {
+	top: 53%;
+	left: 24%;
+	height: 39%;
+	width: 19%;
+	border-radius: 50% 0 0 50%;
+}
+
+#DHP-A-04 {
+	top: 25%;
+	left: 58%;
+	height: 42%;
+	width: 16%;
+}
+
+#DHP-A-05 {
+	top: 10%;
+	left: 76%;
+	height: 19%;
+	width: 11%;
+}
+
+#DHP-A-06 {
+	top: 30%;
+	left: 74%;
+	height: 37%;
+	width: 22%;
+}
+
+/* 2 */
+#DHP-pic_B1 {
+	bottom: 7%;
+	right: 4%;
+	height: 20%;
+}
+
+#DHP-B-01 {
+	top: 0;
+	left: 0;
+	height: 50%;
+	width: 55%;
+	border-radius: 40% 60% 0 0;
+}
+
+#DHP-B-02 {
+	top: 37%;
+	left: 10%;
+	height: 52%;
+	width: 17%;
+}
+
+/* 3 */
+#DHP-pic_C1 {
+	top: 1%;
+	left: 7%;
+	height: 24%;
+}
+
+#DHP-C-01 {
+	top: 23%;
+	left: 18%;
+	height: 66%;
+	width: 28%;
+	border-radius: 50%;
+}
+
+#DHP-C-02 {
+	top: 0;
+	left: 54%;
+	height: 100%;
+	width: 46%;
+}
+
+/* 4 */
+#DHP-pic_D1 {
+	bottom: 4%;
+	right: 5%;
+	height: 18%;
+}
+
+#DHP-D-01 {
+	top: 22%;
+	left: 24%;
+	height: 53%;
+	width: 16%;
+}
+
+#DHP-D-02 {
+	top: 47%;
+	left: 41%;
+	height: 35%;
+	width: 16%;
+}
+
+#DHP-D-03 {
+	top: 43%;
+	left: 58%;
+	height: 35%;
+	width: 16%;
+}
+
+#DHP-D-04 {
+	top: 44%;
+	left: 74%;
+	height: 32%;
+	width: 16%;
+}
+
+/* 5 */
+#DHP-pic_E1 {
+	bottom: 4%;
+	right: 4%;
+	height: 18%;
+}
+
+#DHP-E-01 {
+	top: 36%;
+	left: 24%;
+	height: 50%;
+	width: 20%;
+	border-radius: 30% 70% 70% 0;
+}
+
+#DHP-E-02 {
+	top: 25%;
+	left: 19%;
+	height: 9%;
+	width: 8%;
+}
+
+#DHP-E-03 {
+	top: 31%;
+	left: 32%;
+	height: 10%;
+	width: 5%;
+}
+
+#DHP-E-04 {
+	top: 38%;
+	left: 37%;
+	height: 11%;
+	width: 5%;
+}
+
+#DHP-E-05 {
+	top: 11%;
+	left: 56%;
+	height: 43%;
+	width: 21%;
+	border-radius: 40%;
+}
+
+#DHP-E-06 {
+	top: 4%;
+	left: 50%;
+	height: 12%;
+	width: 8%;
+}
+
+/* 6 */
+#DHP-pic_F1 {
+	bottom: 4%;
+	right: 4%;
+	height: 24%;
+}
+
+#DHP-F-01 {
+	top: 39%;
+	left: 9%;
+	height: 61%;
+	width: 15%;
+}
+
+#DHP-F-02 {
+	top: 5%;
+	left: 27%;
+	height: 52%;
+	width: 54%;
+}
+
+#DHP-F-03 {
+	top: 39%;
+	left: 28%;
+	height: 10%;
+	width: 5%;
+}
+
+#DHP-F-04 {
+	top: 36%;
+	left: 37%;
+	height: 9%;
+	width: 6%;
+}
+
+#DHP-F-05 {
+	top: 32%;
+	left: 44%;
+	height: 13%;
+	width: 6%;
+}
+
+#DHP-F-06 {
+	top: 24%;
+	left: 51%;
+	height: 13%;
+	width: 8%;
+}
+
+/* 7 */
+#DHP-pic_G1 {
+	top: 2%;
+	left: 7%;
+	height: 10%;
+}
+
+#DHP-G-01 {
+	top: 39%;
+	left: 8%;
+	height: 43%;
+	width: 36%;
+}
+
+#DHP-G-02 {
+	top: 30%;
+	left: 19%;
+	height: 25%;
+	width: 9%;
+}
+
+#DHP-G-03 {
+	top: 15%;
+	left: 69%;
+	height: 23%;
+	width: 31%;
+}
+
+#DHP-G-04 {
+	top: 15%;
+	left: 81%;
+	height: 12%;
+	width: 5%;
+}
+
+#DHP-G-05 {
+	top: 44%;
+	left: 81%;
+	height: 30%;
+	width: 12%;
+
+}
+
+/* 8 */
+#DHP-pic_H1 {
+	top: 2%;
+	right: 7%;
+	height: 18%;
+}
+
+#DHP-H-01 {
+	top: 17%;
+	left: 19%;
+	height: 63%;
+	width: 57%;
+}
+
+/* 9 */
+#DHP-pic_I1 {
+	top: 4%;
+	left: 7%;
+	height: 12%;
+}
+
+#DHP-I-01 {
+	top: 18%;
+	left: 9%;
+	height: 14%;
+	width: 11%;
+}
+
+#DHP-I-02 {
+	top: 59%;
+	left: 10%;
+	height: 30%;
+	width: 27%;
+}
+
+#DHP-I-03 {
+	top: 40%;
+	left: 40%;
+	height: 11%;
+	width: 8%;
+}
+
+#DHP-I-04 {
+	top: 47%;
+	left: 55%;
+	height: 12%;
+	width: 8%;
+}
+
+#DHP-I-05 {
+	top: 85%;
+	left: 51%;
+	height: 15%;
+	width: 8%;
+}
+
+#DHP-I-06 {
+	top: 23%;
+	left: 70%;
+	height: 45%;
+	width: 21%;
+}
+
+/* 10 */
+#DHP-pic_J1 {
+	bottom: 6%;
+	left: 4%;
+	height: 18%;
+}
+
+#DHP-pic_J2 {
+	bottom: 6%;
+	right: 4%;
+	height: 13%;
+}
+
+#DHP-J-01 {
+	top: 37%;
+	left: 24%;
+	height: 42%;
+	width: 20%;
+}
+
+#DHP-J-02 {
+	top: 17%;
+	left: 9%;
+	height: 24%;
+	width: 12%;
+}
+
+#DHP-J-03 {
+	top: 30%;
+	left: 16%;
+	height: 11%;
+	width: 8%;
+}
+
+#DHP-J-04 {
+	top: 22%;
+	left: 24%;
+	height: 15%;
+	width: 5%;
+}
+
+#DHP-J-05 {
+	top: 27%;
+	left: 36%;
+	height: 38%;
+	width: 50%;
+	border-radius: 0 0 0 66%;
+}
+
+#DHP-J-06 {
+	top: 0;
+	right: 23%;
+	height: 25%;
+	width: 12%;
+}

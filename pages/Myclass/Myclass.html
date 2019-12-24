@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-我的班级</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- 返回按钮 -->
+		<div class="mui-fanhui mui-action-back" id="Return">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="content">
+			<!-- 金币排名 -->
+			<div class="mui-Gold">
+				<img src="../../img/charat_01.png">
+				<div class="mui-gold-box">
+					<div id="trapezium"> <b>金币排行榜</b></div>
+					<div class="mui-gold-list">
+						<ul id="userlist">
+
+						</ul>
+						<div class="mui-my" id="My_jb">
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- 个性化任务 -->
+			<div class="mui-task">
+				<img id="Taskbut" src="../../img/gexinhua.png">
+			</div>
+		</div>
+		<!-- 任务弹窗 -->
+		<div class="mui-box"></div>
+		<div class="mui-mytast">
+			<!-- 关闭按钮 -->
+			<div id="mui-close-but">
+
+			</div>
+			<img class="mui-ch" src="../../img/tast_1.png">
+			<!-- 标题 -->
+			<span class="mui-title">学习计划向导</span>
+			<!-- 老师的话 -->
+			<p id="laoshishuo">
+			</p>
+			<!-- 复习与预习 -->
+			<ul class="mui-xx-box">
+				<li id="fuxi">
+					<!-- <span class="mui-span1">复习：</span> -->
+					<span class="mui-span2"></span>
+					<span class="mui-span3">
+						<a  class="fuxi1"></a>
+					</span>
+				</li>
+				<li id="yuxi">
+					<!-- <span class="mui-span1">预习：</span> -->
+					<span class="mui-span2"></span>
+					<span class="mui-span3">
+						<a  class="fuxi2"></a>
+					</span>
+				</li>
+			</ul>
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false,
+					beforeback: function() {
+						var list = plus.webview.currentWebview().opener();
+						//refresh是A页面自定义事件
+						mui.fire(list, 'updatedata');
+						//返回true,继续页面关闭逻辑
+						return true;
+					}
+				});
+				
+				var w, ws, classid, n_a = "",
+					n_b = "";
+
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					classid = ws.classid;
+					w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+					YiRu.getajax('classstudent', function(data) {
+						//console.log(JSON.stringify(data));
+						//console.log(data.data.baseinfo.length)
+						var dataarry = data.data.baseinfo;
+						var obj = {
+							one: 1,
+							two: 2,
+							three: 3,
+							four: 4
+						};
+
+						//var a = dataarry.splice(0, 5);
+						if (dataarry.length > 0) {
+							var html = "";
+							for (var i = 0; i < dataarry.length; i++) {
+								if (i < 5) {
+									html += '<li>' +
+										'<span>' + dataarry[i].NumberId +
+										'</span>' +
+										'<span>' + dataarry[i].TrueName +
+										'</span>' +
+										'<span>' + dataarry[i].Goldcoin +
+										'金币' +
+										'</span>' +
+										'<span>' + dataarry[i].Silvercoin +
+										'银币' +
+										'</span>' +
+										'</li>';
+								}
+								if (dataarry[i].ID == YiRu.getuserinfo().userId) {
+									var html1 = '<span>' + dataarry[i].NumberId +
+										'</span>' +
+										'<span>我</span>' +
+										'<span>' + dataarry[i].Goldcoin +
+										'金币' +
+										'</span>' +
+										'<span>' + dataarry[i].Silvercoin +
+										'银币' +
+										'</span>';
+									$("#My_jb").append(html1);
+								}
+							}
+							$("#userlist").append(html);
+						}
+						w.close();
+					}, {
+						studentid: YiRu.getuserinfo().userId,
+						page: "1",
+						num: "100"
+					}, w, 'get');
+
+					//打开学习计划模态框
+					mui('body').on('tap', '#Taskbut', function() {
+						$('.mui-box').show();
+						$('.mui-mytast').show();
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('getplanlist', function(data) {
+							w.close();
+							var str = data.data.baseinfo;
+							var str1, str2;
+							if (str.length == 0) {
+								$("#fuxi").hide();
+								$("#yuxi").hide();
+							}
+							if (str.length == 1) {
+								if (str[0].StudyType == 1) {
+									str2 = str[0];
+									n_b = str2.Type;
+								} else {
+									str1 = str[0];
+									n_a = str1.Type;
+								}
+							}
+							if (str.length > 1) {
+								str1 = str[0];
+								str2 = str[1];
+								n_a = str1.Type;
+								n_b = str2.Type;
+							}
+							if (str1) {
+								$("#fuxi .mui-span2").html(str1.PlanName);
+								if (str1.TaskState==1) {
+									$(".fuxi1").html("去完成");
+								} else{
+									$(".fuxi1").html("已完成");
+									$(".fuxi1").css({"background-color":"#FFC309","box-shadow":"0 0.125rem #F6A201"});
+								}
+								$("#laoshishuo").html(str1.TeacherSay);
+								$("#fuxi").show();
+							} else {
+								$("#laoshishuo").html("好好学习,天天向上");
+								$("#fuxi").hide();
+							}
+							if (str2) {
+								
+								$("#yuxi .mui-span2").html(str2.PlanName);
+								$("#yuxi").show();
+								if (str2.TaskState==1) {
+									$(".fuxi2").html("去完成");
+								} else{
+									$(".fuxi2").html("已完成");
+									$(".fuxi2").css({"background-color":"#FFC309","box-shadow":"0 0.125rem #F6A201"});
+								}
+							} else {
+								$("#yuxi").hide();
+							}
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							classid: classid
+						}, w, 'get', {
+							key: 'Taskbut' + YiRu.getuserinfo().userId,
+							num: CaCheNum
+						});
+					});
+					//关闭学习计划模态框
+					mui('body').on('tap', '#mui-close-but', function() {
+						$('.mui-box').hide();
+						$('.mui-mytast').hide();
+					});
+
+					mui('body').on('tap', '#fuxi a', function() {
+						YiRu.openVW(getpage(n_a));
+						$('.mui-box').hide();
+						$('.mui-mytast').hide();
+					});
+					mui('body').on('tap', '#yuxi a', function() {
+						YiRu.openVW(getpage(n_b));
+						$('.mui-box').hide();
+						$('.mui-mytast').hide();
+					});
+
+					function getpage(t) {
+						var _page = "";
+						switch (t) {
+							case 1:
+								_page = "/pages/picture/picture.html";
+								break;
+							case 2:
+								_page = "/pages/dubbing/dubbing.html";
+								break;
+							case 3:
+								_page = "/pages/sing/sing.html";
+								break;
+						}
+						return _page;
+					}
+				});
+			})();
+		</script>
+	</body>
+</html>

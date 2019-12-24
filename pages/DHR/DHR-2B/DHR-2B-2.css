@@ -1,0 +1,670 @@
+html,
+body {
+	height: 100%;
+}
+
+.bd {
+	transition: translate3d 5s;
+}
+
+.text {
+	background-size: 100% 100%; 
+} 
+
+/* 1 */
+.Y-DHR-pic_1 {
+	position: absolute;
+	top: 34%;
+	left: 57%;
+	width: 10%;
+	height: 30%;
+}
+
+.Y-DHR-pic_2 {
+	position: absolute;
+	top: 30%;
+	left: 73%;
+	width: 13%;
+	height: 31%;
+}
+
+.Y-DHR-pic_3 {
+	position: absolute;
+	top: 33%;
+	left: 90%;
+	width: 8%;
+	height: 26%;
+}
+
+.Y-DHR-pic_4 {
+	position: absolute;
+	top: 45%;
+	left: 5%;
+	width: 32%;
+	height: 29%;
+}
+
+.Y-DHR-pic_5 {
+	position: absolute;
+	top: 52%;
+	left: 65%;
+	width: 12%;
+	height: 26%;
+}
+
+.Y-DHR-pic_6 {
+	position: absolute;
+	top: 29%;
+	left: 35%;
+	width: 26%;
+	height: 50%;
+}
+
+.Y-DHR-pic_7 {
+	position: absolute;
+	top: 54%;
+	left: 30%;
+	width: 10%;
+	height: 22%;
+}
+
+.Y-DHR-pic_8 {
+	position: absolute;
+	top: 57%;
+	left: 81%;
+	width: 17%;
+	height: 20%;
+}
+
+#Y-DHR-A-01 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 70%;
+	height: 46%;
+	border-bottom-right-radius: 100%;
+}
+
+#Y-DHR-A-02 {
+	position: absolute;
+	top: 20%;
+	left: 63%;
+	width: 37%;
+	height: 10%;
+	border-bottom-left-radius: 105%;
+}
+
+/* 2 */
+.Y-DHR-pic_B1 {
+	position: absolute;
+	top: 20%;
+	left: 12%;
+	width: 50%;
+	height: 42%;
+}
+
+.Y-DHR-pic_B2 {
+	position: absolute;
+	top: 50%;
+	left: 90%;
+	width: 10%;
+	height: 10%;
+}
+
+.Y-DHR-pic_B3 {
+	position: absolute;
+	top: 35%;
+	left: 90%;
+	width: 10%;
+	height: 15%;
+}
+
+.Y-DHR-pic_B4 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 41%;
+	height: 30%;
+}
+
+
+#Y-DHR-B-01 {
+	position: absolute;
+	top: 0%;
+	left: 84%;
+	width: 16%;
+	height: 82%;
+}
+
+/* 3 */
+.Y-DHR-pic_C1 {
+	position: absolute;
+	top: 38%;
+	left: 10.5%;
+	width: 8%;
+	height: 27%;
+}
+
+
+.Y-DHR-pic_C2 {
+	position: absolute;
+	top: 49%;
+	left: 15%;
+	width: 9%;
+	height: 18%;
+}
+
+.Y-DHR-pic_C3 {
+	position: absolute;
+	top: 20%;
+	left: 56%;
+	width: 24%;
+	height: 59%;
+}
+
+#Y-DHR-C-01 {
+	position: absolute;
+	top: 5%;
+	left: 0%;
+	width: 18%;
+	height: 45%;
+}
+
+#Y-DHR-C-02 {
+	position: absolute;
+	top: 53%;
+	left: 0;
+	width: 24%;
+	height: 20%;
+}
+
+#Y-DHR-C-03 {
+	position: absolute;
+	top: 0;
+	left: 61%;
+	width: 39%;
+	height: 61%;
+}
+
+#Y-DHR-C-04 {
+	position: absolute;
+	top: 60%;
+	left: 88%;
+	width: 12%;
+	height: 22%;
+}
+
+/* 4 */
+
+.Y-DHR-pic_D1 {
+	position: absolute;
+	top: 5%;
+	left: 8%;
+	width: 39%;
+	height: 73%;
+}
+
+.Y-DHR-pic_D2 {
+	position: absolute;
+	top: 10%;
+	left: 60%;
+	width: 12%;
+	height: 13%;
+}
+
+#Y-DHR-D-01 {
+	position: absolute;
+	top: 0;
+	left: 3%;
+	width: 17%;
+	height: 46%;
+}
+
+#Y-DHR-D-02 {
+	position: absolute;
+	top: 0;
+	left: 73%;
+	width: 27%;
+	height: 41%;
+}
+
+/* 5 */
+
+.Y-DHR-pic_E1 {
+	position: absolute;
+	top: 47%;
+	left: 23%;
+	width: 12%;
+	height: 26%;
+}
+
+.Y-DHR-pic_E2 {
+	position: absolute;
+	top: 18%;
+	left: 51%;
+	width: 38%;
+	height: 47%;
+}
+
+#Y-DHR-E-01 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 32%;
+	height: 63%;
+}
+
+/* 6 */
+
+.Y-DHR-pic_F1 {
+	position: absolute;
+	top: 30%;
+	left: 11%;
+	width: 30%;
+	height: 49%;
+}
+
+.Y-DHR-pic_F2 {
+	position: absolute;
+	top: 17.6%;
+	left: 50%;
+	width: 8%;
+	height: 10%;
+}
+
+.Y-DHR-pic_F3 {
+	position: absolute;
+	top: 13.5%;
+	left: 57.3%;
+	width: 10%;
+	height: 10%;
+}
+
+.Y-DHR-pic_F4 {
+	position: absolute;
+	top: 11.5%;
+	left: 66%;
+	width: 10%;
+	height: 14%;
+}
+
+.Y-DHR-pic_F5 {
+	position: absolute;
+	top: 13.5%;
+	left: 76.5%;
+	width: 8%;
+	height: 14%;
+}
+
+.Y-DHR-pic_F6 {
+	position: absolute;
+	top: 18.6%;
+	left: 85%;
+	width: 7%;
+	height: 12%;
+}
+
+.Y-DHR-pic_F7 {
+	position: absolute;
+	top: 71%;
+	left: 78%;
+	width: 7%;
+	height: 9%;
+}
+
+.Y-DHR-pic_F8 {
+	position: absolute;
+	top: 66.4%;
+	left: 86%;
+	width: 6%;
+	height: 10%;
+}
+
+#Y-DHR-F-01 {
+	position: absolute;
+	top: 42.4%;
+	left: 68%;
+	width: 32%;
+	height: 40%;
+	border-radius: 0 69% 0 82%;
+}
+
+
+/* 7 */
+
+.Y-DHR-pic_G1 {
+	position: absolute;
+	top: 19%;
+	left: 54%;
+	width: 27%;
+	height: 54%;
+}
+
+.Y-DHR-pic_G2 {
+	position: absolute;
+	top: 25%;
+	left: 30%;
+	width: 12%;
+	height: 25%;
+}
+
+.Y-DHR-pic_G3 {
+	position: absolute;
+	top: 57%;
+	left: 10%;
+	width: 12%;
+	height: 18%;
+}
+
+#Y-DHR-G-01 {
+	position: absolute;
+	top: 41%;
+	left: 0%;
+	width: 37%;
+	height: 41%;
+	border-radius: 0 59% 0 0;
+}
+
+#Y-DHR-G-02 {
+	position: absolute;
+	top: 0%;
+	left: 77%;
+	width: 23%;
+	height: 41%;
+}
+
+/* 8 */
+
+.Y-DHR-pic_H1 {
+	position: absolute;
+	top: 10%;
+	left: 14%;
+	width: 25%;
+	height: 60%;
+}
+
+.Y-DHR-pic_H2 {
+	position: absolute;
+	top: 27%;
+	left: 44%;
+	width: 28%;
+	height: 43%;
+}
+
+#Y-DHR-H-01 {
+	position: absolute;
+	top: 0;
+	left: 73%;
+	width: 27%;
+	height: 55%;
+}
+
+
+/* 9 */
+
+.Y-DHR-pic_I1 {
+	position: absolute;
+	top: 4%;
+	left: 8%;
+	width: 8%;
+	height: 10%;
+}
+
+.Y-DHR-pic_I2 {
+	position: absolute;
+	top: 0;
+	left: 33%;
+	width: 8%;
+	height: 10%;
+}
+
+.Y-DHR-pic_I3 {
+	position: absolute;
+	top: 8%;
+	left: 40%;
+	width: 8%;
+	height: 10%;
+}
+
+.Y-DHR-pic_I4 {
+	position: absolute;
+	top: 24%;
+	left: 33%;
+	width: 8%;
+	height: 12%;
+}
+
+.Y-DHR-pic_I5 {
+	position: absolute;
+	top: 9%;
+	left: 5%;
+	width: 27%;
+	height: 39%;
+}
+
+.Y-DHR-pic_I6 {
+	position: absolute;
+	top: 66%;
+	left: 69%;
+	width: 7%;
+	height: 10%;
+}
+
+.Y-DHR-pic_I7 {
+	position: absolute;
+	top: 69%;
+	left: 11%;
+	width: 6%;
+	height: 14%;
+}
+
+#Y-DHR-I-01 {
+	position: absolute;
+	top: 9%;
+	left: 11%;
+	width: 89%;
+	height: 45%;
+	border-radius: 100% 0 77% 0;
+}
+
+/* 10 */
+
+.Y-DHR-pic_J1 {
+	position: absolute;
+	top: 51%;
+	left: 4%;
+	width: 28%;
+	height: 23%;
+}
+
+.Y-DHR-pic_J2 {
+	position: absolute;
+	top: 26%;
+	left: 12%;
+	width: 8%;
+	height: 32%;
+}
+
+.Y-DHR-pic_J3 {
+	position: absolute;
+	top: 50%;
+	left: 35%;
+	width: 23%;
+	height: 30%;
+}
+
+.Y-DHR-pic_J4 {
+	position: absolute;
+	top: 46%;
+	left: 61%;
+	width: 32%;
+	height: 32%;
+}
+
+.Y-DHR-pic_J5 {
+	position: absolute;
+	top: 25%;
+	left: 50%;
+	width: 20%;
+	height: 44%;
+}
+
+.Y-DHR-pic_J6 {
+	position: absolute;
+	top: 30%;
+	left: 69%;
+	width: 18%;
+	height: 32%;
+
+}
+
+.Y-DHR-pic_J7 {
+	position: absolute;
+	top: 27%;
+	left: 58.5%;
+	width: 10%;
+	height: 23%;
+}
+
+.Y-DHR-pic_J8 {
+	position: absolute;
+	top: 0%;
+	left: 64%;
+	width: 27%;
+	height: 34%;
+}
+
+.Y-DHR-pic_J9 {
+	position: absolute;
+	top: 17%;
+	left: 25%;
+	width: 24%;
+	height: 46%;
+}
+
+#Y-DHR-J-01 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 33%;
+	height: 50%;
+}
+
+.Y-DHR-pic_J1 img,
+.Y-DHR-pic_J2 img,
+.Y-DHR-pic_J3 img,
+.Y-DHR-pic_J4 img,
+.Y-DHR-pic_J5 img,
+.Y-DHR-pic_J6 img,
+.Y-DHR-pic_J7 img,
+.Y-DHR-pic_J8 img,
+.Y-DHR-pic_J9 img,
+.Y-DHR-pic_I1 img,
+.Y-DHR-pic_I2 img,
+.Y-DHR-pic_I3 img,
+.Y-DHR-pic_I4 img,
+.Y-DHR-pic_I5 img,
+.Y-DHR-pic_I6 img,
+.Y-DHR-pic_I7 img,
+.Y-DHR-pic_H1 img,
+.Y-DHR-pic_H2 img,
+.Y-DHR-pic_G1 img,
+.Y-DHR-pic_G2 img,
+.Y-DHR-pic_G3 img,
+.Y-DHR-pic_F1 img,
+.Y-DHR-pic_F2 img,
+.Y-DHR-pic_F3 img,
+.Y-DHR-pic_F4 img,
+.Y-DHR-pic_F5 img,
+.Y-DHR-pic_F6 img,
+.Y-DHR-pic_F7 img,
+.Y-DHR-pic_F8 img,
+.Y-DHR-pic_E1 img,
+.Y-DHR-pic_E2 img,
+.Y-DHR-pic_D1 img,
+.Y-DHR-pic_D2 img,
+.Y-DHR-pic_C1 img,
+.Y-DHR-pic_C2 img,
+.Y-DHR-pic_C3 img,
+.Y-DHR-pic_B1 img,
+.Y-DHR-pic_B2 img,
+.Y-DHR-pic_B3 img,
+.Y-DHR-pic_B4 img,
+.Y-DHR-pic_1 img,
+.Y-DHR-pic_2 img,
+.Y-DHR-pic_3 img,
+.Y-DHR-pic_4 img,
+.Y-DHR-pic_5 img,
+.Y-DHR-pic_6 img,
+.Y-DHR-pic_7 img,
+.Y-DHR-pic_8 img {
+	width: 100%;
+	height: 100%;
+}
+
+
+/* µ×²¿ÑùÊ½ */
+.Y-DHR-pic_but_J1,
+.Y-DHR-pic_but_J2,
+.Y-DHR-pic_but_I,
+.Y-DHR-pic_but_H,
+.Y-DHR-pic_but_G,
+.Y-DHR-pic_but_F,
+.Y-DHR-pic_but_E,
+.Y-DHR-pic_but_D,
+.Y-DHR-pic_but_C,
+.Y-DHR-pic_but_B,
+.Y-DHR-pic_but {
+	position: absolute;
+	bottom: 0;
+	height: 15%;
+	width: 100%;
+}
+
+
+.Y-DHR-pic_but_J1 {
+	left: 0;
+	width: 50%;
+}
+
+.Y-DHR-pic_but_J2 {
+	right: 0;
+	width: 50%;
+}
+
+.Y-DHR-pic_but_J2 img,
+.Y-DHR-pic_but_J1 img,
+.Y-DHR-pic_but_I img,
+.Y-DHR-pic_but_H img,
+.Y-DHR-pic_but_G img,
+.Y-DHR-pic_but_F img,
+.Y-DHR-pic_but_E img,
+.Y-DHR-pic_but_D img,
+.Y-DHR-pic_but_C img,
+.Y-DHR-pic_but_B img,
+.Y-DHR-pic_but img {
+	width: 45%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+
+.Y-DHR-pic_but_H img {
+	width: 40%;
+}
+
+.Y-DHR-pic_but_C img,
+.Y-DHR-pic_but_B img {
+	width: 55%;
+}
+
+
+.Y-DHR-pic_but_J2 img {
+	width: 75%;
+}
+
+.Y-DHR-pic_but_J1 img {
+	width: 85%;
+}

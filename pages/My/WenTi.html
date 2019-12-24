@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-用户登录</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<style type="text/css">
+			.wtlist {
+				position: absolute;
+				border: 1px #fff dotted;
+				border-radius: 0.625rem;
+				padding: 1.25rem;
+				top: 20%;
+				right: 5%;
+				bottom: 10%;
+				left: 10%;
+				background-color: rgba(255, 255, 255, 0.2);
+				overflow-y: scroll;
+
+			}
+
+			.wtlist ul {
+				width: 100%;
+				margin: 0px;
+				padding: 0px;
+
+			}
+
+			.wtlist ul li {
+				list-style: decimal-leading-zero inside;
+				background-color: rgba(255, 255, 255, 0.3);
+				width: 45.5%;
+				float: left;
+				height: 2.25rem;
+				line-height: 2.25rem;
+				margin: 0.25rem 0;
+				padding: 0px 1%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				border-radius: 0.3125rem;
+			}
+
+			.wtlist ul li:active {
+				background-color: #45BCBA;
+			}
+
+			.wtlist ul li:nth-child(even) {}
+
+			.wtlist ul li:nth-child(odd) {
+				margin-right: 5%;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 返回按钮 -->
+		<div style="position: absolute; top:8%;right:5%;font-size:1.5rem;color:#18819B;font-family: TongXin;">常见问题解答</div>
+		<div class="mui-fanhui mui-action-back" id="Return">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="wtlist">
+			<ul id="wenti">
+
+			</ul>
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, my = {},
+					loadPage;
+				mui.plusReady(function() {
+					YiRu.UserLogin();
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					//window.addEventListener('refresh', function(e) { //执行刷新
+					//location.reload();
+					//});
+					loadPage = function() {
+						//console.log(JSON.stringify(YiRu.getuserinfo()));
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('browse/questionlist', function(data) {
+							//console.log(JSON.stringify(data));
+							var wt = data.data.baseinfo;
+							if (wt.length > 0) {
+								var html = '';
+								for (var i = 0; i < wt.length; i++) {
+									html += '<li data-id="' + wt[i].F_NewsId + '">' + wt[i].F_FullHead + '</li>';
+								}
+								$("#wenti").html(html);
+							} else {
+								$("#wenti").html('<span style="color:#ffffff;display: block;text-align: center;">暂无问题</span>');
+							}
+							w.close();
+						}, {
+							type: 2,
+							page: 1,
+							num: 100
+						}, w, 'get');
+					}
+					loadPage();
+					mui('#wenti').on('tap', 'li', function() {
+						var qid = this.getAttribute("data-id");
+						//console.log(qid);
+						YiRu.openVW("/pages/My/WenTiView.html", {
+							qid: qid
+						});
+					});
+				});
+			})();
+		</script>
+	</body>
+</html>

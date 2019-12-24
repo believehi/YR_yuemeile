@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-班级成员管理</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="teacherManage.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="teacher-attorn">
+			<p id="classname"></p>
+			<div class="attorn-title">
+				<div class="attorn-title-txt">班级成员</div>
+				<!-- <input type="" name="" id="" disabled="disabled" value="班级成员" placeholder="" onfocus="this.placeholder=''" onblur="this.placeholder='搜  索'" /> -->
+			</div>
+			<div class="attorn-content">
+				<ul id="xlist">
+				</ul>
+			</div>
+		</div>
+
+		<!-- 确认弹窗 -->
+		<div class="cancel-init">
+			<div class="cancel">
+				<div class="cancel-img">
+					<img src="../../img/manage_01.png">
+				</div>
+				<div class="cancel-button">
+					<button type="button" id="quxiao">取&emsp;消</button>
+					<button type="button" id="queren">确认注销</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, classid, classname;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					classid = ws.classid;
+					classname = ws.classname;
+					$("#classname").html(classname);
+					YiRu.teacherLogin();
+
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('teacher/getstudentbyclass', function(data) {
+							//console.log(JSON.stringify(data));
+							var slist = data.data.baseinfo;
+							if (slist.length > 0) {
+								var html = "";
+								if (slist.length > 0) {
+									for (var i = 0; i < slist.length; i++) {
+										html += '<li>' +
+											'<div class="attorn">' +
+											'<img src="../../img/icon_01.png">' +
+											'</div>' +
+											'<div class="attorn-name">' + slist[i].TrueName + '</div>' +
+											'<div class="manage" data-id="' + slist[i].ID + '">' +
+											'<span>学生账号注销</span>' +
+											'</div>' +
+											'</li>';
+									}
+								}
+								$("#xlist").html(html);
+							}
+							w.close();
+						}, {
+							classid: classid,
+							page: 1,
+							Num: 10000
+
+						}, w, 'get');
+						w.close();
+
+					};
+					loadPage();
+					mui('#xlist').on('tap', '.manage', function() {
+						var xid = this.getAttribute("data-id");
+						$(".cancel-init").show();
+						$(".cancel #queren").on("tap", function() {
+
+							w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+							// 注销
+							YiRu.getajax('teacher/studentout', function(data) {
+								//$("#mlist").html(html);
+								$(".cancel-init").hide();
+								loadPage();
+								mui.toast("操作成功!");								
+								w.close();
+							}, {
+								Studentid: xid
+							}, w, 'get');
+						});
+					});
+
+				});
+
+				$(".cancel #quxiao").on("tap", function() {
+					$(".cancel-init").css({
+						"display": "none"
+					});
+				})
+			})();
+		</script>
+	</body>
+</html>

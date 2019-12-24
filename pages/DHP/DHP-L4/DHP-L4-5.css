@@ -1,0 +1,383 @@
+html,
+body {
+	height: 100%;
+}
+
+#bd12 .text {
+	background-size: 100% 100%;
+}
+
+.bd {
+	transition: translate3d 5s;
+}
+
+.bd-DHR img,
+.bd-DHR div {
+	position: absolute;
+}
+
+#d16140 {
+	width: 16rem;
+	right: 2rem;
+	top: 2rem;
+	z-index: 1;
+}
+
+#d16141 {
+	width: 10rem;
+	height: 7rem;
+	z-index: 1;
+	left: 10rem;
+	top: 8rem;
+}
+
+#d16142 {
+	width: 18rem;
+	height: 7rem;
+	left: 6rem;
+	top: 5rem;
+}
+
+#d16143 {
+	width: 8rem;
+	height: 7rem;
+	right: 6rem;
+	top: 8rem;
+}
+
+#d16146 {
+	width: 16rem;
+	left: 1rem;
+	top: 13rem;
+}
+
+#d16148 {
+	width: 2rem;
+	height: 3rem;
+	left: 14rem;
+	top: 8rem;
+	z-index: 1;
+}
+
+#d16149 {
+	width: 10rem;
+	height: 10rem;
+	left: 12rem;
+	top: 2rem;
+}
+
+#d16147 {
+	width: 8rem;
+	height: 5rem;
+	right: 2rem;
+	top: 10rem;
+}
+
+#d16150 {
+	width: 4rem;
+	height: 5rem;
+	right: 9rem;
+	top: 4rem;
+}
+
+#d16151 {
+	width: 3rem;
+	height: 5rem;
+	right: 5rem;
+	top: 4rem;
+}
+
+#d16152 {
+	width: 4rem;
+	height: 5rem;
+	right: 1rem;
+	top: 4rem;
+}
+
+#d16155 {
+	width: 16rem;
+	right: 1rem;
+	top: 2rem;
+}
+
+#d16156 {
+	width: 8rem;
+	height: 16rem;
+	left: 8rem;
+	top: 6rem;
+}
+
+#d16157 {
+	width: 14rem;
+	height: 12rem;
+	left: 16rem;
+	bottom: 0rem;
+}
+
+#d16158 {
+	width: 6rem;
+	height: 5rem;
+	left: 16rem;
+	top: 4rem;
+}
+
+#d16159 {
+	width: 8rem;
+	height: 10rem;
+	right: 1rem;
+	top: 12rem;
+}
+
+#d16162 {
+	width: 13rem;
+	right: 13rem;
+	top: 1rem;
+}
+
+#d16163 {
+	width: 5rem;
+	height: 7rem;
+	left: 6rem;
+	top: 5rem;
+}
+
+#d16164 {
+	width: 12rem;
+	height: 9rem;
+	left: 10rem;
+	bottom: 2rem;
+}
+
+#d16165 {
+	width: 9rem;
+	height: 7rem;
+	left: 22rem;
+	bottom: 2rem;
+}
+
+#d16166 {
+	width: 8rem;
+	height: 11rem;
+	right: 1rem;
+	bottom: 2rem;
+}
+
+#d16169 {
+	width: 18rem;
+	left: 1rem;
+	top: 4rem;
+}
+
+#d16170 {
+	width: 10rem;
+	height: 6rem;
+	left: 5rem;
+	bottom: 5rem;
+}
+
+#d16171 {
+	width: 12rem;
+	height: 13rem;
+	right: 5rem;
+	bottom: 5rem;
+}
+
+#d16174 {
+	width: 18rem;
+	right: 1rem;
+	top: 4rem;
+}
+
+#d16175 {
+	width: 6rem;
+	height: 7rem;
+	left: 2rem;
+	bottom: 4rem;
+}
+
+#d16176 {
+	width: 15rem;
+	height: 14rem;
+	left: 13rem;
+	bottom: 0rem;
+}
+
+#d16179 {
+	width: 18rem;
+	right: 1rem;
+	top: 3rem;
+	z-index: 1;
+}
+
+#d16180 {
+	width: 10rem;
+	left: 1rem;
+	top: 4rem;
+	z-index: 1;
+}
+
+#d16181 {
+	width: 10rem;
+	height: 6rem;
+	left: 2rem;
+	bottom: 9rem;
+}
+
+#d16182 {
+	width: 10rem;
+	height: 12rem;
+	left: 14rem;
+	bottom: 9rem;
+}
+
+#d16183 {
+	width: 10rem;
+	height: 12rem;
+	left: 25rem;
+	bottom: 3rem;
+}
+
+#d16186 {
+	width: 16rem;
+	right: 1rem;
+	top: 2rem;
+	z-index: 1;
+}
+
+#d16187 {
+	width: 7rem;
+	height: 12rem;
+	left: 8rem;
+	bottom: 3rem;
+}
+
+#d16189 {
+	width: 7rem;
+	height: 7rem;
+	left: 17rem;
+	z-index: 1;
+	bottom: 12rem;
+}
+
+#d16188 {
+	width: 7rem;
+	height: 6rem;
+	left: 16rem;
+	bottom: 7rem;
+}
+
+#d16192 {
+	width: 18rem;
+	right: 1rem;
+	bottom: 1rem;
+	z-index: 1;
+}
+
+#d16193 {
+	width: 15rem;
+	height: 12rem;
+	left: 3rem;
+	top: 0rem;
+}
+
+#d16194 {
+	width: 15rem;
+	height: 12rem;
+	right: 5rem;
+	top: 0rem;
+}
+
+#d16195 {
+	width: 6rem;
+	height: 8rem;
+	left: 5rem;
+	bottom: 2rem;
+}
+
+#d16196 {
+	width: 6rem;
+	height: 8rem;
+	left: 12rem;
+	bottom: 2rem;
+}
+
+#d16199 {
+	width: 15rem;
+	top: 2rem;
+	left: 3rem;
+	z-index: 1;
+}
+
+#d16201 {
+	width: 15rem;
+	bottom: 2rem;
+	left: 18rem;
+	z-index: 1;
+}
+
+#d16200 {
+	width: 15rem;
+	top: 2rem;
+	left: 20rem;
+	z-index: 1;
+}
+
+#d16202 {
+	width: 6rem;
+	height: 7rem;
+	left: 5rem;
+	bottom: 2rem;
+
+}
+
+#d16203 {
+	width: 9rem;
+	height: 7rem;
+	left: 7rem;
+	bottom: 9rem;
+}
+
+#d16204 {
+	width: 7rem;
+	height: 7rem;
+	left: 21rem;
+	bottom: 12rem;
+}
+#d16205 {
+	width: 2rem;
+	height: 2rem;
+	left: 22rem;
+	z-index: 1;
+	bottom: 12rem;
+}
+#d16206 {
+	width: 9rem;
+	height: 4rem;
+	right: 2rem;
+	z-index: 1;
+	bottom: 8rem;
+}
+
+#d16207 {
+	width: 3rem;
+	height: 4rem;
+	right: 7rem;
+	z-index: 1;
+	bottom: 12rem;
+}
+
+
+#d16208 {
+	width: 3rem;
+	height: 4rem;
+	right: 4rem;
+	z-index: 1;
+	bottom: 12rem;
+}
+#d16209 {
+	width: 3rem;
+	height: 4rem;
+	right: 1rem;
+	z-index: 1;
+	bottom: 12rem;
+}

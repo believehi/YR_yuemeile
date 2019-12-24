@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-班级转让</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="teacherAdmin.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="teacher-attorn">
+			<div class="attorn-title">
+				<div class="attorn-title-txt">请选择要转入的教师</div>
+<!-- 				<input type="" name="" id="" value="请选择要转入的教师" disabled="disabled" placeholder="搜  索" onfocus="this.placeholder=''"
+				 onblur="this.placeholder='搜  索'" /> -->
+			</div>
+			<div class="attorn-content">
+				<ul id="tlist">
+
+				</ul>
+			</div>
+		</div>
+		<button type="button" id="btn" class="attorn-button">完&emsp;成</button>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, loadPage, classid;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.teacherLogin();
+					classid = ws.classid;
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('teacher/getteacher', function(data) {
+							//console.log(JSON.stringify(data));
+							var tlist = data.data.baseinfo;
+							if (tlist.length > 0) {
+								var html = '';
+								for (var i = 0; i < tlist.length; i++) {
+									html += '<li>' +
+										'<div class="attorn">' +
+										'<img src="' + (tlist[i].F_HeadIcon ? tlist[i].F_HeadIcon : '../../img/touxiang.png') + '">' +
+										'</div>' +
+										'<div class="attorn-name">' + tlist[i].F_RealName + '</div>' +
+										'<div class="attorn-choice-at"><input id="' + tlist[i].F_UserId + '" name="jiao" value="' + tlist[i].F_UserId +
+										'" type="radio" />' +
+										'<label for="' + tlist[i].F_UserId + '"></label>' +
+										//'<span class=""></span>' +
+										'</div>' +
+										'</li>';
+								}
+								$("#tlist").html(html);
+							}
+							w.close();
+						}, {
+							teacherid: YiRu.getteacherinfo().userId,
+							page: '1',
+							Num: '1000'
+						}, w, 'get', false, true);
+					};
+					loadPage();
+					mui('body').on('tap', '#btn', function() {
+						console.log(classid);
+						console.log($("input[type='radio']:checked").val());
+						var id = $("input[type='radio']:checked").val();
+						if (!id) {
+							mui.toast("请选择教师");
+							return false;
+						}
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('teacher/updateteacher', function(data) {
+							//console.log(JSON.stringify(data));
+							w.close();
+							mui.toast("班级转让成功");
+							mui.fire(plus.webview.getWebviewById("/pages/teacherHome/teacherHome.html"), "updateclass");
+							YiRu.openVW("/pages/teacherHome/teacherHome.html");
+							setTimeout(function() {
+								ws.close("none");
+							}, 500);
+						}, {
+							classid: classid,
+							Teacherid: id
+							//teacherid: YiRu.getuserinfo().userId,
+							//page: '1',
+							//Num: '1000'
+						}, w, 'get', false, true);
+					});
+				});
+			})();
+		</script>
+	</body>
+</html>

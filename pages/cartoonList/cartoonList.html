@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-动画目录</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="cartoonList.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back" id="fanhui">
+			<img src="../../img/fanhui_03.png">
+		</div>
+		<div class="catalog-inita">
+			<div class="catalog-title">
+				一起看动画学英语！还能一起配音哦！
+				<p>更新至<span id="jishu">0</span>集</p>
+			</div>
+			<div class="catalog" id="catalog" style="display: block;">
+				<ul id="list">
+				</ul>
+			</div>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+
+				mui.init({
+					swipeBack: false,
+					beforeback: function() {
+						var list = plus.webview.currentWebview().opener();
+						//触发列表界面的自定义事件（refresh）,从而进行数据刷新   
+						mui.fire(list, 'updatedata');
+						//返回true，继续页面关闭逻辑   
+						return true;
+					}
+				});
+				var w, ws, loadPage;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('day/daylist', function(data) {
+							//console.log(JSON.stringify(data));
+							var itemlist = data.data.baseinfo;
+							//console.log(JSON.stringify(itemlist));
+							$("#jishu").html(data.data.count);
+							var htmlstr = "";
+							for (var i = 0; i < itemlist.length; i++) {
+								htmlstr += '<li data-sort="' + itemlist[i].Sort + '" data-src="' + itemlist[i].Thumbnail +
+									'" data-silentvideo="' + itemlist[i].SilentVideo +
+									'" data-video="' + itemlist[i].VideoUrl +
+									'" data-shoucang="' + itemlist[i].IsCollection +
+									'" data-name="' +
+									itemlist[i].Name + '" data-thumbnail="' + itemlist[i].Video + '" ' + (itemlist[i].Unlock == 1 ?
+										('class="catalog-active" data-id="' + itemlist[i].ID + '"') : 'data-id=""') + '>' +
+									'<div class="catalog-img">' +
+									'<img class="img" data-loadimg="true" data-src="' + itemlist[i].Thumbnail +
+									'" src="../../img/noimg.png" />' +
+									'<img src="../../img/cartoo_02.png" >' +
+									'</div>' +
+									//'<p><span id="">Go Fishing</span><span id="">第一集</span></p>' +
+									'<p><span id="">' + itemlist[i].Name + '</span><i class="' + (itemlist[i].IsCollection == 1 ?
+										"catalog-icon" : "") + '"></i></p>' +
+									'</li>';
+							}
+							var htmlstrfoot = '<div class="cl"></div>';
+							$("#list").html(htmlstr + htmlstrfoot);
+							//console.log(htmlstr + htmlstrfoot)
+							GetloadImg();
+							$("#catalog").fadeIn(300);
+							w.close();
+
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							page: 1,
+							num: 100
+						}, w, 'get', {
+							key: 'cartonlist' + YiRu.getuserinfo().userId,
+							num: CaCheNum
+						});
+
+					};
+					loadPage();
+					mui('#list').on('tap', 'li', function() {
+						var pid = this.getAttribute('data-id');
+						var videourl = this.getAttribute('data-video');
+						var thumbnail = this.getAttribute('data-thumbnail');
+						var datasrc = this.getAttribute('data-src');
+						var silentvideo = this.getAttribute('data-SilentVideo');
+						//var thumbnail = $(this).find("img").attr("src");
+						var name = this.getAttribute('data-name');
+						var isshoucang = this.getAttribute('data-shoucang');
+						var sort = this.getAttribute('data-sort');
+						//console.log(thumbnail);
+						if (pid == "") {
+							mui.toast("要完成前一集才能解锁哦");
+							return false;
+						}
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getFileUrl(thumbnail, function(_thumbnail) {
+							w.close();
+							//console.log(_thumbnail);
+							YiRu.openVW("/pages/cartoon/cartoon.html", {
+								pid: pid,
+								videourl: videourl,
+								silentvideo: silentvideo,
+								thumbnail: _thumbnail,
+								datasrc: datasrc,
+								name: name,
+								isshoucang: isshoucang,
+								sort: sort
+							});
+						});
+					});
+					document.addEventListener('updatedata', function(tab) {
+						//清除缓存
+						//console.log("请了");
+						YiRu.RemoveItem('day/daylistcartonlist' + YiRu.getuserinfo().userId);
+						loadPage();
+					});
+				});
+			})();
+		</script>
+	</body>
+</html>

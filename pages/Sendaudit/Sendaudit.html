@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-审核</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div style="position: fixed;bottom:0.625rem;width:100%;text-align: center;color:#ffffff;">点击屏幕返回</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					document.addEventListener('tap', function(tab) {
+						fanhui();
+					});
+					var oldback = mui.back;
+					mui.back = function() {
+						fanhui();
+					}
+					function fanhui(){
+						YiRu.openVW(plus.runtime.appid);
+						setTimeout(function() {
+							YiRu.closeAllwebview();
+						}, 300);
+					}
+
+// 					loadPage = function() {
+// 						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+// 						/*
+//                           逻辑代码
+// 						*/
+// 						w.close();
+// 
+// 					};
+// 					loadPage();
+				});
+			})();
+		</script>
+	</body>
+</html>

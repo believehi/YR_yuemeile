@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐</title>
+		<link href="css/public.css" rel="stylesheet" />
+		<link href="css/index.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="topmenu">
+			<div class="task" id="Taskbut"><span>TASK</span><span>任务</span></div>
+			<div class="bigq" id="bigq">
+				<img src="img/icon_01.png" id="userimg" />
+			</div>
+			<span id="nickName">ACHIEVEMENT</span>
+			<br />
+			<b id="Record">学习成就</b>
+			<div class="cl"></div>
+		</div>
+		<div class="menu">
+			<div class="box boxa">
+				<div class="but"><a class="a_a" id="huiben"><span class="text"><b>DHR STORY</b>阅美乐英文绘本</span></a></div>
+				<div class="but"><a class="a_b" id="peiyue"><span class="text"><b>ENGLISH DUBBER</b>阅配音</span></a></div>
+			</div>
+			<div class="box boxb">
+				<div class="but"><a class="a_c" id="xiangchan"><span class="text"><b>ENGLISH<br />MUSIC</b>阅想唱</span></a></div>
+				<div class="but"><a class="a_d" id="donghua"><span class="text"><b>DHR CARTOON</b>每日一句动画</span></a></div>
+				<div class="but"><a class="a_e" id="youxi"><span class="text">
+							<!-- <b>DHR GAME</b>乐游戏 --></span></a></div>
+			</div>
+		</div>
+		<!-- 任务弹窗 -->
+		<div class="mui-box"></div>
+		<div class="mui-mytast">
+			<!-- 关闭按钮 -->
+			<div id="mui-close-but"></div>
+			<img class="mui-ch" src="img/task-back.png">
+			<!-- 标题 -->
+			<span class="mui-title">今日任务</span>
+			<!-- 复习与预习 -->
+			<ul class="mui-xx-box" id="rwbox">
+			</ul>
+		</div>
+		<div class="bottomnav">
+			<a id="banji"><span>MY CLASS</span>我的班级</a>
+			<a id="shangcheng"><span>SHOPPING MALL</span>阅币商城</a>
+			<a id="wo"><span>MY ZONE</span>我</a>
+		</div>
+		<script src="js/jquery-1.12.0.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var _this = this;
+				var loadPage, w, ws, state = {};
+				var myclass = 0; //是否加入班级状态
+				var ispass = 0; //班级审核状态
+				var headimgurl = '';
+				var truename = '';
+				var taskinfo, savetask;
+				var tishiyin = null,
+					tishiobj = null;
+
+				mui.plusReady(function() {
+					// 判断是否登录
+					YiRu.UserLogin();
+					var indexuuid = YiRu.deviceId();
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+
+					tishiobj = plus.audio.createPlayer({
+						src: 'img/Three.mp3',
+						loop: true
+					});
+					tishiyin = function() {
+						if (!tishiobj) {
+							tishiobj = plus.audio.createPlayer({
+								src: 'img/Three.mp3',
+								loop: true
+							});
+						}
+						return tishiobj;
+					};
+					
+					loadPage = function() {
+						if (!YiRu.ios()) {
+							ws.addEventListener("show", function() {
+								//console.log("1212");
+								tishiobj = plus.audio.createPlayer({
+									src: 'img/Three.mp3',
+									loop: true
+								});
+								tishiyin().play();
+							});
+						}
+						tishiyin().play();
+
+						updateheadimg();
+
+					};
+					//setTimeout(function() {
+					loadPage();
+					YiRu.quitApp();
+					YiRu.update();
+					//}, 300);
+					// 请求任务列表
+					taskinfo = function(taskid) {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('taskinfo', function(data) {
+							$("#rwbox").html('');
+							// 保存是否加入班级的状态
+							var dataarry = data.data.baseinfo;
+							for (var i = 0; i < dataarry.length; i++) {
+								var htmlStr = '';
+								htmlStr += '<li>';
+								htmlStr += '<span class = "mui-span2" > ' + dataarry[i].Title + ',将获得' + dataarry[i].Amount + '个银币' +
+									'</span>';
+								if (JSON.stringify(dataarry[i].Status) == "0") {
+									htmlStr += '<span class="mui-span3" >' + '<a id="wancen" rw-Id="' + dataarry[i].ID + '">去完成</a>' +
+										'</span> ';
+								} else if (JSON.stringify(dataarry[i].Status) == "1") {
+									htmlStr += '<span class = "mui-span3" >' + '<a lq-Id="' + dataarry[i].ID + '" Status="' + dataarry[i].Status +
+										'" id="huanse">领取奖励</a>' + '</span> ';
+								} else if (JSON.stringify(dataarry[i].Status) == "2") {
+									htmlStr += '<span class="mui-span3 " >' + '<a id="huise">已领取</a>' + '</span> ';
+								}
+								htmlStr += '</li>';
+								$("#rwbox").append(htmlStr);
+								w.close();
+							}
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+						}, w, 'get');
+					};
+
+					mui('body').on('tap', '#rwbox a', function() {
+						var rwId = $(this).attr("rw-Id");
+						var lqId = $(this).attr("lq-Id");
+						var Status = $(this).attr("Status");
+						if ($(this).text() == "已领取") {
+							plus.nativeUI.toast('已领取过奖励！');
+						}
+						if (Status == "1") {
+							savetask(lqId);
+							$(this).text("已领取");
+							$(this).removeAttr("id");
+							$(this).attr("id", "huise");
+						}
+						if (rwId == "83085015-e6ed-443d-834d-3a483be89d7d") {
+							YiRu.openVW("/pages/shopping/shopping.html"); //今日签到
+							$('.mui-box').hide();
+							$('.mui-mytast').hide();
+						} else if (rwId == "15b758e8-15a0-42d5-a806-73837f3ee642") {
+							YiRu.openVW("/pages/cartoonList/cartoonList.html"); //分享每日英语
+							$('.mui-box').hide();
+							$('.mui-mytast').hide();
+						} else if (rwId == "62804c8e-fa1d-4f37-a504-bd15795cd773") {
+							YiRu.openVW("/pages/dubbing/dubbing.html"); //分享阅配音
+							$('.mui-box').hide();
+							$('.mui-mytast').hide();
+						} else if (rwId == "61ef0c67-9b5b-4cbd-913a-d941f98d2f45") {
+							YiRu.openVW("/pages/sing/sing.html"); //分享歌曲律动
+							$('.mui-box').hide();
+							$('.mui-mytast').hide();
+						} else if (rwId == "a578b5d3-b6c4-4ca6-82d6-00fa2c666b7f") {
+							YiRu.openVW("/pages/picture/picture.html"); //绘本阅读
+							$('.mui-box').hide();
+							$('.mui-mytast').hide();
+						}
+					});
+					savetask = function(taskid) {
+						YiRu.getajax('savetask', function(data) {
+							plus.nativeUI.toast('领取成功！');
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							taskid: taskid
+						}, w, 'get');
+					};
+					//打开任务模态框
+					mui('body').on('tap', '#Taskbut', function() {
+						tishiyin().pause();
+						$('.mui-box').show();
+						$('.mui-mytast').show();
+						var p = $('#rwbox').find('a');
+						taskinfo();
+					});
+
+					//关闭任务模态框
+					mui('body').on('tap', '#mui-close-but', function() {
+						tishiyin().play();
+						$('.mui-box').hide();
+						$('.mui-mytast').hide();
+					});
+
+
+					//taskinfo()
+					document.addEventListener('updatedata', function(tab) {
+						//console.log(JSON.stringify(tishiyin()));
+						tishiyin().play();
+					});
+					document.addEventListener('updateheadimg', function(tab) {
+						updateheadimg();
+					});
+					//console.log(JSON.stringify(YiRu.getuserinfo())); 
+					function updateheadimg() {
+						$('#userimg').attr('src', YiRu.getuserinfo().headIcon); //用户头像
+						$('#nickName').html(YiRu.getuserinfo().realName); //用户昵称
+					};
+
+
+					// 跳转到英语绘本
+					mui('body').on('tap', '#huiben', function() {
+						YiRu.openVW("/pages/picture/picture.html");
+						tishiyin().pause();
+					});
+					// 跳转到配乐
+					mui('body').on('tap', '#peiyue', function() {
+						YiRu.openVW("/pages/dubbing/dubbing.html");
+						tishiyin().pause();
+					});
+					// 跳转到学习成就
+					mui('body').on('tap', '#Record,#nickName,#bigq', function() {
+						YiRu.openVW("/pages/SchoolRecord/SchoolRecord.html");
+						tishiyin().pause();
+					});
+					// 跳转到我的
+					mui('body').on('tap', '#wo', function() {
+						YiRu.openVW("/pages/My/My.html");
+						tishiyin().pause();
+					});
+
+					// 跳转到我的班级
+					mui('body').on('tap', '#banji', function() {
+						tishiyin().pause();
+						YiRu.getajax('mainindex', function(data) {
+
+							myclass = data.data.baseinfo.myclass;
+							ispass = data.data.baseinfo.ispass;
+							//console.log(JSON.stringify(data.data.baseinfo));
+							if (myclass == 0) {
+								plus.nativeUI.toast('暂未加入班级');
+								YiRu.openVW("/pages/EnterGrade/EnterGrade.html");
+							} else if (myclass == 1 && ispass == 2) {
+								YiRu.openVW("/pages/Myclass/Myclass.html", {
+									classid: data.data.baseinfo.classid
+								});
+							} else if (ispass == 1) {
+								YiRu.openVW("/pages/Sendaudit/Sendaudit.html");
+							} else if (ispass == 3) {
+								plus.nativeUI.toast('未经审通过,请联系授课教师再次提交申请');
+							}
+
+						}, {
+							studentid: YiRu.getuserinfo().userId
+						}, w, 'get');
+					});
+					// 跳转到商城
+					mui('body').on('tap', '#shangcheng', function() {
+						tishiyin().pause();
+						YiRu.openVW("/pages/shopping/shopping.html");
+					});
+					// 跳转到想唱
+					mui('body').on('tap', '#xiangchan', function() {
+						tishiyin().pause();
+						YiRu.openVW("/pages/sing/sing.html");
+					});
+					// 跳转到动画
+					mui('body').on('tap', '#donghua', function() {
+						tishiyin().pause();
+						YiRu.openVW("/pages/cartoonList/cartoonList.html");
+					});
+					window.addEventListener('refresh', function(e) { //执行刷新
+						location.reload();
+					});
+					// 跳转到游戏
+					// mui('body').on('tap', '#youxi', function() {
+					//tishiyin().close();
+					// 	YiRu.openVW("/pages/game/game.html");
+					// 	//plus.nativeUI.toast('该功能还在开发中，敬请期待。');
+					// });
+
+				});
+			})();
+		</script>
+	</body>
+</html>

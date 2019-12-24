@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="schedule.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back" id="fanhui">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="schedule">
+			<h6>兑换进度</h6>
+			<p class="schedule-pp">您的订单已提交，请前往就读学校审核兑换哦</p>
+			<div class="schedule-content">
+				<div class="schedule-text">
+					<img src="../../img/icon_48_01.png">
+					<p>提交订单</p>
+				</div>
+				<div class="schedule-img">
+					<img src="../../img/icon_48_03.png">
+				</div>
+				<div class="schedule-text">
+					<img src="../../img/icon_48_01.png">
+					<p>校区审核兑换</p>
+				</div>
+				<div class="schedule-img">
+					<img src="../../img/icon_48_04.png">
+				</div>
+				<div class="schedule-text">
+					<img src="../../img/icon_48_02.png">
+					<p>审核完成</p>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+
+					var oldback = mui.back;
+					mui.back = function() {
+						YiRu.openVW("/pages/shopping/shopping.html", {}, true);
+						setTimeout(function() {
+							ws.close("none");
+						}, 500);
+					}
+					//loadPage = function() {
+					// w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());		
+					// YiRu.getajax('shop/saveexchange', function(data) {
+					// 
+					// }, {
+					// 	orderid: ws.orderid,
+					// 	status:"2"
+					// }, w, 'get');
+					//plus.webview.currentWebview().opener().close();
+					/*
+                          逻辑代码
+						*/
+
+					//};
+					//loadPage();
+				});
+			})();
+		</script>
+	</body>
+</html>

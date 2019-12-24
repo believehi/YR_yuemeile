@@ -1,0 +1,30 @@
+body {
+	background-image: url(../../img/page_10.jpg);
+}
+#fanhui img{
+	margin:2% 0 0 4%;
+	width: 4%;
+}
+
+.download {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	overflow: hidden;
+}
+
+.download img {
+	width:11.25rem;
+	height: auto;
+	padding: 0.1875rem;
+	background-color: #FFFFFF;
+}
+
+
+
+
+
+
+
+
+

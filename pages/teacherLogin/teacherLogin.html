@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-老师登录</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="teacherLogin.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- logo -->
+		<div class="mui-logo" id="mui-logo">
+			<img src="../../img/logo.png">
+		</div>
+		<div id="gao" style="display: none;height: 0.625rem;"></div>
+		<div class="mui-login-box">
+			<!-- 教师编号 -->
+			<div class="mui-login-item">
+				<input type="text" name="" id="Teacher_bh" value="" placeholder-class="" placeholder="教师编号" />
+			</div>
+			<!-- 登录密码 -->
+			<div class="mui-login-itema">
+				<input type="password" name="" id="password" value="" placeholder-class="" placeholder="登录密码" />
+			</div>
+			<div class="cl"></div>
+		</div>
+
+		<a class="mui-login-but" id="teacher-login">登&nbsp;&nbsp;&nbsp;&nbsp;录</a>
+		<div class="mui-Teacher-box">
+			<span>www.dhredu.cn<a href="javascript:void(0)" id="Teacher">学员登录</a></span>
+			<span>Copyright © 2019-2020 DHR All Rights Reserved</span>
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/jquery.md5.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					// YiRu.UserLogin();
+
+					if (!YiRu.ios()) {
+						var ina = false,
+							inb = false;
+						$("#Teacher_bh").focus(function() {
+							ina = true;
+							ruan();
+						});
+						$("#Teacher_bh").blur(function() {
+							ina = false;
+							ruan();
+						});
+						$("#password").focus(function() {
+							inb = true;
+							ruan();
+						});
+						$("#password").blur(function() {
+							inb = false;
+							ruan();
+						});
+
+						function ruan() {
+							if (ina || inb) {
+								$("#mui-logo").hide();
+								$("#gao").show();
+							} else {
+								$("#mui-logo").show();
+								$("#gao").hide();
+							}
+						}
+					}
+					if (YiRu.isteacherLogin()) {
+						setTimeout(function() {
+							YiRu.openVW("/pages/teacherHome/teacherHome.html", {}, true);
+						}, 200);
+						setTimeout(function() {
+							YiRu.closeAllwebview("/pages/teacherHome/teacherHome.html");
+						}, 500);
+					}
+					// 跳转进入老师主页
+					mui('body').on('tap', '#teacher-login', function() {
+						$("#Teacher_bh").blur();
+						$("#password").blur();
+						if ($('#Teacher_bh').val() == '') {
+							plus.nativeUI.toast('请填写教师编号');
+							return;
+						} else if ($('#password').val() == '') {
+							plus.nativeUI.toast('请填写密码');
+							return;
+						}
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						var password = $("#password").val();
+						var passwordmd5 = $.md5(password);
+
+						YiRu.getajax('teacher/login', function(data) {
+							YiRu.setteacherinfo(data.data.baseinfo, function() {
+								//console.log(JSON.stringify(data.data));
+								$("#Teacher_bh").val("");
+								$("#password").val("");
+								w.close();
+								YiRu.openVW("/pages/teacherHome/teacherHome.html");
+								setTimeout(function() {
+									YiRu.closeAllwebview("/pages/teacherHome/teacherHome.html");
+								}, 500);
+							});
+						}, {
+							username: $("#Teacher_bh").val(),
+							password: passwordmd5,
+						}, w, 'get', false, true);
+
+					});
+					// 跳转到教师登录
+					mui('body').on('tap', '#Teacher', function() {
+						$("#Teacher_bh").val("");
+						$("#password").val("");
+						$("#Teacher_bh").blur();
+						$("#password").blur();
+						YiRu.openVW('/pages/UserLogin/Userlogin.html', {}, true);
+
+					});
+				});
+
+			})();
+		</script>
+	</body>
+</html>

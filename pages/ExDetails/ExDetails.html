@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-阅币商城-兑换详情</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- 返回按钮 -->
+		<div class="mui-fanhui mui-action-back" id="Return">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="details-title">
+			<p class="details-bar" id="orderDetails"><span></span>兑换详情</p>
+			<div class="details-coin">剩余：<span id="Goldcoin"></span>金币<span id="Silvercoin"></span>银币</div>
+		</div>
+		<div class="details">
+			<div class="details-list">
+				<div>
+					<a class="details-active" data-id="0">全部</a>
+					<a data-id="1">兑换中</a>
+					<a data-id="2">已完成</a>
+					<a data-id="3">已取消</a>
+				</div>
+			</div>
+			<div class="details-content">
+				<!-- 	//全部 -->
+				<div class="details-init details-active" id="all">
+
+				</div>
+				<div class="details-init" id="Change">
+				</div>
+				<div class="details-init" id="accomplish">
+				</div>
+				<div class="details-init" id="cancel">
+				</div>
+			</div>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false,
+				});
+				var w, ws;
+				var IsunlockID = '0'; //第一次请求的列表信息
+
+				mui.plusReady(function() {
+					// 选项卡 1
+					$(".details-list a").on("tap", function() {
+						IsunlockID = this.getAttribute('data-id');
+						//获取点击的元素给其添加样式，讲其兄弟元素的样式移除
+						$(this).addClass("details-active").siblings().removeClass("details-active");
+						//获取选中元素的下标
+						var index = $(this).index();
+						$(this).parent().parent().siblings().children().eq(index).addClass("details-active").siblings().removeClass(
+							"details-active");
+						getorderlist();
+					});
+					getorderlist = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('shop/getorderlist', function(data) {
+							$("#Goldcoin").text(data.data.baseinfo.Goldcoin);
+							$("#Silvercoin").text(data.data.baseinfo.Silvercoin);
+							var dataarry = data.data.itemlist;
+							var htmlStr = '';
+							var nav_index = '0';
+							$("#all").html("");
+							$("#Change").html("");
+							$("#accomplish").html("");
+							$("#cancel").html("");
+							for (var i = 0; i < dataarry.length; i++) {
+								var Status = dataarry[i].Status;
+								htmlStr += '<div class="details-init-list">';
+								if (Status == "0") {
+									htmlStr += '<span class="details-ou details-ou-zf">未支付</span>';
+								} else if (Status == "1") {
+									htmlStr += '<span class="details-ou">兑换中</span>';
+								} else if (Status == "2") {
+									htmlStr += '<span class="details-ou details-ou-ok">已完成</span>';
+								} else if (Status == "3") {
+									htmlStr += '<span class="details-ou details-ou-no">已取消</span>';
+								}
+								htmlStr += '<div class="details-img"  orderid="' + dataarry[i].Id + '">';
+								htmlStr += '<img data-loadimg="true" data-src="' + dataarry[i].pics + '" src="../../img/noimg.png" />';
+								htmlStr += '</div>';
+								htmlStr += '<p class="details-hui">' + dataarry[i].ProductName + '</p>';
+								htmlStr += '<div class="details-on">';
+								htmlStr += '<p>订单时间：<span id="">' + dataarry[i].CreateDate + '</span></p>';
+								htmlStr += '<p>共<span id="">' + dataarry[i].Quantity + '</span>件&emsp;消耗：<span id="">' + dataarry[i].SumAmount +
+									'</span>金币</p>';
+								htmlStr += '<div class="details-butt">';
+								if (Status == "0") {
+									htmlStr += '<button type="button" class="huise Aall" status="' + dataarry[i].Status +
+										'" Orderid="' + dataarry[i]
+										.Id + '">取消兑换</button>';
+									htmlStr += '<button type="button" class="huanse zf_but" status="' + dataarry[i].Status +
+										'" Orderid="' + dataarry[i].Id + '">支付</button>';
+								} else if (Status == "1") {
+									htmlStr += '<button type="button" class="huise Aall" status="' + dataarry[i].Status +
+										'" Orderid="' + dataarry[i]
+										.Id + '">取消兑换</button>';
+									htmlStr += '<button type="button" class="huanse Affirm" status="' + dataarry[i].Status +
+										'" Orderid="' + dataarry[
+											i].Id + '">确认兑换</button>';
+								} else if (Status == "2") {
+									htmlStr += '<button type="button"  class="huanse" status="' + dataarry[i].Status + '" Orderid="' +
+										dataarry[i].Id +
+										'">已完成</button>';
+								} else if (Status == "3") {
+									htmlStr += '<button type="button" class="huise" status="' + dataarry[i].Status + '" Orderid="' +
+										dataarry[
+											i].Id + '">已取消</button>';
+								}
+								htmlStr += '</div>';
+								htmlStr += '</div>';
+								htmlStr += '</div>';
+							}
+
+							if (IsunlockID == "0") {
+								$("#all").html(htmlStr);
+							}
+							if (IsunlockID == "1") {
+								$("#Change").html(htmlStr);
+							}
+							if (IsunlockID == "2") {
+								$("#accomplish").html(htmlStr);
+							}
+							if (IsunlockID == "3") {
+								$("#cancel").html(htmlStr);
+							}
+							GetloadImg();
+							if ($("#all").find('.details-init-list').text() == "") {
+								$("#all").html('<div class="tisi_box">暂无兑换记录</div>');
+							}
+							if ($("#Change").find('.details-init-list').text() == "") {
+								$("#Change").html('<div class="tisi_box">暂无兑换记录</div>');
+							}
+							if ($("#accomplish").find('.details-init-list').text() == "") {
+								$("#accomplish").html('<div class="tisi_box">暂无兑换记录</div>');
+							}
+							if ($("#cancel").find('.details-init-list').text() == "") {
+								$("#cancel").html('<div class="tisi_box">暂无兑换记录</div>');
+							}
+							w.close();
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							Page: '1',
+							Num: '100',
+							status: IsunlockID,
+						}, w, 'get');
+					};
+					saveexchange = function(Orderid, status, tisi) {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('shop/saveexchange', function(data) {
+							w.close();
+							mui.toast(tisi);
+							getorderlist();
+							mui.fire(plus.webview.getWebviewById("/pages/shopping/shopping.html"), "updatedata");
+						}, {
+							Orderid: Orderid,
+							status: status,
+						}, w, 'get');
+					};
+					mui('body').on('tap', '.Aall', function() {
+						var _this = $(this);
+						var Orderid = $(this).attr('Orderid');
+						var status = '3'
+						var tisi = "已取消"
+						mui.confirm('确定取消兑换？', '提示', ['确定', '取消'], function(e) {
+							if (e.index == 0) {
+								saveexchange(Orderid, status, tisi)
+								_this.text(tisi);
+								_this.siblings(".Affirm").remove();
+								_this.siblings(".zf_but").remove();
+								//_this.removeAttr("id");
+
+							}
+						});
+					});
+
+					mui('body').on('tap', '.zf_but', function() {
+						var Orderid = $(this).attr('Orderid');
+						YiRu.openVW("/pages/ConfirmOrder/ConfirmOrder.html", {
+							orderid: Orderid
+						});
+					});
+					mui('body').on('tap', '.Affirm', function() {
+						var _this = $(this);
+						var Orderid = $(this).attr('Orderid');
+						var status = '2'
+						var tisi = "已完成"
+						mui.confirm('确定兑换？', '提示', ['确定', '取消'], function(e) {
+							if (e.index == 0) {
+								saveexchange(Orderid, status, tisi)
+								_this.text(tisi);
+								_this.siblings(".Aall").remove();
+								//_this.removeAttr("id");
+
+							}
+						})
+					});
+					// 跳转 订单详情
+					mui('body').on('tap', '.details-img', function() {
+						var orderid = $(this).attr("orderid");
+						YiRu.openVW("/pages/orderDetails/orderDetails.html", {
+							orderid: orderid
+						});
+					});
+					document.addEventListener('ExDetails', function(tab) {
+						getorderlist();
+					});
+					getorderlist();
+				});
+			})();
+		</script>
+	</body>
+</html>

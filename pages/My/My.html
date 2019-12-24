@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-用户登录</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- 返回按钮 -->
+		<div class="mui-fanhui mui-action-back" id="Return">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="content">
+			<!-- 用户头像 -->
+			<div class="mui-user-img">
+				<div class="mui-img">
+					<div>
+						<img src="../../img/icon_01.png" id="userimg">
+					</div>
+				</div>
+				<p id="nickName"></p>
+			</div>
+			<div class="mui-sz-list">
+				<div class="mui-item" id="MyCollect">
+					<img src="../../img/set_01.png">
+					<p>我的收藏</p>
+				</div>
+				<div class="mui-item" id="fenxian">
+					<img src="../../img/set_02.png">
+					<p>赠好友会员<br />得奖励</p>
+				</div>
+				<div class="mui-item" id="MyPhone">
+					<img src="../../img/set_03.png">
+					<p>修改手机号码</p>
+				</div>
+				<div class="mui-item" id="WenTi">
+					<img src="../../img/set_04.png">
+					<p>常见问题</p>
+				</div>
+				<div class="mui-item" id="MySet">
+					<img src="../../img/set_05.png">
+					<p>设置</p>
+				</div>
+			</div>
+		</div>
+		<div style="text-align: center;position: fixed;bottom:2.5rem;width:100%;"><a style="padding:0.25rem;color:#ffffff" id="toteacher">进入教师端</a></div>
+		<div style="position: fixed;bottom:0.625rem;font-size:0.75rem;text-align: center;font-family: microsoft yahei;width:100%;color:#008B8B;"
+		 id="banben">版本：</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false,
+					beforeback: function() {
+						var list = plus.webview.currentWebview().opener();
+						//触发列表界面的自定义事件（refresh）,从而进行数据刷新   
+						mui.fire(list, 'updatedata');
+						//返回true，继续页面关闭逻辑   
+						return true;
+					}
+				});
+				var w, ws, my = {},
+					loadPage;
+				mui.plusReady(function() {
+					YiRu.UserLogin();
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					//window.addEventListener('refresh', function(e) { //执行刷新
+					//location.reload();
+					//});
+					loadPage = function() {
+						//console.log(JSON.stringify(YiRu.getuserinfo()));
+						updateheadimg();
+						// 请求我的界面的接口
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('usercenter/getmyinfo', function(data) {
+							//console.log(JSON.stringify(data));
+							my = data.data.baseinfo;
+							w.close();
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+						}, w, 'get', {
+							key: YiRu.getuserinfo().userId,
+							num: CaCheNum
+						});
+					}
+					loadPage();
+					// document.addEventListener('plusready', function() {
+					// 	// 扩展API加载完毕，现在可以正常调用扩展API
+					// 	plus.oauth.getServices(function(services) {
+					// 		auths = services;
+					// 		aweixin = services['weixin'];
+					// 	}, function(e) {
+					// 		alert("获取分享服务列表失败：" + e.message + " - " + e.code);
+					// 	});
+					// }, false);
+					var auths = {};
+					plus.oauth.getServices(function(services) {
+							for (var i in services) {
+								var service = services[i];
+								if (YiRu.ios()) {
+									// if (service.id == 'qq' && !YiRu.isQQInstalled()) {
+									// 	continue;
+									// }
+									if (service.id == 'weixin' && !YiRu.isWXInstalled()) {
+										continue;
+									}
+								}
+								//if (service.id == 'qq' || service.id == 'weixin' || service.id == 'weibo') {
+								if (service.id == 'weixin') {
+									auths[service.id] = service;
+								}
+							}
+						},
+						function(e) {
+
+						});
+					mui('body').on('tap', '#wx_But', function() {
+						if (my.isexsistwx == 1) {
+							mui.toast("您已绑定了微信！");
+							return;
+						}
+						var auth = auths["weixin"],
+							w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+
+						auth.logout();
+						auth.login(function() {
+							auth.getUserInfo(function() {
+								var name = auth.userInfo.nickname || auth.userInfo.name,
+									headimgurl = (auth.userInfo.figureurl_qq_2 || auth.userInfo.figureurl_qq_1) || auth.userInfo.headimgurl
+									.replace('/0', '/132'),
+									dataAuth = {
+										oauthtype: auth.id,
+										oauthopenId: auth.authResult.openid,
+										unionid: auth.authResult.unionid,
+										headimgurl: headimgurl,
+										oauthnickname: name,
+										sex: auth.userInfo.sex || null,
+										province: auth.userInfo.province || null,
+										city: auth.userInfo.city || null
+									};
+								//console.log(JSON.stringify(dataAuth));
+
+								YiRu.getajax('usercenter/bindopenid', function(data) {
+									//console.log(JSON.stringify(data));
+									loadPage();
+								}, {
+									studentid: YiRu.getuserinfo().userId,
+									openid: dataAuth.oauthopenId
+								}, w, 'get');
+
+								w.close();
+							}, function(e) {
+								w.close();
+								plus.nativeUI.toast("获取用户信息失败");
+							});
+						}, function(e) {
+							w.close();
+							plus.nativeUI.toast("登录认证失败");
+						});
+
+					});
+
+
+					//}
+
+
+					// 跳转到我的收藏
+					mui('body').on('tap', '#MyCollect', function() {
+						YiRu.openVW("/pages/MyCollect/MyCollect.html");
+					});
+					// 跳转到手机绑定
+					mui('body').on('tap', '#MyPhone', function() {
+						YiRu.openVW("/pages/MyPhone/MyPhone.html");
+					});
+					// 跳转到设置
+					mui('body').on('tap', '#MySet', function() {
+						YiRu.openVW("/pages/MySet/MySet.html");
+					});
+					//console.log(YiRu.getuserinfo().enCode)
+					mui('body').on('tap', '#fenxian', function() {
+						// console.log(YiRu.getuserinfo().userId);
+						// console.log(my.invitation);
+						loadShare({
+							title: "我在阅美乐等你哦",
+							href: wwwUrl + "/Web/web/MyCode?studentid=" + YiRu.getuserinfo().userId,
+							pictures: "",
+							thumbs: "",
+							content: "我的邀请码:" + my.invitation + "，邀请你加入阅美乐！",
+							callBack: function() {
+								//loadPage();
+							},
+							NocallBack: function() {
+								//console.log("qx");
+							}
+						});
+
+					});
+					mui('body').on('tap', '#toteacher', function() {
+						if (!YiRu.isteacherLogin()) {
+							YiRu.openVW("/pages/teacherLogin/teacherLogin.html");
+							setTimeout(function() {
+								plus.webview.getWebviewById("/pages/teacherLogin/teacherLogin.html").reload();
+							}, 300);
+						} else {
+							YiRu.openVW("/pages/teacherHome/teacherHome.html");
+							YiRu.closeAllwebview("/pages/teacherHome/teacherHome.html");
+							//setTimeout(function() {
+								//plus.webview.getWebviewById("/pages/teacherHome/teacherHome.html").reload();
+							//}, 300);
+						}
+					});
+					mui('body').on('tap', '#WenTi', function() {
+						YiRu.openVW("/pages/My/WenTi.html");
+					});
+					// 微信绑定切换
+					// $("#WeiXin_banDing").on("tap", function() {
+					// 	$("#WeiXin_banDing").css({
+					// 		"display": "none"
+					// 	});
+					// 	$("#WeiXin_quXiao").css({
+					// 		"display": "block"
+					// 	});
+					// });
+					// $("#WeiXin_quXiao").on("tap", function() {
+					// 	$("#WeiXin_quXiao").css({
+					// 		"display": "none"
+					// 	});
+					// 	$("#WeiXin_banDing").css({
+					// 		"display": "block"
+					// 	});
+					// });
+					// $("#WenTi").on("tap", function() {
+					// 	YiRu.openVW("/pages/My/WenTi.html");
+					// });
+					// $("#WeiXin_icon-dec").on("tap", function() {
+					// 	$(".mui-weixin").css({
+					// 		"display": "none"
+					// 	});
+					// });
+
+					//alert(window.screen.height+"/"+window.screen.width);
+
+
+					plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo) {
+						document.getElementById("banben").innerHTML = "v" + wgtinfo.version;
+					});
+
+					document.addEventListener('updateheadimg', function(tab) {
+						updateheadimg();
+					});
+
+					function updateheadimg() {
+						$('#userimg').attr('src', YiRu.getuserinfo().headIcon); //用户头像
+						$('#nickName').html(YiRu.getuserinfo().realName); //用户昵称
+					}
+				});
+			})();
+		</script>
+	</body>
+</html>

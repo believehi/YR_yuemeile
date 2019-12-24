@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<style type="text/css">
+			html,
+			body,
+			article,
+			.bd,
+			.tempWrap,
+			.test,
+			.test_con {
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="Yue_Content" class="mui-action-back">
+			<img src="../../img/end_bg_1.jpg" id="Yue_img1" width="100%" height="100%">
+			<img src="../../img/end_yinfu_1.png" id="Yue_img2">
+			<img src="../../img/end_dudulogo.png" id="Yue_img3">
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var picSub = 0;
+				var flags = true;
+				var state = 1;
+				var picArr_01 = [
+					"../../img/end_bg_1.jpg",
+					"../../img/end_bg_2.jpg",
+					"../../img/end_bg_3.jpg",
+				]; //
+				var picArr_02 = [
+					"../../img/end_yinfu_1.png",
+					"../../img/end_yinfu_2.png",
+					"../../img/end_yinfu_3.png",
+					"../../img/end_yinfu_4.png",
+					"../../img/end_yinfu_5.png",
+					"../../img/end_yinfu_6.png",
+					"../../img/end_yinfu_7.png",
+					"../../img/end_yinfu_8.png",
+					"../../img/end_yinfu_9.png",
+					"../../img/end_yinfu_10.png",
+					"../../img/end_yinfu_11.png",
+				]; //
+				//read_1a1.mp3				
+				//a11_media.mp3
+				var w, ws, src, name, typename, filename,Audio = null;
+				mui.plusReady(function() {
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					typename = ws.typename;
+					filename = ws.filename;
+					//console.log(filename)
+					name = name;
+					src = YiRu.getpicture(filename, typename);
+					Audio = plus.audio.createPlayer({
+						src:src,
+						autoplay: true,
+						backgroundControl: true,
+						coverImgUrl: '../../img/letsread_1a.png',
+						epname: name,
+						loop: true,
+						singer: 'Happy Rhythm',
+						title: name
+					});
+
+					var img = document.getElementById("Yue_img1");
+					var img1 = document.getElementById("Yue_img2");
+					var i = 1; //因为打开就是第一张图片,如果从i=0开始,就延迟1秒
+					var i1 = 1; //因为打开就是第一张图片,如果从i=0开始,就延迟1秒
+					setInterval((function s() {
+						img.src = picArr_01[i];
+						i++;
+						if (i > picArr_01.length) {
+							i = 0;
+							img.src = picArr_01[i];
+							i++;
+						}
+					}), 250);
+
+					setInterval((function s1() {
+						img1.src = picArr_02[i1];
+						i1++;
+						if (i1 > picArr_02.length) {
+							i1 = 0;
+							img1.src = picArr_02[i1];
+							i1++;
+						}
+					}), 350);
+
+					var oldback = mui.back;
+					mui.back = function() {
+						if (Audio != null) Audio.close();
+						ws.close("none");
+						oldback();
+					};
+
+				});
+
+			})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-阅币商城-兑换详情-订单详情</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="orderDetails.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="order-init">
+			<div class="order-title">
+				<span class="mui-action-back"><i></i>返回</span>
+				<p>订单详情</p>
+			</div>
+			<div class="order">
+				<ul id="baglist">
+					<li class="order-name">
+						<i></i>
+						<p><span id="confirm-name"></span>&ensp;<span id="confirm-phone"></span></p>
+						<p id="confirm-id"></p>
+					</li>
+
+				</ul>
+			</div>
+			<div class="order-but">
+				<p>订单时间<span id="CreateDate"></span></p>
+				<p>共<span id="Quantity"></span>件&emsp;&emsp;消耗：<span id="zj_box"></span>金币</p>
+			</div>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				// 编辑地址弹窗
+				$(".confirm-address").on("tap", function() {
+					$(".edit-init").css({
+						"display": "block"
+					})
+				})
+				$(".edit-icon").on("tap", function() {
+					$(".edit-init").css({
+						"display": "none"
+					})
+				})
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview(); //获得参数
+
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						// 获取订单信息
+						YiRu.getajax('shop/getorderinfo', function(data) {
+							var total_count = 0;
+							var Provice = data.data.baseinfo.Provice + data.data.baseinfo.City + data.data.baseinfo.Area; //地址
+							var StudentName = data.data.baseinfo.StudentName; //姓名
+							var Address = data.data.baseinfo.Address; //班级
+							var Phone = data.data.baseinfo.Phone; //电话
+							var Phone = data.data.baseinfo.Phone; //时间
+							var SumAmount = data.data.baseinfo.SumAmount; //订单总价格
+							var CreateDate = data.data.baseinfo.CreateDate;
+							$("#confirm-name").html(StudentName);
+							$("#confirm-id").text(Provice);
+							$("#confirm-class").text(Address);
+							$("#confirm-phone").text(Phone);
+							$("#zj_box").html(SumAmount);
+							$("#Quantity").html(Quantity);
+							$("#CreateDate").html(CreateDate);
+							var dataarry = JSON.stringify(data.data.itemsinfo);
+							var html = "";
+							$.each($.parseJSON(dataarry), function(key, value) {
+								var goods1 = parseInt(value.Count);
+								total_count += goods1
+								$("#js_box").text(total_count);
+								html +=
+									'<li class="order-a_a">' +
+									'<img data-loadimg="true" data-src="' + value.Pic + '" src="../../img/noimg.png" />' +
+									'<p>' + value.ProductName + '</p>' +
+									'<p>x <span class="confirm-num">' + value.Count + '</span></p>' +
+									'<p><span class="confirm-JinBi">' + value.SumAmount + '</span> 金币</p>' +
+									'</li>';
+
+							});
+							$("#baglist").html(html);
+							GetloadImg();
+						}, {
+							orderid: ws.orderid,
+						}, w, 'get');
+						/*
+                          逻辑代码
+						*/
+						;
+					};
+					loadPage();
+				});
+			})();
+		</script>
+	</body>
+</html>

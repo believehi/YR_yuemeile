@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="dubbing.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back" id="fanhui">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="wrapper">
+			<div class="title">
+				<a id="picture" class="title-active" data-id="0" data-sid="1.1">
+					<p>DHR</p>
+					<p>杜杜快乐阅读</p>
+				</a>
+				<a id="picture-file" data-id="1" data-sid="2.1">
+					<p>DHP</p>
+					<p>杜杜快乐拼词</p>
+				</a>
+				<a id="picture-hind" data-id="2" data-sid="3">
+					<p>DRR</p>
+					<p>杜杜深度阅读</p>
+				</a>
+			</div>
+			<div class="content">
+				<!-- DHR -->
+				<div class="content-list title-active">
+					<ul class="biaoti" id="dhrclass">
+						<li class="biaoti-active" data-id="1.1">1 A</li>
+						<li data-id="1.2">1 B</li>
+						<li data-id="1.3">2 A</li>
+						<li data-id="1.4">2 B</li>
+						<li data-id="1.5">3 A</li>
+						<li data-id="1.6">3 B</li>
+					</ul>
+					<div class="dubbing-content">
+						<!-- DHR !A -->
+						<div class="dub-list biaoti-active">
+							<ul class="dub_DHR" id="dhrlist">
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- DHP -->
+				<div class="content-list">
+					<ul class="biaoti">
+						<li class="biaoti-active" data-id="2.1">L 1</li>
+						<li data-id="2.2">L 2</li>
+						<li data-id="2.3">L 3</li>
+						<li data-id="2.4">L 4</li>
+					</ul>
+
+					<div class="dubbing-content">
+						<!-- DHP L1 -->
+						<div class="dub-list biaoti-active">
+							<ul class="dub_DHP" id="dhplist">
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- DRR -->
+				<div class="content-list">
+					<div class="dubbing-content dubbing-content2">
+						<div class="dub-list biaoti-active">
+							<ul id="drrlist">
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- 左右按键 -->
+				<span class="dubbing-tab">
+					<span class="dub-left"></span>
+					<span class="dub-right"></span>
+				</span>
+			</div>
+		</div>
+		<!-- 敬请期待弹窗 -->
+		<div class="catalog-init" style="display: none;">
+			<div class="catalog-app">
+				<p>敬请期待!</p>
+				<img src="../../img/pic_21.png">
+				<i class="catalog-on"></i>
+			</div>
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false,
+					beforeback: function() {
+						var list = plus.webview.currentWebview().opener();
+						//refresh是A页面自定义事件
+						mui.fire(list, 'updatedata');
+						//返回true,继续页面关闭逻辑
+						return true;
+					}
+				});
+				var w, ws, s, loadPage, win, len = 0,
+					lang = 0,
+					pclass = "0",
+					pType = "1.1";
+				mui.plusReady(function() {
+					$(".catalog-on").on("tap", function() {
+						$(".catalog-init").css({
+							"display": "none"
+						})
+					})
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('dubbing/dubbingbygrade', function(data) {
+							//console.log(JSON.stringify(data));
+							var itemlist = data.data.baseinfo;
+							win = itemlist.length - 2;
+							s = win;
+							lang = 0;
+							var htmlstr = "";
+							for (var i = 0; i < itemlist.length; i++) {
+								if (i == 0 || (!data.data.istourist && data.data.isunlock)) {
+									htmlstr += '<li data-id="' + itemlist[i].ID + '" data-name="' + itemlist[i].TypeName + '">' +
+										'<img class="fm" data-loadimg="true" data-src="' + itemlist[i].Thumbnail +
+										'" src="../../img/noimg.png" />' + '</li>';
+								} else {
+									htmlstr += '<li data-id="' + itemlist[i].ID + '" data-name="" ><span class="box_img"></span>' +
+										'<img class="fm" data-loadimg="true" data-src="' + itemlist[i].Thumbnail +
+										'" src="../../img/noimg.png" /> <img class="suo1" src="../../img/suo.png">' +
+										'</li>';
+
+								}
+							}
+							if (pclass == "0") {
+								$("#dhrlist").html(htmlstr);
+							} else if (pclass == "1") {
+								$("#dhplist").html(htmlstr);
+							} else {
+								$("#drrlist").html(htmlstr);
+							}
+							GetloadImg();
+							$(".dubbing-content").eq(pclass).fadeIn(500);
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							type: pType,
+							page: 1,
+							num: 100
+						}, w, 'get', {
+							key: pType + YiRu.getuserinfo().userId,
+							num: CaCheNum
+						});
+
+					};
+					loadPage();
+				});
+				mui('body').on('tap', '.dub-list ul li', function() {
+					var pid = this.getAttribute('data-id');
+					var pname = this.getAttribute('data-name');
+					var pimg = $(this).find("img").attr("src");
+					if (pname == "") {
+						mui.toast("成为正式学员才能解锁");
+						return;
+					}
+					//console.log(pid+"/"+pname+"/"+pimg);
+					YiRu.openVW("/pages/download/download.html", {
+						pid: pid,
+						pimg: pimg
+					});
+				});
+
+				// 左右切换
+				$(".dub-right").on("tap", function() {
+					if (win > 0) {
+						win--;
+						len = $(".dub-list").eq(parseInt(pclass)).find("ul li").width() - 0.5;
+						$(".dub-list ul").animate({
+							left: (lang = lang - len)
+						})
+					}
+				});
+				$(".dub-left").on("tap", function() {
+					if (win < s) {
+						win++;
+						len = $(".dub-list").eq(parseInt(pclass)).find("ul li").width() - 0.5;
+						$(".dub-list ul").animate({
+							left: (lang = lang + len)
+						})
+					}
+				});
+
+				// 选项卡 1
+				$(".wrapper .title a").on('tap', function() {
+					//获取点击的元素给其添加样式，讲其兄弟元素的样式移除
+					if (pType == this.getAttribute('data-sid')) return;
+					$(".dubbing-content").hide();
+					pclass = this.getAttribute('data-id');
+					pType = this.getAttribute('data-sid');
+					$(this).addClass("title-active").siblings().removeClass("title-active");
+					//获取选中元素的下标
+					var index = $(this).index();
+					$(this).parent().siblings().children().eq(index).addClass("title-active")
+						.siblings().removeClass("title-active");
+					if (index < 2) {
+						$(this).parent().siblings().children().eq(index).find(".biaoti li").eq(0).addClass("biaoti-active").siblings()
+							.removeClass("biaoti-active");
+					}
+					loadPage();
+					sub_init();
+				});
+
+				// 子选项卡 2
+				$(".wrapper .biaoti li").on("tap", function() {
+					if (pType == this.getAttribute('data-id')) return;
+					$(".dubbing-content").hide();
+					pType = this.getAttribute('data-id');
+					//获取点击的元素给其添加样式，讲其兄弟元素的样式移除
+					$(this).addClass("biaoti-active").siblings().removeClass("biaoti-active");
+					//获取选中元素的下标
+					var index = $(this).index();
+					$(this).parent().siblings().children().eq(index).addClass("biaoti-active")
+						.siblings().removeClass("biaoti-active");
+					loadPage();
+					sub_init();
+				});
+
+				function sub_init() {
+					lang = 0;
+					$(".dub-list ul").css({
+						'left': 0
+					});
+				}
+			})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-height, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-班级管理</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="teacherClass.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="class-student" id="classname">
+		</div>
+		<div class="class-init">
+			<div class="class-content">
+				<div class="class-content-to" id="transfer">
+					<img src="../../img/bg_02.png">
+					<p>班级管理权转让</p>
+				</div>
+				<div class="class-content-to" id="manage">
+					<img src="../../img/bg_01.png">
+					<p>学员管理</p>
+				</div>
+				<div class="class-content-to" id="renwu">
+					<img src="../../img/jsrenwu.png">
+					<p>个性化任务</p>
+				</div>
+			</div>
+			<div class="class-tips">
+				<p>温馨提示</p>
+				<p>班级管理权转让和学员管理，操作请谨慎，一旦转让或学员被删除便不可挽回，会造成客户体验度，注意操作的 细致和信息的核对准确。</p>
+			</div>
+		</div>
+		<!-- 任务弹窗 -->
+		<div class="mui-box"></div>
+		<div class="mui-mytast">
+			<!-- 关闭按钮 -->
+			<div id="mui-close-but">
+
+			</div>
+			<img class="mui-ch" src="../../img/tast_1.png">
+			<!-- 标题 -->
+			<span class="mui-title">学习计划向导</span>
+			<!-- 老师的话 -->
+			<p id="laoshishuo">
+			</p>
+			<!-- 复习与预习 -->
+			<ul class="mui-xx-box">
+				<li id="fuxi">
+					<!-- <span class="mui-span1">复习：</span> -->
+					<span class="mui-span2"></span>
+					<span class="mui-span3">
+						<a class="fuxi1"></a>
+					</span>
+				</li>
+				<li id="yuxi">
+					<!-- <span class="mui-span1">预习：</span> -->
+					<span class="mui-span2"></span>
+					<span class="mui-span3">
+						<a class="fuxi2"></a>
+					</span>
+				</li>
+			</ul>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, classid, classname;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.teacherLogin();
+					classid = ws.classid;
+					classname = ws.name;
+					$("#classname").html(classname);
+					// 					loadPage = function() {
+					// 						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+					// 						/*
+					//                           逻辑代码
+					// 						*/
+					// 						w.close();
+					// 
+					// 					};
+					// 					loadPage();
+				});
+				//打开学习计划模态框
+				mui('body').on('tap', '#renwu', function() {
+					$('.mui-box').show();
+					$('.mui-mytast').show();
+					w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+					YiRu.getajax('teacher/tplanlist', function(data) {
+						w.close();
+						var str = data.data.baseinfo;
+						var str1, str2;
+						if (str.length == 0) {
+							$("#fuxi").hide();
+							$("#yuxi").hide();
+						}
+						if (str.length == 1) {
+							if (str[0].StudyType == 1) {
+								str2 = str[0];
+								n_b = str2.Type;
+							} else {
+								str1 = str[0];
+								n_a = str1.Type;
+							}
+						}
+						if (str.length > 1) {
+							str1 = str[0];
+							str2 = str[1];
+							n_a = str1.Type;
+							n_b = str2.Type;
+						}
+						if (str1) {
+							$("#fuxi .mui-span2").html(str1.PlanName);
+							// if (str1.TaskState==1) {
+							// 	$(".fuxi1").html("去完成");
+							// } else{
+							// 	$(".fuxi1").html("已完成");
+							// 	$(".fuxi1").css({"background-color":"#FFC309","box-shadow":"0 0.125rem #F6A201"});
+							// }
+							$("#laoshishuo").html(str1.TeacherSay);
+							$("#fuxi").show();
+						} else {
+							$("#laoshishuo").html("好好学习,天天向上");
+							$("#fuxi").hide();
+						}
+						if (str2) {
+
+							$("#yuxi .mui-span2").html(str2.PlanName);
+							$("#yuxi").show();
+							// if (str2.TaskState==1) {
+							// 	$(".fuxi2").html("去完成");
+							// } else{
+							// 	$(".fuxi2").html("已完成");
+							// 	$(".fuxi2").css({"background-color":"#FFC309","box-shadow":"0 0.125rem #F6A201"});
+							// }
+						} else {
+							$("#yuxi").hide();
+						}
+					}, {
+						teacherid: YiRu.getteacherinfo().userId,
+						classid: classid
+					}, w, 'post', {
+						key: 'Taskbut' + YiRu.getteacherinfo().userId,
+						num: CaCheNum
+					}, true);
+				});
+				//关闭学习计划模态框
+				mui('body').on('tap', '#mui-close-but', function() {
+					$('.mui-box').hide();
+					$('.mui-mytast').hide();
+				});
+				// 跳转转让页面
+				mui('body').on('tap', '#transfer', function() {
+					YiRu.openVW("/pages/teacherAdmin/teacherAdmin.html", {
+						classid: classid,
+						classname: classname
+					});
+				});
+				// 跳转学员管理
+				mui('body').on('tap', '#manage', function() {
+					YiRu.openVW("/pages/teacherManage/teacherManage.html", {
+						classid: classid,
+						classname: classname
+					});
+				});
+			})();
+		</script>
+	</body>
+</html>

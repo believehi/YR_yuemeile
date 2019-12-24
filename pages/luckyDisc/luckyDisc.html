@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-幸运抽奖</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="luckyDisc.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- 返回按钮 -->
+		<div class="mui-fanhui mui-action-back" id="Return">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<p class="lucky-init">幸运大转盘</p>
+		<p class="lucky-tisi">提示：点击转盘中向上的箭头，开始进行抽奖！</p>
+		<div class="turntable-bg">
+			<img src="../../img/icon_46-06.png" class="lucky">
+
+			<div class="pointer">
+				<img src="../../img/icon_47.png" alt="pointer" />
+			</div>
+			<div class="rotate"><img id="rotate" src="../../img/icon_46-05.png" alt="turntable" /></div>
+		</div>
+		<div class="lucky-rule">
+			<img src="../../img/icon_46_01.png" id="lucky-GuiZe">
+
+		</div>
+		<!-- 转盘规则 -->
+		<div class="disc-init">
+			<div class="disc">
+				<div class="disc-title">活动规则</div>
+				<p>一、参与方式</p>
+				<p class="disc-content-list">可以从阅币商城→幸运抽奖，进入幸运大转盘参与抽奖。</p>
+				<p>二、抽奖说明</p>
+				<p class="disc-content-list"><span>1.</span>用户每天获得一次抽奖机会。</p>
+				<p class="disc-content-list"><span>2.</span>无论微信用户还是手机用户均属同一用户，每天只有一次抽奖机会。</p>
+				<p>三、中奖说明</p>
+				<p class="disc-content">活动中奖采用随机中奖原则，中间概率均等。</p>
+				<p>四、奖品发放</p>
+				<p class="disc-content">阅美乐银币奖品会自动打入用户账户。</p>
+				<p>五、违规说明</p>
+				<p class="disc-content"><span>1.</span>用户如违规诚实信用原则或者出项违规行为（如作弊，恶意套取等），一经发现我公司有权终止客户参与本次活动并取消其获奖资格。</p>
+				<p class="disc-content"><span>2.</span>用户金币不可与其他账户叠加使用。</p>
+				<p class="disc-content"><span>3.</span>凡是参与本次活动，即视为接收活动所有规则，且须遵守阅美乐国际私塾法律申明及其其他营销活动的相关规定，阅美乐国际私塾有权在法律允许范围内对活动作出适当调整。<span
+					 class="pg" id="pg">★本活动与苹果公司无关</span></span></p>
+				<i></i>
+				<i></i>
+				<i></i>
+				<i id="disc-delete"></i>
+				<span></span>
+			</div>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/rotateLucky.js"></script>
+		<script type="text/javascript">
+			(function() {
+				// 规则
+				$("#disc-delete").on("tap", function() {
+					$(".disc-init").css({
+						"display": "none"
+					});
+				})
+				$("#lucky-GuiZe").on("tap", function() {
+					$(".disc-init").css({
+						"display": "block"
+					});
+				})
+				mui.init({
+					swipeBack: false,
+				});
+				var w, ws;
+				mui.plusReady(function() {
+					if (!YiRu.ios()) {
+						$("#pg").hide();
+					}
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					var _this = this;
+					var text = ''; //抽奖标记
+
+					// 转盘函数
+					$(function() {
+						var rotateTimeOut = function() {
+							$('#rotate').rotate({
+								angle: 0,
+								animateTo: 2160,
+								duration: 8000,
+								callback: function() {
+									alert('网络超时，请检查您的网络设置！');
+								}
+							});
+						};
+						var bRotate = false;
+						var rotateFn = function(awards, angles, txt) {
+							bRotate = !bRotate;
+							$('#rotate').stopRotate();
+							$('#rotate').rotate({
+								angle: 0,
+								animateTo: angles + 1800,
+								duration: 10000,
+								callback: function() {
+									tishiyin.stop();
+									var text = '';
+									var tisi = '';
+									if (txt == '谢谢参与') {
+										text = 0;
+										tisi = "谢谢参与";
+									} else {
+										text = txt;
+										tisi = "恭喜您抽中了" + text + "个银币";
+									}
+									w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+									YiRu.getajax('shop/savewheel', function(data) {
+										w.close();
+										plus.nativeUI.toast(tisi);
+										mui.fire(plus.webview.getWebviewById("/pages/shopping/shopping.html"), "updatedata");
+										//mui.fire(plus.webview.getWebviewById("/pages/shopping/shopping.html"), "shopping");
+									}, {
+										studentid: YiRu.getuserinfo().userId,
+										Coin: text,
+									}, w, 'get');
+									bRotate = !bRotate;
+								}
+							})
+						};
+						var tishiyin = plus.audio.createPlayer({});
+						mui('body').on('tap', '.pointer', function() {
+							if (bRotate) return;
+							var item = rnd(0, 7);
+							tishiyin.setStyles({
+								src: '../../img/vava.mp3'
+							});
+							tishiyin.play();
+							switch (item) {
+								case 0:
+									//var angle = [26, 88, 137, 185, 235, 287, 337];
+									rotateFn(0, 45, '谢谢参与');
+									break;
+								case 1:
+									//var angle = [88, 137, 185, 235, 287];
+									rotateFn(1, 90, '1');
+									break;
+								case 2:
+									//var angle = [137, 185, 235, 287];
+									rotateFn(2, 135, '5');
+									break;
+								case 3:
+									//var angle = [137, 185, 235, 287];
+									rotateFn(3, 180, '10');
+									break;
+								case 4:
+									//var angle = [185, 235, 287];
+									rotateFn(4, 225, '谢谢参与');
+									break;
+								case 5:
+									//var angle = [235, 287];
+									rotateFn(5, 270, '1');
+									break;
+								case 6:
+									//var angle = [287];
+									rotateFn(6, 315, '5');
+									break;
+								case 7:
+									//var angle = [287];
+									rotateFn(7, 360, '10');
+									break;
+							}
+
+
+
+						});
+						// n=0  m=7
+						function rnd(n, m) {
+							return Math.floor(Math.random() * (m - n + 1) + n)
+						}
+
+					});
+				});
+
+			})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="share.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back" id="fanhui">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="follow">
+			<div class="cont">
+				<div class="bofan" id="boFan">
+					<img id="fengmian" src="../../img/pic_01.png">
+					<img src="../../img/btn_04.png" id="bf">
+				</div>
+				<div class="share">
+					<p class="share-title">Octi</p>
+					<div class="share-num">
+						<span>
+							<p id="benshu">0</p>
+							<p>读书本数/本</p>
+						</span>
+						<span>
+							<p id="shichang">0</p>
+							<p>读书时长/分</p>
+						</span>
+					</div>
+				</div>
+				<div class="fenshu">
+					<img src="../../img/pingfen_02.png">
+					<span id="pingjun">0</span>
+				</div>
+			</div>
+			<span class="button" id="fenxian"><span></span>分享绘本</span>
+		</div>
+
+		<div class="share-bottom">
+			<div class="share-octi">
+				<div class="share-all">
+					<span>
+						<img src="../../img/icon_06.png">
+						<p>微信好友</p>
+					</span>
+					<span>
+						<img src="../../img/icon_07.png">
+						<p>朋友圈</p>
+					</span>
+					<span>
+						<img src="../../img/icon_08.png">
+						<p>QQ好友</p>
+					</span>
+					<span>
+						<img src="../../img/icon_09.png">
+						<p>QQ空间</p>
+					</span>
+				</div>
+				<p class="share-bbt">取消</p>
+			</div>
+		</div>
+
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, DubbingId, ppid, studentId, play_bofang = null,
+					isbofang = false,
+					num = 0,
+					ynum = 0,
+					rlist = [],
+					thumbnail,
+					dubbingname,
+					benshu = 0;
+				mui.plusReady(function() {
+					//强制横屏
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					ppid = ws.ppid;
+					DubbingId = ws.DubbingId;
+					studentId = ws.studentId;
+					YiRu.UserLogin();
+					play_bofang = plus.audio.createPlayer({});
+					var getinfo = function() {
+
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('dubbing/repeatmain', function(datas) {
+							//console.log(JSON.stringify(datas));
+							thumbnail = datas.data.baseinfo.thumbnail;
+							dubbingname = datas.data.baseinfo.dubbingname;
+							$("#fengmian").attr("src", thumbnail);
+							$("#benshu").html(datas.data.baseinfo.book);
+							$("#shichang").html((parseFloat(datas.data.baseinfo.time) / 60).toFixed(1));
+							$("#pingjun").html(datas.data.baseinfo.avg);
+							rlist = datas.data.rurllist;
+							num = rlist.length;
+							benshu = datas.data.baseinfo.book;
+							w.close();
+						}, {
+							dubbingid: DubbingId,
+							studentid: studentId,
+							rid: ppid
+						}, w, 'get');
+					}
+
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('dubbing/saveshare', function(datas) {
+							//console.log(JSON.stringify(datas));
+							mui.back();
+						}, {
+							repeatid: DubbingId,
+							studentid: studentId,
+							sharetype: 1
+						}, w, 'get');
+
+					};
+					getinfo();
+					$("#fenxian").on("tap", function() {
+						loadShare({
+							title: '快来听我家' + YiRu.getuserinfo().realName + '的绘本跟读,还有豪礼可以拿哦!', //+dubbingname, //http://ymlht.02.t1m.cn/Web/web/Index?rid=df435815-6afe-4548-a369-f524752869c2
+							href: wwwUrl + "/Web/web/Index?rid=" + ppid,
+							pictures: thumbnail,
+							thumbs: thumbnail,
+							content: YiRu.getuserinfo().realName + '已经完成了' + benshu + '本绘本',
+							callBack: function() {
+								loadPage();
+							},
+							NocallBack:function(){
+								
+							}
+							
+						});
+
+					});
+
+					$("#boFan").on("tap", function() {
+						if (isbofang || num == 0) return;
+						ynum = 0;
+						playyp(rlist[0].RepeatUrl);
+					});
+
+					function playyp(url) {
+						if (play_bofang != null) play_bofang.stop();
+						//console.log(url);
+						isbofang = true;
+						$("#bf").hide();
+						play_bofang.setStyles({
+							src: url
+						});
+						play_bofang.play(function() {
+							ynum = ynum + 1;
+							//console.log(ynum);
+							if (ynum < num) {
+								playyp(rlist[ynum].RepeatUrl);
+							} else {
+								isbofang = false;
+								yname = 0;
+								$("#bf").show();
+							}
+						});
+					}
+					$(".share-bbt").on("tap", function() {
+						$(".share-bottom").css({
+							"display": "none"
+						})
+					});
+
+					var oldback = mui.back;
+					mui.back = function() {
+						if (play_bofang != null) play_bofang.close();
+						YiRu.openVW("/pages/dubbing/dubbing.html");
+						setTimeout(function() {
+							YiRu.closeAllwebview("/pages/dubbing/dubbing.html");
+						}, 300);
+						oldback();
+					}
+				});
+			})();
+		</script>
+	</body>
+</html>

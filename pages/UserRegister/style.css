@@ -1,0 +1,141 @@
+body {
+	background: url("../../img/page_02.jpg") no-repeat center 0;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	font-family: "TongXin";
+}
+
+.mui-info-box {
+	padding: 0 10%;
+}
+
+.mui-info-title {
+	font-size: 1.75rem;
+	color: #ffffff;
+	text-shadow: 0.125rem 0.1875rem 0px #40bbbd;
+	position: fixed;
+	top: 8%;
+}
+
+.mui-input-box {
+	position: fixed;
+	top: 20%;
+	width: 80%;
+}
+
+.mui-input-box1 {
+	padding: 0 2%;
+	display: flex;
+}
+
+.mui-input-item label,
+.mui-input-item1 label {
+	display: inline-block;
+	width: 100%;
+	font-size: 1.125rem;
+	line-height: 1rem;
+	margin: 0.25rem 0;
+	margin-left: 0.3125rem;
+	color: #FFFFFF;
+	text-shadow: 0.125rem 0.125rem 0px #40bbbd;
+}
+
+.mui-input-item input,.mui-input-item select {
+	height: 1.875rem;
+	border: solid 2px #40bbbd;
+	border-radius: 0.3125rem;
+	padding-left: 2%;
+	color: #75d7d5;
+	font-size: 0.875rem;
+
+}
+
+.mui-input-item1 div {
+	height: 1.875rem;
+	border: solid 2px #40bbbd;
+	border-radius: 0.3125rem;
+	padding-left: 2%;
+	background: #FFFFFF;
+	display: flex;
+	align-items: center;
+}
+
+.mui-input-item1 div input {
+	border: none;
+	height: 1.3rem;
+	line-height: 1.3rem;
+	width: 86%;
+	border-radius: 0;
+	border-right: 1px solid #75d7d5;
+	color: #75d7d5;
+	font-size: 0.875rem;
+}
+
+.mui-input-1 {
+	width: 34%;
+		margin-right: 3%;
+}
+
+.mui-input-1 input {
+	width: 90%;
+}
+
+.mui-input-2 {
+	width: 32%;
+		margin-right: 5%;
+}
+
+.mui-input-3 {
+	width: 31%;
+	margin-right: 5%;
+}
+
+.mui-input-3:last-child {
+	margin-right: 0rem;
+}
+
+.mui-icon {
+	display: inline-block;
+}
+
+.mui-icon-xia {
+	background: url(../../img/xiaosanjiao.png) no-repeat;
+	width: 0.9375rem;
+	height: 0.4375rem;
+	background-size: 100% 100%;
+	margin: 0 0.5625rem 0 0.4625rem;
+}
+
+.mui-login-but {
+	width: 9.25rem;
+	height: 2.0625rem;
+	background-color: #ff7887;
+	box-shadow: 0rem 0.1875rem #ff596b;
+	border: none;
+	border-radius: 0.3125rem;
+	position: absolute;
+	bottom: -40%;
+	left: 50%;
+	margin-left: -4.525rem;
+	font-size: 1.125rem;
+	line-height: 2.0625rem;
+	color: #FFFFFF;
+	word-spacing: 1.25rem;
+	font-family: "YueYuan";
+	text-shadow: 0.125rem 0.125rem 0.0625rem rgba(0, 0, 0, 0.5);
+	letter-spacing: 1.25rem;
+	text-indent: 1.25rem;
+
+}
+
+
+
+.mui-select{position: relative;}
+.mui-select select{width: 100%;height: 2.1rem;background: white;}
+.mui-select .mui-icon-xia{    position: absolute; right: 0.1rem;bottom: 0.8rem;}
+.mui-x{display: block;border-left: 1px solid #75d7d5; height: 1.2rem; position: absolute; right: 2rem; bottom: 0.4rem;}
+

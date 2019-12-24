@@ -1,0 +1,121 @@
+body {
+	background-image: url(../../img/page_18.jpg);
+	color: #FFFFFF;
+}
+
+
+.init-phone{
+	text-align: center;
+	text-shadow: 0.0625rem 0.0625rem #18819B;
+	font-size: 1.5rem;
+  font-weight: 500;
+	font-family: 'TongXin';
+	margin-top: 5%;
+}
+
+
+.init-item {
+	text-align: left!important;
+	color: #FFFFFF;
+	font-family: 'YueYuan';
+	font-size: 0.75rem;
+}
+.init-item:nth-of-type(1) {
+	margin-top: 0.625rem;
+}
+
+.init-login-box {
+	position: fixed;
+	top: 50%; 
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.init-login-item {
+	margin-top: 0.625rem;
+	width: 19rem;
+	background-color: #FFFFFF;
+	height: 1.875rem;
+	border: 0.0625rem solid #40BCBE;
+	border-radius: 0.25rem;
+	display: flex;
+	align-items: center;
+}
+
+.init-login-item1 .mui-dx-input span,
+.init-login-item span {
+	width: 1.875rem;
+	height: 1.875rem;
+	background-image: url(../../img/dianhua.png);
+	background-size: 45%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.init-login-item1 input,
+.init-login-item input {
+	border: 0;
+	border-left: 0.0625rem solid #74D6D5;
+	height: 1rem;
+	padding: 0 0.5rem;
+	width: 16rem;
+	color: #74D6D5;
+	-webkit-text-fill-color: #74D6D5;
+	font-size: 0.75rem;
+}
+
+.init-login-item1 {
+	margin-top: 0.625rem;
+	height: 2rem;
+	width: 19rem;
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.init-login-item1 .mui-dx-input {
+	display: flex;
+	background-color: #FFFFFF;
+	align-items: center;
+	border-radius: 0.25rem;
+	border: 0.0625rem solid #40BCBE;
+}
+
+.init-login-item1 .mui-dx-input span {
+	background-image: url(../../img/xinfeng.png);
+}
+
+.init-login-item1 input {
+	width: 8rem;
+}
+
+.init-login-item1 .mui-note-but {
+	height: 100%;
+	line-height: 2rem;
+	text-align: center;
+	height: 1.875rem;
+	width: 7.25rem;
+	/* padding: 0 1.25rem; */
+	background-color: #C4D701;
+	border-radius: 0.25rem;
+	box-shadow: 0 0.125rem #8FC320;
+	font-size: 0.875rem;
+	text-shadow: 0.0625rem 0 #6FA501;
+}
+
+.init-login-but {
+    margin-top: 0.625rem;
+		margin-left: 50%;
+		transform: translateX(-50%);
+    border: 0;
+    width: 9rem;
+    height: 1.875rem;
+		line-height: 1.875rem;
+		text-align: center;
+    border-radius: 0.25rem;
+    background-color: #FF7887;
+    color: #ffffff;
+    box-shadow: 0 0.125rem #FF596B;
+    text-shadow: 0 0.0625rem #FF596B;
+		font-size: 1rem;
+}

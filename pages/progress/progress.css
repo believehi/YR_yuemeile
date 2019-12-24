@@ -1,0 +1,57 @@
+body {
+	background-image: url(../../img/page_10.jpg);
+}
+
+
+.download {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 33%;
+	height: 90%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.download img {
+	width: 95%;
+	padding: 0.1875rem;
+	background-color: #FFFFFF;
+}
+
+.download .jiazai {
+	margin-top: 1.5625rem;
+	width: 12.5rem;
+	height: 0.75rem;
+	border: 0.125rem solid #FFFFFF;
+	border-radius: 0.75rem;
+	background-size: 100% 100%;
+	position: relative;
+	overflow: hidden;
+}
+.download .jiazai span {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: inline-block;
+	border-radius: 0.75rem;
+	height: 100%;
+	width: 60%;
+	/* background-color: #3CD7B8; */
+	background: linear-gradient(#adea2b, #9ad717);
+}
+
+.download p {
+	margin-top: 1.25rem;
+	color: #FFFFFF;
+}
+
+
+
+
+
+

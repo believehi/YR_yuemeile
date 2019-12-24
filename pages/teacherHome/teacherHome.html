@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-老师首页</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="teacherHome.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="teacher-left">
+				<div class="teacher-title teacher-active" data-id="bj">
+					<span class="teacher-bar"><span>班级管理</span></span>
+				</div>
+				<div class="teacher-title" data-id="xx">
+					<span class="teacher-bar"><span>消息中心</span></span>
+				</div>
+			</div>
+			<div class="teacher-right">
+				<!-- 班级管理 -->
+				<div class="teacher-content teacher-content-active">
+					<div class="teacher-out-box">
+						<div class="teacher-out-title">我的班级</div>
+						<div class="teacher-out-title" id="toxueyuan">返回学员端</div>
+						<div class="teacher-out-title" id="tuibut">退出登录</div>
+					</div>
+					<div class="teacher-con">
+						<ul id="slist">
+
+						</ul>
+						<!-- 左右按钮 -->
+						<div class="icon-teacher">
+							<span class="icon-left"></span>
+							<span class="icon-right"></span>
+						</div>
+					</div>
+				</div>
+				<!-- 消息中心 -->
+				<div class="teacher-content">
+					<div class="teacher-content-footer" id="mlist">
+					</div>
+				</div>
+			</div>
+			<!-- 申请弹窗 -->
+			<div class="join-student" id="join-student">
+				<div class="join-mian">
+					<div class="join-title">
+						<span>申请详情</span>
+						<i class="close"></i>
+					</div>
+					<img class="join-img" src="../../img/touxiang.png">
+					<p id="sqcon"></p>
+					<div class="bt">
+						<button type="button" class="sure jujue" id="juejue">拒&emsp;绝</button>
+					</div>
+					<div class="bt">
+						<button type="button" class="sure" id="queren">确&emsp;认</button>
+					</div>
+				</div>
+			</div>
+			<!-- 查看弹窗 -->
+			<div class="join-student" id="chakan">
+				<div class="join-mian">
+					<div class="join-title">
+						<span>完成情况</span>
+						<i class="close"></i>
+					</div>
+					<!-- <img class="join-img" src="../../img/touxiang.png"> -->
+					<p id="wccon"></p>
+					<button type="button" class="sure" id="ok">确&emsp;认</button>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, loadPage, loadmes;
+				mui.plusReady(function() {
+
+					// 退出登录
+
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.teacherLogin();
+					//if (!YiRu.isteacherLogin()) return false;
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						// 请求管理接口
+						YiRu.getajax('teacher/classmanager', function(data) {
+							//var jsonData = data.data.baseinfo.length;
+							//console.log(JSON.stringify(data));
+							var html = '<li><div class="teacher-att">';
+							var slist = data.data.baseinfo;
+							var sp = 1;
+							var zps = 0;
+							if (slist.length > 0) {
+								zps = parseInt((slist.length + 4 - 1) / 4)
+								for (var i = 0; i < slist.length; i++) {
+									html += '<div class="teacher-foo" data-id="' + slist[i].ID + '" data-name="' + slist[i].ClassName +
+										'">' +
+										'<img src="../../img/renwu.png">' +
+										'<p>' + slist[i].ClassName + '</p>' +
+										'<p>' + slist[i].StudentAgeMin + '-' + slist[i].StudentAgeMax + '岁</p>' +
+										'<p>' + slist[i].Count + '人</p>' +
+										'</div>';
+									if ((i + 1) % 4 == 0) {
+										sp++;
+										html += '</div></li>' +
+											'<li><div class="teacher-att">';
+									}
+									// if (zps == sp) {
+									// 	html += '</div></li>';
+									// }
+								}
+							}
+							html += '</div></li>';
+							html = html.replace("<li><div class=\"teacher-att\"></div></li>", "");
+							$("#slist").html(html);
+							//console.log(html);
+							w.close();
+						}, {
+							teacherid: YiRu.getteacherinfo().userId,
+							page: '1',
+							Num: '1000'
+						}, w, 'get', false, true);
+					}
+					loadPage();
+					loadmes = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						// 请求管理接口
+						YiRu.getajax('teacher/messagelist', function(data) {
+							//console.log(JSON.stringify(data));
+							var html = '';
+							var slist = data.data.baseinfo;
+							var sp = 1;
+							var zps = 0;
+							if (slist.length > 0) {
+								zps = parseInt((slist.length + 4 - 1) / 4)
+								for (var i = 0; i < slist.length; i++) {
+									html += '<div class="teacher-news' + (slist[i].Ischeck == 0 ? ' noread' : '') + '" data-check="' +
+										slist[i].Ischeck + '" data-id="' + slist[i]
+										.ID + '" data-undone="' + slist[i].UnDone + '" data-complete="' + slist[i].Complete +
+										'" data-content="' + slist[i].Content +
+										'" data-classid="' + slist[i].ClassId +
+										'" data-from="' + slist[i].MessageFrom +
+										'" data-state="' + slist[i].State + '"><b class="' + (slist[i].Ischeck == 0 ? 'weidu' : 'yidu') +
+										'"></b>' + slist[i].Title + '</div>'; //"/" + slist[i].Ischeck + 
+								}
+							}
+							$("#mlist").html(html);
+							w.close();
+						}, {
+							teacherid: YiRu.getteacherinfo().userId,
+							page: '1',
+							Num: '100'
+						}, w, 'get', false, true);
+					}
+					// 点击消息
+					mui('#mlist').on('tap', '.teacher-news', function() {
+						var state = this.getAttribute("data-state");
+						var fromid = this.getAttribute("data-from");
+						var classid = this.getAttribute("data-classid");
+						var content = this.getAttribute("data-content");
+						var mesid = this.getAttribute("data-id");
+						var check = this.getAttribute("data-check");
+						var undone = this.getAttribute("data-undone");
+						var complete = this.getAttribute("data-complete");
+						//console.log(check);
+						if (state == 1) {
+							$("#join-student").show();
+							$("#sqcon").html($(this).html());
+							$(".bt button").on("tap", function() {
+								var tg = 2;
+								if ($(this).attr("id") == "queren") {
+									tg = 1;
+								}
+								$("#join-student").hide();
+								w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+								// 请求管理接口
+								YiRu.getajax('teacher/passstudent', function(data) {
+									//$("#mlist").html(html);
+
+									mui.toast("操作成功!");
+									if (check == 0) {
+										loadmes();
+									}
+									w.close();
+								}, {
+									studentid: fromid,
+									classid: classid,
+									state: tg,
+									messageid: mesid
+
+								}, w, 'get', false, true);
+							});
+						} else if (state == 2) {
+							$(this).removeClass("noread");
+							YiRu.openVW("/pages/teacherComplete/teacherComplete.html", {
+								undone: undone,
+								complete: complete
+							});
+							if (check == 0) {
+								w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+								YiRu.getajax('teacher/checkmessage', function(data) {
+									w.close();
+								}, {
+									messageid: mesid
+								}, w, 'get', false, true);
+							}
+						} else {
+							$(this).removeClass("noread");
+							//$(this).addClass("noread");
+							$("#chakan").show();
+							$("#wccon").html(content);
+							if (check == 0) {
+								w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+								YiRu.getajax('teacher/checkmessage', function(data) {
+									//$("#mlist").html(html);
+									//w.close();
+									//loadmes();
+									w.close();
+								}, {
+									messageid: mesid
+								}, w, 'get', false, true);
+							}
+						}
+
+					});
+					mui('body').on('tap', '#tuibut', function() {
+						mui.confirm('确定退出登录？', '提示', ['确定', '取消'], function(e) {
+							if (e.index == 0) {
+								YiRu.logout_teacher();
+								YiRu.openVW("/pages/teacherLogin/teacherLogin.html");
+								setTimeout(function() {
+									YiRu.closeAllwebview("/pages/teacherLogin/teacherLogin.html");
+								}, 300);
+							}
+						});
+					});
+					mui('body').on('tap', '#toxueyuan', function() {
+						if (!YiRu.isLogin()) {
+							YiRu.openVW("/pages/UserLogin/Userlogin.html");
+							setTimeout(function() {
+								YiRu.closeAllwebview("/pages/UserLogin/Userlogin.html");
+							}, 300);
+						} else {
+							YiRu.openVW(plus.runtime.appid);
+							// setTimeout(function() {
+							// 	plus.webview.getLaunchWebview().reload();
+							// }, 300);
+							mui.fire(plus.webview.getLaunchWebview(), 'updatedata');
+							setTimeout(function() {
+								YiRu.closeAllwebview();
+							}, 300);
+						}
+					});
+
+					// 班级管理与消息切换
+					mui('.wrapper').on('tap', '.teacher-title', function() {
+						var leix = this.getAttribute("data-id");
+						if (leix == "xx") {
+							loadmes();
+						}
+						//获取点击的元素给其添加样式，讲其兄弟元素的样式移除
+						$(this).addClass("teacher-active").siblings().removeClass("teacher-active");
+						//获取选中元素的下标
+						var index = $(this).index();
+						$(this).parent().siblings().children().eq(index).addClass("teacher-content-active")
+							.siblings().removeClass("teacher-content-active");
+
+					});
+					document.addEventListener('updateclass', function(tab) {
+						loadPage();
+					});
+
+					YiRu.quitApp();
+
+					mui('body').on('tap', '#ok', function() {
+						$("#chakan").hide();
+					});
+					mui('body').on('tap', '.close', function() {
+						$(".join-student").hide();
+					});
+					// $(".sure").on("tap", function() {
+					// 	$(".join-student").css({
+					// 		"display": "none"
+					// 	})
+					// })
+
+					// 点击进入班级页
+					mui('body').on('tap', '.teacher-foo', function() {
+						YiRu.openVW("/pages/teacherClass/teacherClass.html", {
+							classid: this.getAttribute('data-id'),
+							name: this.getAttribute("data-name")
+
+						});
+					});
+					// 切换轮播
+					var lang = 0,
+						len = 0;
+
+					$(".icon-left").on("tap", function() {
+						var win = $(".teacher-con li").width(),
+							L = $(".teacher-con ul li").length - 1;
+						if (len > 0) {
+							len--;
+							$(".teacher-con ul").animate({
+								left: (lang = lang + win)
+							});
+						}
+					});
+					$(".icon-right").on("tap", function() {
+						var win = $(".teacher-con li").width(),
+							L = $(".teacher-con ul li").length - 1;
+						if (len < L) {
+							len++;
+							$(".teacher-con ul").animate({
+								left: (lang = lang - win)
+							});
+						}
+					});
+				});
+			})();
+		</script>
+	</body>
+</html>

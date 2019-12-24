@@ -1,0 +1,232 @@
+body {
+	background-image: url(../../img/back-page.jpg);
+	font-family: 'TongXin';
+	height: 85%;
+}
+
+h2 {
+	color: #FFFFFF;
+	margin-top: 1rem;
+	text-align: center;
+	font-size: 1.625rem;
+	font-weight: 500;
+	text-shadow: 0.125rem 0.125rem #3FBBBD;
+}
+
+.wrapper-container {
+	position: relative;
+	margin: 2% auto 0 auto;
+	width: 75%;
+	height: 90%;
+}
+
+.title-list {
+	width: 100%;
+	height: 1.875rem;
+	display: flex;
+	justify-content: space-around;
+}
+
+.title-list li {
+	display: block;
+	width: 8.75rem;
+	height: 1.875rem;
+	background-color: #e65387;
+	border-radius: 0.3125rem 0.3125rem 0 0;
+	text-align: center;
+	line-height: 1.875rem;
+	text-shadow: 0.0625rem 0.0625rem #E43473;
+	color: #ea9ab5;
+	box-sizing: border-box;
+	border: 0.0625rem solid #e65387;
+	border-bottom: 0;
+	font-size: 0.875rem;
+}
+
+.title-list .mui-title-active {
+	color: #FFFFFF;
+	background-color: #ff649d;
+}
+
+.content {
+	font-family: 'CenturyGothic';
+	background-color: #FFFFFF;
+	position: absolute;
+	margin-top: 1.875rem;
+	top: 0;
+	width: 100%;
+	height: 90%;
+	box-sizing: border-box;
+	border: 0.0625rem solid #FF7A99;
+	border-radius: 0.3125rem;
+}
+
+.content-init {
+	display: none;
+	width: 100%;
+	height: 100%;
+	padding: 2% 5% 3%;
+	box-sizing: border-box;
+}
+
+.content .mui-title-active {
+	display: block;
+}
+
+.init-GeQu h6 {
+	margin: 0;
+	font-weight: 500;
+	font-size: 0.9375rem;
+	line-height: 1.5rem;
+	position: relative;
+	padding: 0.3125rem 1.5625rem;
+	border-bottom: 0.0625rem solid #FEDEE9;
+}
+
+.init-GeQu ul {
+	width: 100%;
+	height: 85%;
+	overflow: auto;
+}
+
+.init-GeQu li {
+	width: 100%;
+	padding: 0.5rem 3rem;
+	box-sizing: border-box;
+	border-bottom: 0.0625rem solid #FEDEE9;
+	position: relative;
+}
+
+.init-GeQu li span,
+.init-GeQu h6 i,
+.init-GeQu li b {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	display: inline-block;
+	width: 1.5rem;
+	height: 1.5rem;
+	background-size: 60%;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.init-GeQu h6 i {
+	left: 0;
+	background-image: url(../../img/pic_07.png);
+}
+
+.init-GeQu li b {
+	background-image: url(../../img/pic_10.png);
+	left: 1.5rem;
+}
+
+.init-GeQu li .muisc_xiaZai {
+	background-image: url(../../img/pic_09.png);
+}
+
+.init-GeQu li span {
+	left: auto;
+	right: 0;
+	width: auto;
+	background-color: #A5A5A5;
+	color: #FFFFFF;
+	padding: 0rem 0.3125rem;
+	border-radius: 0.1875rem;
+	font-size: 0.75rem;
+	box-shadow: 0rem 0.125rem #737373;
+	text-shadow: 0.0625rem 0.0625rem #737373;
+}
+
+.init-DongHua ul,
+.init-ShangPin ul {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+
+.init-DongHua li,
+.init-ShangPin li {
+	width: 100%;
+	height: 4rem;
+	position: relative;
+	padding: 0.5rem 0;
+	border-bottom: 0.0625rem solid #FEDEE9;
+}
+
+.init-DongHua li:nth-of-type(1),
+.init-ShangPin li:nth-of-type(1) {
+	padding-top: 0;
+}
+
+.init-DongHua li img,
+.init-ShangPin li img {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+	width: 4rem;
+	height: 4rem;
+}
+
+.init-DongHua li:nth-of-type(1) img,
+.init-ShangPin li:nth-of-type(1) img {
+	top: 0;
+	transform: translateY(0%);
+}
+
+.init-DongHua li p,
+.init-ShangPin li p {
+	margin-left: 5rem;
+	color: #FE4A6A;
+	width: 50%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.init-DongHua li p:nth-of-type(1),
+.init-ShangPin li p:nth-of-type(1) {
+	font-size: 1rem;
+	padding-top: 1rem;
+}
+
+.init-DongHua li p:nth-of-type(2),
+.init-ShangPin li p:nth-of-type(2) {
+	font-size: 0.75rem;
+	line-height: 0.875rem;
+}
+
+.init-DongHua li span,
+.init-ShangPin li span {
+	position: absolute;
+	right: 4.5rem;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #FFFFFF;
+	background-color: #A5A5A5;
+	padding: 0 0.3125rem;
+	border-radius: 0.1875rem;
+	font-size: 0.75rem;
+	box-shadow: 0rem 0.125rem #737373;
+	text-shadow: 0.0625rem 0.0625rem #737373;
+}
+
+.init-ShangPin li span:nth-last-of-type(1) {
+	right: 0;
+	box-shadow: 0rem 0.125rem #F6A201;
+	text-shadow: 0.0625rem 0.0625rem #F6A201;
+	background-color: #FFC309;
+}
+
+.init-DongHua li img {
+	width: 7rem;
+}
+
+.init-DongHua li p {
+	margin-left: 8rem;
+}
+
+.init-DongHua li span {
+	right: 0;
+}

@@ -1,0 +1,549 @@
+.test {
+	display: inline-block !important;
+	position: relative;
+	height: 100%;
+	background-size: 100% 100%;
+}
+
+.bd {
+	transition: translate3d 5s;
+	font-size: 0;
+}
+
+html,
+body,
+article,
+.bd,
+.tempWrap,
+.test,
+.test_con {
+	height: 100%;
+}
+
+#ID_IMG_ROLE {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	left: 7.2%;
+	top: 5%;
+}
+
+#ID_IMG_ROLE {
+	width: 32%;
+	height: 45%;
+}
+
+#bd12 .test {
+	background-size: 100% 100%;
+}
+
+#d2102 {
+	position: absolute;
+	left: 10%;
+	top: 8%;
+	width: 32%;
+	height: 70%;
+	z-index: 999;
+}
+
+#d2103 {
+	position: absolute;
+	left: 0;
+	top: 53%;
+	width: 50%;
+	height: 32%;
+}
+
+#d2104 {
+	position: absolute;
+	left: 0;
+	top: 40%;
+	width: 10%;
+	height: 13%;
+}
+
+#d2105 {
+	position: absolute;
+	left: 38%;
+	top: 29%;
+	width: 12%;
+	height: 16%;
+}
+
+#d2108 {
+	position: absolute;
+	left: 50%;
+	top: 69%;
+	width: 12%;
+	height: 16%;
+}
+
+#d2109 {
+	position: absolute;
+	right: 5%;
+	top: 61%;
+	width: 12%;
+	height: 16%;
+}
+
+#d2106 {
+	position: absolute;
+	left: 50.5%;
+	top: 8%;
+	width: 45%;
+	height: 70%;
+}
+
+#d2114 {
+	position: absolute;
+	top: 12%;
+	left: 10%;
+	width: 30%;
+	height: 57%;
+	z-index: 999;
+
+}
+
+#d2116 {
+	position: absolute;
+	top: 12%;
+	right: 10%;
+	width: 30%;
+	height: 57%;
+	z-index: 999;
+
+}
+
+#d2117,
+#d2115 {
+	position: absolute;
+	top: 40%;
+	left: 0%;
+	width: 50%;
+	height: 45%;
+
+}
+
+#d2117 {
+	position: absolute;
+	left: 50% !important;
+}
+
+#d2122 {
+	position: absolute;
+	left: 13%;
+	top: 12%;
+	width: 20%;
+	height: 60%;
+	z-index: 999;
+}
+
+#d2123 {
+	position: absolute;
+	left: 0%;
+	top: 40%;
+	width: 50%;
+	height: 20%;
+}
+
+#d2124 {
+	position: absolute;
+	left: 0%;
+	top: 62%;
+	width: 50%;
+	height: 23%;
+}
+
+#d2125 {
+	position: absolute;
+	right: 9%;
+	top: 14%;
+	width: 31%;
+	height: 55%;
+	z-index: 999;
+}
+
+#d2126 {
+	position: absolute;
+	right: 0%;
+	top: 55%;
+	width: 50%;
+	height: 30%;
+}
+
+/* 
+#d2127{
+	position: absolute;
+	right: 40%;
+	top: 38%;
+	width: 10%;
+	height: 16%;
+	background: yellow;
+	z-index: 999;
+}
+
+#d2128{
+	position: absolute;
+	right: 0%;
+	top: 38%;
+	width: 10%;
+	height: 16%;
+	background: yellow;
+} */
+
+#d2129 {
+	position: absolute;
+	right: 0%;
+	top: 0%;
+	width: 18%;
+	height: 20%;
+}
+
+#d2134 {
+	position: absolute;
+	left: 13%;
+	top: 13%;
+	width: 22%;
+	height: 45%;
+}
+
+#d2135 {
+	position: absolute;
+	left: 0%;
+	top: 10%;
+	width: 12%;
+	height: 30%;
+}
+
+#d2136 {
+	position: absolute;
+	left: 38%;
+	top: 55%;
+	width: 10%;
+	height: 15%;
+}
+
+#d2137 {
+	position: absolute;
+	left: 40%;
+	top: 32%;
+	width: 10%;
+	height: 15%;
+}
+
+#d2140 {
+	position: absolute;
+	left: 50%;
+	top: 9%;
+	width: 15%;
+	height: 30%;
+}
+
+#d2141 {
+	position: absolute;
+	right: 4%;
+	top: 52%;
+	width: 8%;
+	height: 15%;
+}
+
+#d2142 {
+	position: absolute;
+	right: 1%;
+	top: 30%;
+	width: 8%;
+	height: 13%;
+}
+
+#d2139 {
+	position: absolute;
+	right: 8%;
+	top: 8%;
+	width: 40%;
+	height: 70%;
+}
+
+#d2148 {
+	position: absolute;
+	left: 8%;
+	top: 8%;
+	width: 28%;
+	height: 42%;
+}
+
+#d2153 {
+	position: absolute;
+	right: 10%;
+	top: 8%;
+	width: 35%;
+	height: 49%;
+}
+
+#d2149 {
+	position: absolute;
+	left: 0%;
+	top: 40%;
+	width: 5%;
+	height: 10%;
+}
+
+#d2150 {
+	position: absolute;
+	left: 42%;
+	top: 17%;
+	width: 10%;
+	height: 10%;
+}
+
+#d2151 {
+	position: absolute;
+	left: 27%;
+	top: 45%;
+	width: 16%;
+	height: 17%;
+}
+
+#d2154 {
+	position: absolute;
+	right: 3%;
+	top: 56%;
+	width: 9%;
+	height: 9%;
+}
+
+#d2160 {
+	position: absolute;
+	left: 8%;
+	top: 17%;
+	width: 35%;
+	height: 55%;
+	z-index: 99;
+}
+
+#d2161 {
+	position: absolute;
+	left: 0%;
+	top: 25%;
+	width: 50%;
+	height: 57%;
+}
+
+#d2162 {
+	position: absolute;
+	right: 0%;
+	top: 25%;
+	width: 50%;
+	height: 57%;
+
+}
+
+#d2163 {
+	position: absolute;
+	right: 5%;
+	top: 17%;
+	width: 35%;
+	height: 55%;
+	z-index: 99;
+}
+
+#d2168 {
+	position: absolute;
+	left: 12%;
+	top: 23%;
+	width: 20%;
+	height: 55%;
+	z-index: 99;
+}
+
+#d2171 {
+	position: absolute;
+	right: 12%;
+    top: 16%;
+    width: 26%;
+    height: 60%;
+    z-index: 99;
+
+}
+
+#d2169{
+	position: absolute;
+	left: 32%;
+    top: 0%;
+    width: 18%;
+    height: 85%;
+}
+
+#d2172{
+	position: absolute;
+	right: 0%;
+    top: 0%;
+    width: 18%;
+    height: 85%;
+}
+
+#d2170{
+	position: absolute;
+	left: 0%;
+    top: 0%;
+    width: 32%;
+    height: 85%;
+}
+#d2173{
+	position: absolute;
+	left: 50%;
+    top: 0%;
+    width: 32%;
+    height: 85%;
+}
+
+#d2178{
+	position: absolute;
+	left: 15%;
+    top: 30%;
+    width: 21%;
+    height: 42%;
+	z-index: 999;
+}
+
+#d2179{
+	position: absolute;
+	left: 0%;
+    top: 0%;
+    width: 50%;
+    height: 80%;
+}
+
+#d2181{
+	position: absolute;
+	left: 50%;
+    top: 0%;
+    width: 50%;
+    height: 80%;
+}
+
+#d2180{
+	position: absolute;
+	left: 62%;
+    top: 12%;
+    width: 26%;
+    height: 69%;
+	z-index: 999;
+}
+
+#d2186{
+    position: absolute;
+    left: 13%;
+    top: 21%;
+    width: 21%;
+    height: 47%;
+}
+
+#d2187{
+    position: absolute;
+    right: 0%;
+    top: 22%;
+    width: 30%;
+    height: 60%;
+}
+
+
+.DHRY-1 {
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.DHRY-1 div {
+	position: absolute;
+	bottom: 0;
+	width: 50%;
+	text-align: center;
+}
+
+.DHRY-1 div:nth-child(2) {
+	position: absolute;
+	right: 0;
+}
+
+.DHRY-1 div:nth-child(1) img {
+	width: 39%;
+	height: 18%;
+}
+
+.DHRY-1 div:nth-child(2) img {
+	width: 78%;
+	height: 10%;
+}
+
+.DHRY-2 div:nth-child(1) img {
+	width: 31%;
+	height: 20% !important;
+}
+
+
+.DHRY-2 div:nth-child(2) img {
+	width: 68%;
+	height: 20% !important;
+}
+
+.DHRY-3 div:nth-child(1) img,
+.DHRY-4 div:nth-child(1) img {
+	width: 29%;
+	height: 20% !important;
+}
+
+.DHRY-3 div:nth-child(2) img {
+	width: 60%;
+	height: 20% !important;
+}
+
+.DHRY-4 div:nth-child(2) img {
+	width: 35%;
+	height: 20% !important;
+}
+
+.DHR-5 div:nth-child(1) img {
+	width: 35%;
+	height: 20% !important;
+}
+
+.DHR-5 div:nth-child(2) img {
+	width: 65%;
+	height: 20% !important;
+}
+
+.DHR-7 div:nth-child(1) img {
+	width: 30%;
+	height: 20% !important;
+}
+
+.DHR-7 div:nth-child(2) img {
+	width: 55%;
+	height: 20% !important;
+}
+
+.DHR-8 div:nth-child(1) img {
+	width: 38%;
+	height: 20% !important;
+}
+
+.DHR-8 div:nth-child(2) img {
+	width: 34%;
+	height: 20% !important;
+}
+
+.DHR-9 div:nth-child(1) img {
+	width: 33%;
+	height: 20% !important;
+}
+
+#waitTime {
+	z-index: 9999;
+	position: fixed;
+	top: 3px;
+	left: 8%;
+}
+
+.DHR-y2 img:active {
+	opacity: 0.5;
+}

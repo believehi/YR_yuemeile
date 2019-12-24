@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-商城</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- 返回按钮 -->
+		<div class="mui-fanhui mui-action-back" id="Return">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="content">
+			<!-- 用户头像 -->
+			<div class="mui-user-img">
+				<div class="mui-img">
+					<div>
+						<img src="../../img/icon_01.png" id="userimg">
+					</div>
+				</div>
+				<div class="mui-gold">
+					<p id="nickName">Octi</p>
+					<span id="Jb"></span>
+				</div>
+				<div class="mui-boxs">
+					<!-- 兑换说明 -->
+					<div class="mui-for-box" id="mui-exchang-explain"></div>
+					<!-- 背包 -->
+					<div class="mu-back-box" id="backMall"></div>
+				</div>
+			</div>
+			<!-- 按钮 -->
+			<div class="mui-sz-list">
+				<!-- 每日签到5银币 -->
+				<div class="mui-evey">
+					<p>每日签到5银币</p>
+					<div id="qd_but">
+						已签到
+					</div>
+				</div>
+				<!-- 兑换详情 -->
+				<div class="mui-evey" id="ExDetails">
+					<p>兑换详情</p>
+					<img src="../../img/shop_03.png">
+				</div>
+				<!-- 幸运抽奖 -->
+				<div class="mui-evey" id="Cj_but">
+					<p>幸运抽奖</p>
+					<img src="../../img/shop_04.png">
+				</div>
+			</div>
+			<div id="warpper">
+				<div class="container">
+					<!-- 图片区域 -->
+					<ul class="imgList" id="Sp_List">
+					</ul>
+					<!-- 左右切换图标 -->
+					<div class="pre_box" id="pre_box">
+						<img src="../../img/shop_left.png" width="40px" height="60px" class="pre">
+					</div>
+					<div class="next_box" id="next_box">
+						<img src="../../img/shop_right.png" width="40px" height="60px" class="next">
+					</div>
+
+
+				</div>
+			</div>
+			<!-- 点击商品弹窗 -->
+			<div class="shop-init" id="shop-init">
+				<div class="shop-content">
+					<img src="../../img/pic_21.png">
+					<p>确定放入背包吗?</p>
+					<div class="shop-share">
+						<button type="button" id="shop-ok">放入背包</button>
+						<button type="button" id="shop-no">取&nbsp;&nbsp;&nbsp;消</button>
+					</div>
+				</div>
+			</div>
+			<!-- 兑换说明弹窗 -->
+			<div class="exchange-init">
+				<div class="exchange">
+					<div class="exchange-title">兑换说明</div>
+					<p>金币兑换</p>
+					<p>填写需要兑换的银币数量 (以100的整数倍填写)</p>
+					<div class="exchange-info">
+						<input type="number" name="" id="Silver" value="" />
+						<span id="exchange-DuiHuan">确认兑换</span>
+					</div>
+					<p>100银币=1金币；</p>
+					<p>获得的金币可在阅商城进行奖品兑换线上操作，在就读校区进行奖品兑换领取。</p>
+					<p>获得金币的秘诀：</p>
+					<p>1.签到每天可获得5银币。</p>
+					<p>2.每天任务全部完成可获得50银币。</p>
+					<p>3.阅配音，阅想唱，每日一句动画完成录音分享可获得20银币【每一项最高只获得20银币】。</p>
+					<p>4.幸运抽奖【可根据幸运度获取相应的银币】。</p>
+					<p>5.推荐好友使用APP可获得1000银币。</p>
+					<p>兑换说明解释权归阅美乐国际私塾所有</p>
+					<i></i>
+					<i></i>
+					<i></i>
+					<i id="exchange-delete"></i>
+				</div>
+			</div>
+			<script src="../../js/jquery-1.12.0.min.js"></script>
+			<script src="../../js/mui.min.js"></script>
+			<script src="../../js/app.js"></script>
+			<script type="text/javascript">
+				(function() {
+					mui.init({
+						swipeBack: false,
+						beforeback: function() {
+							var list = plus.webview.currentWebview().opener();
+							//触发列表界面的自定义事件（refresh）,从而进行数据刷新   
+							mui.fire(list, 'updatedata');
+							//返回true，继续页面关闭逻辑   
+							return true;
+						}
+					});
+					var w, ws, loadPage, tproductid;
+					mui.plusReady(function() {
+						// window.addEventListener('refresh', function(e) { //执行刷新
+						// 	location.reload();
+						// });
+						ws = plus.webview.currentWebview();
+						ws.setStyle(YiRu.viewstyle());
+						YiRu.UserLogin();
+						updateheadimg();
+						loadPage = function() {
+							w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+							YiRu.getajax('shop/shopmall', function(data) {
+								if (data.data.baseinfo.issignin == "1") {
+									$("#qd_but").text('已签到');
+									$("#qd_but").css({
+										"background-color": "#A5A5A5",
+										"box-shadow": "0 0.125rem #898989"
+									})
+									w.close();
+								} else {
+									$("#qd_but").text('签到');
+									w.close();
+								}
+								var goldcoin = data.data.baseinfo.silvercoin;
+								$('#Jb').html(data.data.baseinfo.goldcoin + '金币' + data.data.baseinfo.silvercoin + '银币') //用户昵称
+								var htmlStr = '';
+								//数据长度
+								var jb_length = data.data.productinfo.length;
+								//console.log(jb_length);
+								for (var i = 0; i < jb_length; i++) {
+									if (i == 0 || i % 4 == 0) {
+										htmlStr += '<li>';
+									}
+									htmlStr += '<div class="pro_box" id="' + data.data.productinfo[i].ID + '">';
+									htmlStr += '<img class="img_1" data-loadimg="true" data-src="' + data.data.productinfo[i].Thumbnail +
+										'" src="../../img/noimg.png" />';
+									htmlStr += '<b>' + data.data.productinfo[i].Amount + '金币</b>';
+									htmlStr += '<span>' + data.data.productinfo[i].Name + '</span>';
+									htmlStr += '</div>';
+									if (i == jb_length - 1 || (i + 1) % 4 == 0) {
+										htmlStr += '</li>';
+									}
+								}
+								$("#Sp_List").html(htmlStr);
+								//console.log(htmlStr);
+								GetloadImg();
+							}, {
+								studentid: YiRu.getuserinfo().userId,
+								page: '1',
+								num: '100'
+							}, w, 'get', {
+								key: YiRu.getuserinfo().userId,
+								num: CaCheNum
+							});
+
+						};
+						loadPage();
+						// 点击商品弹窗
+						//var _this = this;
+						var productid = ''; //商品id
+						mui('#Sp_List').on('tap', '.pro_box', function() {
+							tproductid = $(this).attr('id');
+							$("#shop-init").show();
+						});
+						mui('body').on('tap', '#shop-no', function() {
+							tproductid = "";
+							$("#shop-init").hide();
+						});
+						// 加入背包
+						mui('body').on('tap', '#shop-ok', function() {
+							w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+							$("#shop-init").hide();
+							YiRu.getajax('browse/addbag', function(data) {
+								w.close();
+								tproductid = "";
+								plus.nativeUI.toast('成功加入背包,请在背包中查看！');
+							}, {
+								studentid: YiRu.getuserinfo().userId,
+								productid: tproductid,
+							}, w, 'get');
+						});
+
+						//设置全局变量
+						var cur = 0; //当前的图片序号
+						var imgLen = 0; //获取图片的数量
+						var timer = null; //设置定时定时器的名字，方便后面关闭
+						var isqh = false;
+						mui('body').on('swipeleft', '#Sp_List', function() {
+							if (isqh) return false;
+							isqh = true;
+							imgLen = $("#Sp_List li").length;
+							cur = cur < (imgLen - 1) ? (++cur) : 0;
+							changeTo(cur);
+
+						});
+						mui('body').on('swiperight', '#Sp_List', function() {
+							if (isqh) return false;
+							isqh = true;
+							imgLen = $("#Sp_List li").length;
+							cur = cur > 0 ? (--cur) : (imgLen - 1);
+							changeTo(cur);
+						});
+						//点击向左图标根据cur进行上一个图片处理
+						mui('body').on('tap', '#pre_box', function() {
+							if (isqh) return false;
+							isqh = true;
+							imgLen = $("#Sp_List li").length;
+							cur = cur > 0 ? (--cur) : (imgLen - 1);
+							changeTo(cur);
+						});
+						//点击向右图标根据cur进行上一个图片处理
+						mui('body').on('tap', '#next_box', function() {
+							if (isqh) return false;
+							isqh = true;
+							imgLen = $("#Sp_List li").length;
+							cur = cur < (imgLen - 1) ? (++cur) : 0;
+							//console.log(imgLen);
+							changeTo(cur);
+						});
+
+						//封装图片自动播放函数
+						function changeImg() {
+							timer = setInterval(function() {
+								if (cur < imgLen - 1) {
+									cur++;
+								} else {
+									cur = 0;
+								}
+								changeTo(cur);
+							}, 5000);
+						}
+						//图片切换函数
+						function changeTo(num) {
+							var imgListimg = $("#Sp_List li").outerWidth()
+							var go = num * imgListimg;
+							$("#Sp_List").animate({
+								"left": -go
+							}, 500, function() {
+								isqh = false;
+							});
+						}
+						//打开幸运抽奖页面
+						mui('body').on('tap', '#Cj_but', function() {
+							YiRu.openVW('/pages/luckyDisc/luckyDisc.html')
+						});
+
+						// 跳转到背包
+						mui('body').on('tap', '#backMall', function() {
+							YiRu.openVW("/pages/backMall/backMall.html");
+						});
+
+						// 跳转到兑换详情
+						mui('body').on('tap', '#ExDetails', function() {
+							YiRu.openVW("/pages/ExDetails/ExDetails.html");
+						});
+
+						// 兑换说明弹窗
+						$("#mui-exchang-explain").on("tap", function() {
+							$(".exchange-init").css({
+								"display": "block"
+							});
+						})
+						$("#exchange-delete").on("tap", function() {
+							$(".exchange-init").css({
+								"display": "none"
+							});
+						})
+
+
+						//签到
+						mui('body').on('tap', '#qd_but', function() {
+							w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+							YiRu.getajax('shop/savesign', function(data) {
+								w.close();
+								shuaxin();
+							}, {
+								studentid: YiRu.getuserinfo().userId,
+							}, w, 'get');
+						});
+						// 金币兑换
+						mui('body').on('tap', '#exchange-DuiHuan', function() {
+							$("#Silver").blur();
+
+							var gold = $("#Silver").val() / 100;
+							var reg = /^([1-9]\d*00)/;
+							if (reg.test($("#Silver").val())) {
+								w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+								YiRu.getajax('shop/exchangecoin', function(data) {
+									shuaxin();
+									$("#Silver").val("");
+									$(".exchange-init").hide();
+									plus.nativeUI.toast('兑换成功');
+									w.close();
+								}, {
+									studentid: YiRu.getuserinfo().userId,
+									silvercoin: $("#Silver").val(),
+									goldcoin: gold,
+								}, w, 'get');
+
+							} else {
+								plus.nativeUI.toast('输入兑换数量有误，请查看兑换说明');
+							}
+						});
+						document.addEventListener('updateheadimg', function(tab) {
+							updateheadimg();
+						});
+
+						function updateheadimg() {
+							$('#userimg').attr('src', YiRu.getuserinfo().headIcon); //用户头像
+							$('#nickName').html(YiRu.getuserinfo().realName); //用户昵称
+						}
+						document.addEventListener('updatedata', function(tab) {
+							shuaxin();
+						});
+
+						function shuaxin() {
+							YiRu.RemoveItem('shop/shopmall' + YiRu.getuserinfo().userId);
+							loadPage();
+						}
+						var oldback = mui.back;
+						mui.back = function() {
+							if (timer != null) {
+								clearInterval(timer);
+							}
+							oldback();
+						}
+					});
+
+				})();
+			</script>
+	</body>
+</html>

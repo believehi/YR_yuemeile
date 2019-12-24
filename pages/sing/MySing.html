@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的录音歌曲</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="sing.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- 顶部 -->
+		<div class="fanhui" id="fanhui">
+			<span class="sign_out-fanhui mui-action-back">
+				<img src="../../img/xxx.png">
+			</span>
+			<span id="gequmingcheng">歌曲名称</span>
+		</div>
+		<!-- 中间歌词 -->
+		<div class="sing">
+			<div class="sing-img">
+				<img src="../../img/dish_02.png">
+			</div>
+			<div id="canzhaohang" style="height:32px;position: absolute;top:7.45rem;width:100%;">
+				<div id="canzhaoxian" style="display: none;border-radius: 0.3125rem; height:32px;transition: all .25s ease-in;background-color: #ADEA2B;margin:0px 20% 0px 25%">&nbsp;</div>
+			</div>
+			<div class="sing-geci" id="geci">
+				<ul>
+					<span>正在播放您的录音歌曲...</span>
+				</ul>
+			</div>
+		</div>
+		<!-- 底部功能部分 -->
+		<div class="sing-bottom">
+			<div class="sing-jindu">
+				<span id="dqsj">0:0</span>
+				<span id="zsj">缓冲中，请稍候...</span>
+				<i class="circle"><i id="jdt"></i></i>
+			</div>
+			<!-- 播放功能按钮 -->
+			<div class="sing-icon">
+				<span id="fenxiang">
+					<img src="../../img/btn_11.png" style="height: 110%;">
+				</span>
+				<!-- <span id="shangyishou">
+					<img src="../../img/icon_14.png">
+				</span> -->
+				<span>
+					<img src="../../img/icon_17.png" class="sing-stop" style="height: 120%;" id="sing-stop">
+					<img src="../../img/icon_28.png" class="sing-play" style="height: 120%;" id="sing-play">
+				</span>
+				<!-- <span id="xiayishou">
+					<img src="../../img/icon_15.png">
+				</span> -->
+				<!-- <span>
+					<img src="../../img/icon_18.png" class="sing-suiji">
+					<img src="../../img/icon_30.png" class="sing-danque">
+					<img src="../../img/icon_31.png" class="sing-sunxu">
+				</span> -->
+			</div>
+			<!-- 录制完成，取消 -->
+			<div class="sing-suc sing-active">
+				<span class="quxiao">
+					<img src="../../img/icon_11.png">
+					<p>取消</p>
+				</span>
+				<span class="wancheng">
+					<img src="../../img/icon_12.png">
+					<p>完成</p>
+				</span>
+			</div>
+			<img src="../../img/pic_06.png" class="sing-back" id="sing-back">
+		</div>
+		<!-- 弹窗 -->
+		<div class="popup">
+			<div class="popup-content">
+				<img src="../../img/bianwen_01.png" class="huabian">
+				<p><img src="../../img/icon_21.png">完成录制</p>
+				<div class="popup-foo">
+					<span class="popup-quxiao">取消</span>
+					<span class="popup-save">
+						确定<br>保存并转发
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- 退出提示弹窗函数 -->
+		<div class="sign_out-init" style="z-index: 999;" id="out-init">
+			<div class="sign_out-suc" id="quit">
+				<img src="../../img/icon_45_01.png">
+				<p>Quit</p>
+			</div>
+			<div class="sign_out-suc sign_out-on" id="jixu">
+				<img src="../../img/icon_45_02.png">
+				<p>Continue</p>
+			</div>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				// 退出提示弹窗函数
+				//sign_out();
+				mui.init({
+					swipeBack: false
+				});
+				var daysrc = "",
+					name = "",
+					rid,
+					gid,
+					timer = null,
+					changplay = null,
+					isbofang = true;
+
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					//定义播放器
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					daysrc = ws.daysrc;
+					rid = ws.rid;
+					gid = ws.gid;
+					//console.log(daysrc);
+					name = ws.name;
+					$("#gequmingcheng").text(name);
+					changplay = plus.audio.createPlayer({
+						backgroundControl: true,
+						loop: true,
+						coverImgUrl: '../../img/dish_02.png',
+						epname: name,
+						loop: true,
+						singer: YiRu.getuserinfo().realName,
+						title: name
+					});
+					YiRu.getFileUrl(daysrc, function(src) {
+						isbofang = false;
+						changplay.setStyles({
+							src: src
+						});
+						changplay.play();
+						jindu(changplay);
+					}, function(a, b) {
+						var c = parseInt(a / b * 100);
+						if (c) $("#zsj").html("缓冲中,请稍候...(" + c + "% " + parseFloat(b / 1024 / 1024).toFixed(2) + "MB)");
+					});
+
+					// 播放方式
+					$(".sing-suiji").on("tap", function() {
+						$(".sing-suiji").hide();
+						$(".sing-danque").show();
+					});
+					$(".sing-danque").on("tap", function() {
+						$(".sing-danque").hide();
+						$(".sing-sunxu").show();
+					});
+					$(".sing-sunxu").on("tap", function() {
+						$(".sing-sunxu").hide();
+						$(".sing-suiji").show();
+					});
+					// 收藏
+					$("#xihuan").on("tap", function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('sing/addmysong', function(data) {
+							if (data.info == "1") {
+								$(".sing-like").show();
+								$(".sing-ordinary").hide();
+							} else {
+								$(".sing-like").hide();
+								$(".sing-ordinary").show();
+							}
+							w.close();
+
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							songid: gequ.ID
+						}, w, 'get')
+
+
+					});
+
+					// 播放暂停切换
+					mui('body').on('tap', '#sing-stop', function() {
+						if (isbofang) {
+							mui.toast("正在缓冲中,请稍后...");
+							return;
+						}
+						$("#sing-play").show();
+						$("#sing-stop").hide();
+						changplay.pause();
+					});
+					mui('body').on('tap', '#sing-play', function() {
+						if (isbofang) {
+							mui.toast("正在缓冲中,请稍后...");
+							return;
+						}
+						$("#sing-stop").show();
+						$("#sing-play").hide();
+						changplay.resume();
+					});
+
+					//分享
+					mui('body').on('tap', '#fenxiang', function() {
+						var slt = PvUrl + "/sharesing.jpg";
+						loadShare({
+							title: name,
+							href: wwwUrl + "/Web/web/ShareSing?rid=" + rid,
+							pictures: slt,
+							thumbs: slt,
+							content: name,
+							callBack: function() {
+								YiRu.getajax('sing/sharesong', function(datas) {
+									//toMySing();
+								}, {
+									songid: gid,
+									studentid: YiRu.getuserinfo().userId,
+									rid: rid,
+									sharetype: 1
+								}, null, 'get');
+							},
+							NocallBack: function() {
+
+							}
+						});
+
+						//w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+					});
+
+					function jindu(obj) {
+						//总长度
+						clearInterval(timer);
+						timer = null;
+
+						// 						obj.addEventListener("canplay", function() {
+						// 
+						$("#dqsj").html("0.0");
+						$("#jdt").css("left", "0%");
+						timer = setInterval(function() {
+							var dq = obj.getPosition();
+							zsj = obj.getDuration();
+							$("#zsj").html(getfenmiao(zsj));
+							$("#dqsj").html(getfenmiao(dq));
+							$("#jdt").css("left", dq / zsj * 100 + "%");
+						}, 500);
+					}
+
+					function getfenmiao(num) {
+						var fz = num / 60; //1.5
+						var fzzs = parseInt(fz);
+						var mz = fz > 0 ? fz - fzzs : fz;
+						var miao = mz * 60;
+						return fzzs + ":" + parseInt(miao);
+					}
+					// 跳转到我的
+					mui('body').on('tap', '#sing-back', function() {
+						YiRu.openVW("singlist.html");
+						changplay.close();
+						setTimeout(function() {
+							ws.close("none");
+						}, 500);
+
+					});
+
+					// 跳转到我的
+					mui('body').on('tap', '#shangyishou,#xiayishou', function() {
+						mui.toast("请在我的作品中选择自己的歌曲哦");
+					});
+					mui('body').on('tap', '#jixu', function() {
+						$("#out-init").hide();
+					});
+					mui('body').on('tap', '#quit', function() {
+						$("#out-init").hide();
+						changplay.close();
+						//YiRu.openVW("sing.html");
+						oldback();
+						setTimeout(function() {
+							ws.close("none");
+						}, 300);
+					});
+					// $(".sign_out-fanhui").on("tap", function() {
+					// 	
+					// })
+					var oldback = mui.back;
+					mui.back = function() {
+
+						$("#out-init").css({
+							"display": "flex"
+						});
+						//oldback();
+					}
+				});
+			})();
+		</script>
+	</body>
+</html>

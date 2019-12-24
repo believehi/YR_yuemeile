@@ -1,0 +1,780 @@
+html,
+body {
+	height: 100%;
+}
+
+#bd12 .text {
+	background-size: 100% 100%;
+}
+
+.bd {
+	transition: translate3d 5s;
+}
+
+.bd-DHR img,
+.bd-DHR div {
+	position: absolute;
+}
+
+/* 1 */
+#d10230 {
+	width: 25rem;
+	height: 3rem;
+	top: 1rem;
+	left: 8rem;
+}
+
+#d10231 {
+	width: 6.25rem;
+	height: 8.125rem;
+	top: 2.75rem;
+	left: 1.875rem;
+}
+
+#d10232 {
+	width: 6.25rem;
+	height: 5.125rem;
+	top: 12.75rem;
+	left: 9.875rem;
+}
+
+#d10233 {
+	width: 5.3rem;
+	height: 7.125rem;
+	top: 10.75rem;
+	left: 15.875rem;
+}
+
+#d10234 {
+	width: 3.125rem;
+	height: 7.125rem;
+	top: 3.525rem;
+	left: 18rem;
+}
+
+#d10235 {
+	width: 7.5rem;
+	height: 12.5rem;
+	top: 3.5rem;
+	right: 4.375rem;
+}
+
+#d10236 {
+	width: 5.3rem;
+	height: 10.125rem;
+	top: 7.75rem;
+	left: 20.875rem;
+}
+
+#d10239 {
+	width: 13.75rem;
+	height: 5rem;
+	right: 2.5rem;
+	top: 1.25rem;
+}
+
+#d10240 {
+	width: 6.25rem;
+	height: 8rem;
+	z-index: 1;
+	left: 7.5rem;
+	top: 9.375rem;
+}
+
+
+#d10241 {
+	width: 6.25rem;
+	height: 9.12rem;
+	z-index: 1;
+	left: 14rem;
+	top: 12.5rem;
+}
+
+#d10242 {
+	width: 20rem;
+	height: 18.75rem;
+	left: 3.125rem;
+	top: 3.125rem;
+}
+
+#d10243 {
+	width: 18.25rem;
+	height: 9.375rem;
+	z-index: 1;
+	right: 1.875rem;
+	bottom: 3.125rem;
+}
+
+#d10246 {
+	width: 12.5rem;
+	height: 4rem;
+	left: 3.125rem;
+	top: 12.5rem;
+	z-index: 1;
+}
+
+#d10247 {
+	width: 6.25rem;
+	height: 10rem;
+	left: 3rem;
+	top: 3.125rem;
+}
+
+#d10248 {
+	width: 3.125rem;
+	height: 10rem;
+	left: 11rem;
+	top: 3.125rem;
+}
+
+#d10249 {
+	width: 5.125rem;
+	height: 6.5rem;
+	left: 10rem;
+	top: 13.125rem;
+}
+
+#d10250 {
+	width: 1.875rem;
+	height: 1.875rem;
+	left: 8rem;
+	bottom: 2.5rem;
+}
+
+#d10251 {
+	width: 1.875rem;
+	height: 1.875rem;
+	left: 15rem;
+	bottom: 0.625rem;
+}
+
+#d10252 {
+	width: 8.125rem;
+	height: 1.875rem;
+	left: 15.8rem;
+	bottom: 2.5rem;
+}
+
+#d10253 {
+	width: 8.125rem;
+	height: 3rem;
+	right: 6.875rem;
+	bottom: 1.5rem;
+}
+
+#d10254 {
+	width: 4.35rem;
+	height: 5.23rem;
+	right: 15.625rem;
+	top: 1.9rem;
+}
+
+#d10255 {
+	width: 1.875rem;
+	height: 3.75rem;
+	right: 14.8rem;
+	z-index: 1;
+	top: 7.5rem;
+}
+
+#d10256 {
+	width: 5.625rem;
+	height: 4.5rem;
+	right: 8.9rem;
+	z-index: 1;
+	top: 7.5rem;
+}
+
+#d10257 {
+	width: 1.5625rem;
+	height: 2.5rem;
+	right: 7.5rem;
+	z-index: 1;
+	top: 10.5rem;
+}
+
+
+#d10258 {
+	width: 12.5rem;
+	height: 6.875rem;
+	right: 6.5rem;
+	top: 11rem;
+}
+
+#d10259 {
+	width: 4.375rem;
+	height: 10.875rem;
+	right: 1.5rem;
+	top: 7rem;
+}
+
+
+#d10262 {
+	width: 14.375rem;
+	height: 4.375rem;
+	right: 3.5rem;
+	top: 5rem;
+}
+
+#d10263 {
+	width: 9.375rem;
+	height: 10rem;
+	left: 6.25rem;
+	top: 3.75rem;
+}
+
+
+#d10264 {
+	width: 5.625rem;
+	height: 8rem;
+	z-index: 1;
+	left: 13rem;
+	top: 7.5rem;
+}
+
+#d10265 {
+	width: 3.75rem;
+	height: 3.75rem;
+	z-index: 1;
+	left: 5rem;
+	bottom: 6.25rem;
+}
+
+#d10266 {
+	width: 1.875rem;
+	height: 1.875rem;
+	z-index: 1;
+	left: 8.7rem;
+	bottom: 4.6875rem;
+}
+
+#d10267 {
+	width: 2.5rem;
+	height: 1rem;
+	z-index: 1;
+	left: 10.625rem;
+	bottom: 4rem;
+}
+
+#d10268 {
+	width: 2.8rem;
+	height: 1.8rem;
+	z-index: 1;
+	left: 10.625rem;
+	bottom: 5rem;
+}
+
+
+#d10269 {
+	width: 6.25rem;
+	height: 5rem;
+	z-index: 1;
+	left: 13.5rem;
+	bottom: 1.25rem;
+}
+
+#d10270 {
+	width: 12.5rem;
+	height: 7rem;
+	z-index: 1;
+	left: 20rem;
+	bottom: 1.25rem;
+}
+
+#d10273 {
+	width: 17.5rem;
+	height: 5rem;
+	top: 5rem;
+	right: 6.25rem;
+}
+
+#d10274 {
+	width: 5rem;
+	height: 3rem;
+	background: #000000;
+	top: 8rem;
+	left: 2.5rem;
+}
+
+#d10275 {
+	width: 6.25rem;
+	height: 12.5rem;
+	top: 4rem;
+	left: 8.125rem;
+}
+
+#d10276 {
+	width: 5rem;
+	height: 3.75rem;
+	bottom: 2.1875rem;
+	left: 15.625rem;
+}
+#d10277 {
+	width: 5rem;
+	height: 4.5rem;
+	bottom: 6.25rem;
+	left: 15.925rem;
+}
+
+#d10278 {
+	width: 9.375rem;
+	height: 7.1875rem;
+	bottom: 5rem;
+	right:9.375rem;
+}
+
+#d10279 {
+	width: 5.625rem;
+	height: 3.125rem;
+	bottom: 6.875rem;
+	right:3.125rem;
+}
+#d10280 {
+	width: 4.45rem;
+	height: 2.5rem;
+	bottom: 1.875rem;
+	right:14.375rem;
+}
+
+#d10281 {
+	width: 4.45rem;
+	height: 2.5rem;
+	bottom: 1.875rem;
+	right:9.375rem;
+}
+#d10282 {
+	width: 6.625rem;
+	height: 4.8rem;
+	bottom: 1.875rem;
+	right:1.875rem;
+}
+
+#d10285{
+	width: 11.25rem;
+	height: 3.125rem;
+	bottom: 1.5rem;
+	left: 9.375rem;
+}
+
+#d10286{
+	width: 8.75rem;
+	height: 3.125rem;
+	bottom: 1.5rem;
+	right: 9.5rem;
+}
+
+
+#d10287{
+	width: 9.375rem;
+	height: 6.25rem;
+	bottom: 0;
+	left: 0;
+}
+#d10294{
+	width: 9.375rem;
+	height: 6.25rem;
+	bottom: 0;
+	right: 0;
+}
+
+#d10288{
+	width: 5rem;
+	height: 6.25rem;
+	bottom: 9.375rem;
+	left: 1.875rem;
+}
+
+#d10289{
+	width: 5rem;
+	height: 8.75rem;
+	bottom: 6.25rem;
+	left: 10.5rem;
+}
+
+#d10290{
+	width: 7rem;
+	height: 7rem;
+	top: 0;
+	left: 10.5rem;
+}
+
+
+#d10291{
+	width: 7rem;
+	height: 7rem;
+	top: 0;
+	right: 10.5rem;
+}
+
+#d10292{
+	width: 15.625rem;
+	height: 9.375rem;
+	
+	top: 7rem;
+	right: 1.875rem;
+}
+#d10293{
+	width: 5rem;
+	height: 6rem;
+	z-index: 1;
+	top: 7rem;
+	right: 9.375rem;
+}
+
+
+#d10297{
+	width: 8.75rem;
+	height: 3.125rem;
+	bottom: 1.5rem;
+	left: 9.5rem;
+}
+
+#d10298{
+	width: 8.75rem;
+	height: 3.125rem;
+	bottom: 1.5rem;
+	right: 9.5rem;
+}
+
+#d10299{
+	width: 8.75rem;
+	height: 5.625rem;
+	bottom: 0;
+	left: 0;
+}
+
+#d10300{
+	width: 4.375rem;
+	height: 6.25rem;
+	bottom: 8.125rem;
+	left: 10rem;
+}
+
+#d10301{
+	width: 4.375rem;
+	height: 6.25rem;
+	bottom: 8.125rem;
+	left: 4rem;
+}
+
+
+#d10302{
+	width: 5rem;
+	height: 2rem;
+	bottom:5.8rem;
+	left: 5rem;
+}
+#d10303{
+	width: 5rem;
+	height: 2rem;
+	bottom:6.25rem;
+	left: 11rem;
+}
+
+#d10304{
+	width: 8rem;
+	height: 7rem;
+	top:0rem;
+	left: 11.5rem;
+}
+
+#d10305{
+	width: 8rem;
+	height: 6rem;
+	top:0rem;
+	right: 12rem;
+}
+
+#d10306{
+	width: 7rem;
+	height: 6rem;
+	top:7.5rem;
+	right: 9.375rem;
+}
+
+#d10307{
+	width: 4.5rem;
+	height: 6rem;
+	top:7.5rem;
+	right: 3.125rem;
+}
+
+#d10308{
+	width: 4.5rem;
+	height: 3.5rem;
+	top:7.5rem;
+	right: 15.625rem;
+}
+#d10309{
+	width: 3rem;
+	height: 2rem;
+	z-index: 1;
+	top:12.5rem;
+	right: 9rem;
+}
+
+#d10310{
+	width: 8.75rem;
+	height: 5.625rem;
+	bottom: 0;
+	right: 0;
+}
+
+#d10313{
+	width: 9.375rem;
+	height: 5rem;
+	left: 3rem;
+	top: 1.25rem;
+}
+#d10314{
+	width: 9.375rem;
+	height: 5rem;
+	right: 2rem;
+	top: 1.25rem;
+}
+
+#d10315{
+	width: 10rem;
+	height: 6rem;
+	left: 0rem;
+	bottom: 0rem;
+}
+#d10316{
+	width: 2.5rem;
+	height: 4rem;
+	left: 6.25rem;
+	bottom: 7.25rem;
+}
+
+#d10317{
+	width: 2.5rem;
+	height: 4rem;
+	left:8.8rem;
+	bottom: 6.8rem;
+}
+
+#d10318{
+	width: 2.5rem;
+	height: 4rem;
+	left:10.8rem;
+	bottom: 5.8rem;
+}
+
+#d10319{
+	width: 2.5rem;
+	height: 5.5rem;
+	left:13.3rem;
+	bottom: 5rem;
+}
+
+#d10320{
+	width: 6.25rem;
+	height: 8rem;
+	left:13.3rem;
+	top: 0rem;
+}
+#d10321{
+	width: 6.25rem;
+	height: 8rem;
+	right:13.3rem;
+	top: 0rem;
+}
+
+#d10322{
+	width: 9rem;
+	height: 6rem;
+	right:8.125rem;
+	top: 8.125rem;
+}
+
+#d10323{
+	width: 9rem;
+	height: 3.8rem;;
+	right:9rem;
+	top: 14.125rem;
+}
+ 
+
+#d10324{
+	width: 9rem;
+	height: 7em;
+	right: 0rem;
+	bottom: 0rem;
+}
+
+#d10327{
+	width: 12.5rem;
+	height: 5rem;
+	left: 9.375rem;
+	top: 1.875rem;
+}
+
+#d10328{
+	width: 15.625rem;
+	height: 3.125rem;
+	right: 0.625rem;
+	bottom: 1.25rem;
+}
+
+#d10329{
+	width: 6.25rem;
+	height: 5rem;
+	left:13.125rem;
+	bottom: 0;
+}
+
+#d10330{
+	width: 3.75rem;
+	height: 5rem;
+	left:4.2rem;
+	bottom: 7.5rem;
+}
+
+#d10331{
+	width: 3.75rem;
+	height: 2.3rem;
+	left:3.8rem;
+	bottom: 4.5rem;
+}
+
+#d10332{
+	width: 1.8rem;
+	height: 2rem;
+	left:7.7rem;
+	bottom: 4.5rem;
+}
+
+#d10333{
+	width: 2rem;
+	height: 2rem;
+	left:7.7rem;
+	bottom: 6.6rem;
+}
+
+#d10334{
+	width: 4rem;
+	height: 2.7rem;
+	left:10.5rem;
+	bottom: 4rem;
+}
+#d10335{
+	width: 2.5rem;
+	height: 2.2rem;
+	left:10.5rem;
+	bottom: 6.5rem;
+}
+
+#d10336{
+	width: 4rem;
+	height: 8rem;
+	left:13rem;
+	bottom: 6.5rem;
+}
+
+#d10337{
+	width: 8rem;
+	height: 5.45rem;
+	left:0;
+	top: 3rem;
+}
+
+#d10338{
+	width: 6.45rem;
+	height: 11.25rem;
+	right:8.5rem;
+	top: 6.25rem;
+}
+
+#d10339{
+	width: 5rem;
+	height: 8.125rem;
+	right:3.125rem;
+	top: 9.375rem;
+}
+
+#d10342{
+	width: 12.5rem;
+	height: 5rem;
+	left:1.875rem;
+	top:3.125rem;
+}
+
+#d10343{
+	width: 8rem;
+	height: 12rem;
+	left:3.125rem;
+	bottom:0;
+}
+
+#d10344{
+	width: 6rem;
+	height: 9rem;
+	left:11rem;
+	bottom:0;
+}
+
+#d10345{
+	width: 4rem;
+	height: 7rem;
+	left:17rem;
+	bottom:1.8rem;
+}
+
+#d10346{
+	width: 4rem;
+	height: 10rem;
+	left:21rem;
+	bottom:1.8rem;
+}
+
+#d10347{
+	width: 4rem;
+	height: 4rem;
+	left:21rem;
+	bottom:12rem;
+	
+}
+
+#d10348{
+	width: 4rem;
+	height: 6rem;
+	left:25rem;
+	bottom:6rem;
+}
+
+#d10349{
+	width: 6rem;
+	height: 6rem;
+	left:26rem;
+	bottom:0rem;
+}
+
+#d10350{
+	width: 6rem;
+	height: 8rem;
+	right:3.125rem;
+	bottom:6.25rem;
+}
+
+#d10351{
+	width: 4rem;
+	height: 4rem;
+	right:9.375rem;
+	top:6.25rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

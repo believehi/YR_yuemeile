@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-每日一句动画</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="cartoon.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="sign_out-fanhui mui-action-back" id="fanhui">
+			<img src="../../img/fanhui_03.png">
+		</div>
+		<div class="cartoon">
+			<div class="init">
+				<div class="video" id="videoplayer">
+					<!-- <img src="../../img/btn_04.png"> -->
+				</div>
+				<div class="speed" id="speed">
+					<span id="jd">0%/0MB</span>
+					<span>
+						<u id="jdt">&nbsp;</u>
+					</span>
+					<!-- <span id="jindudian"></span>
+					<span></span> -->
+				</div>
+			</div>
+			<!-- 显示收藏，配音界面 -->
+			<ul class="control control_a">
+				<li id="fenxiang">
+					<img src="../../img/btn_11.png">
+					<p>分享</p>
+				</li>
+				<li id="chongbo">
+					<img src="../../img/btn_08.png" class="o-large peiyin-icon">
+					<p class="peiyin-icon">重播</p>
+				</li>
+				<!-- <li id="peiyin">
+					<img src="../../img/btn_06.png" class="o-large peiyin-icon">
+					<p class="peiyin-icon">重播</p>
+					<img src="../../img/btn_09.png" class="o-large peiyin-text">
+					<p class="peiyin-text">结束配音</p>
+				</li> -->
+				<li id="MyList">
+					<img src="../../img/btn_05.png">
+					<p>返回</p>
+				</li>
+			</ul>
+
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, Id, DayId = "",
+					Audio = null,
+					liststr = [],
+					luyinstr = [],
+					datapic,
+					cishu = 0,
+					videopay = null,
+					zsj = 0,
+					dqsj = 0,
+					datasilentvideo,
+					videourl, _videourl, _silentvideo, thumbnail, name, sort, isshoucang, silentvideo, peiyin = "",
+					loadPage,
+					peiyinpay = null,
+					play_bofang = null;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					Id = ws.Id;
+					DayId = ws.DayId;
+					datapic = ws.datapic;
+					datapic = YiRu.getFileUrlbyLocal(datapic);
+					datasilentvideo = ws.datasilentvideo;
+					name = ws.dataname;
+					//console.log(Id);
+					console.log(plus.io.convertAbsoluteFileSystem(datapic));
+					$("#videoplayer").css("background-image", "url(" + datapic + ")");
+					videopay = new plus.video.VideoPlayer("videoplayer", {
+						//poster: datapic, //封面
+						position: 'static',
+						loop: false,
+						controls: false
+					});
+					videopay.hide();
+					Audio = plus.audio.createPlayer({});
+					//console.log(videourl);
+
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('加载中，请稍候...', YiRu.WaitingStyle());
+						$("#speed").show();
+						YiRu.getajax('day/pagelist', function(data) {
+							var Data = data.data.baseinfo;
+							//console.log(JSON.stringify(Data));
+							for (var i = 0; i < Data.length; i++) {
+								liststr.push({
+									url: Data[i].DayUrl
+								}, {
+									url: Data[i].SilentDayUrl
+								});
+								if (Data[i].RecordUrl != "") {
+									liststr.push({
+										url: Data[i].RecordUrl.replace('ymlht.02', 'yml.02')
+									});
+									luyinstr.push({
+										url: Data[i].RecordUrl.replace('ymlht.02', 'yml.02')
+									});
+								}
+							};
+							//console.log(JSON.stringify(liststr));
+							xiazai(0, liststr, function() {
+								//$("#videoplayer").css("background-image", "url(" + thumbnail + ")");
+
+								YiRu.getFileUrl(datasilentvideo, function(srcs) {
+									//console.log(srcs);
+									w.close();
+									$("#speed").hide();
+									//console.log(YiRu.getFileUrlbyLocal(datavideo));
+									if (videopay != null) videopay.stop();
+									if (Audio != null) Audio.stop();
+									videopay.setStyles({
+										src: srcs
+									});
+									//if (Audio != null) Audio.stop();
+									videopay.show();
+									videopay.seek(0);
+									videopay.addEventListener('play', function(e) {
+										bofang(0, luyinstr);
+										// if (e.detail.currentTime >= 0 && e.detail.currentTime <= 1 && cishu == 0) {
+										// 	cishu = 1;
+										// 	bofang(0, luyinstr);
+										// }
+										// if (e.detail.currentTime > 1) {
+										// 	cishu = 0;
+										// }
+									}, false);
+									videopay.play(function() {
+
+									}, function(e) {
+										console.log(JSON.stringify(e))
+									});
+
+								}, function(a, b) {
+									//var c = parseInt(a / b * 100);
+									//if (c) w.setTitle("资源下载中,请稍候...(" + c + "%)");
+									var cc = parseInt(a / b * 100);
+									var zcc = parseFloat(b / 1024 / 1024).toFixed(2);
+									if (cc && zcc) {
+										$("#jd").html(cc + "%/" + zcc + "MB");
+										$("#jdt").css("width", cc + "%");
+									}
+								});
+
+							});
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							dayid: DayId
+						}, null, 'get');
+					};
+					loadPage();
+
+					function xiazai(i, obj, callback) {
+						YiRu.getFileUrl(obj[i].url, function(_src) {
+
+							//var c = parseInt(i / obj.length * 100);
+							//if (c) w.setTitle("资源下载中,请稍候...(" + c + "%)");
+
+							if (i < obj.length - 1) {
+								//console.log(i);
+								xiazai(i + 1, obj, callback);
+							} else {
+								return callback();
+							}
+						}, function(a, b) {
+							var cc = parseInt(a / b * 100);
+							var zcc = parseFloat(b / 1024 / 1024).toFixed(2);
+							if (cc && zcc) {
+								$("#jd").html(cc + "%/" + zcc + "MB");
+								$("#jdt").css("width", cc + "%");
+							}
+						});
+					}
+
+					function bofang(i, obj) {
+						//播放音乐
+						if (obj[i]) {
+							Audio.stop();
+							Audio.setStyles({
+								src: YiRu.getFileUrlbyLocal(obj[i].url)
+							});
+							Audio.play(function() {
+								if (i < obj.length - 1) {
+									bofang(i + 1, obj);
+								}
+							}, function(e) {
+								console.log(JSON.stringify(e));
+							});
+						} else {
+							if (i < obj.length - 1) {
+								bofang(i + 1, obj);
+							}
+						}
+					}
+
+					// $("#fanhui").on("tap", function() {
+					// 	videopay.stop();
+					// 	videopay.hide();
+					// });
+
+					$("#tuichu").on("tap", function() {
+						videopay.close();
+					});
+					// 跳转到录音列表
+					mui('body').on('tap', '#MyList', function() {
+						if (videopay != null) videopay.close();
+						if (Audio != null) Audio.close();
+						YiRu.openVW("Mylist.html", {
+							//dayid: ws.pid,
+						});
+					});
+					mui('body').on('tap', '#chongbo', function() {
+
+						//loadPage();
+						videopay.stop();
+						videopay.setStyles({
+							controls: false
+						});
+						Audio.stop();
+						videopay.seek(0);
+						videopay.addEventListener('play', function(e) {
+							bofang(0, luyinstr);
+							// if (e.detail.currentTime >= 0 && e.detail.currentTime <= 1 && cishu == 0) {
+							// 	cishu = 1;
+							// 	bofang(0, luyinstr);
+							// }
+							// if (e.detail.currentTime > 1) {
+							// 	cishu = 0;
+							// }
+						}, false);
+						videopay.play(function() {
+
+						}, function(e) {
+							console.log(JSON.stringify(e))
+						});
+					});
+					mui('body').on('tap', '#fenxiang', function() {
+
+						//分享页面
+						loadShare({
+							title: name,
+							href: wwwUrl + "/Web/web/Shareday?rid=" + Id,
+							pictures: ws.datapic,
+							thumbs: ws.datapic,
+							content: name,
+							callBack: function() {
+								YiRu.getajax('day/sharelist', function(data) {
+									//mui.toast("分享成功");
+									if (videopay != null) videopay.close();
+									if (Audio != null) Audio.close();
+									YiRu.openVW("Mylist.html");
+								}, {
+									rid: Id,
+								}, w, 'get');
+							},
+							NocallBack: function() {
+								//mui.toast("分享失败");
+							}
+						});
+					});
+					var oldback = mui.back;
+					mui.back = function() {
+						if (videopay != null) videopay.close();
+						if (Audio != null) Audio.close();
+
+						YiRu.openVW("Mylist.html", {
+							//dayid: ws.pid,
+						});
+					}
+				});
+
+			})();
+		</script>
+	</body>
+</html>

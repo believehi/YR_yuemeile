@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-手机绑定</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="MyNewsPhone.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<h2 class="init-phone">更换手机号码</h2>
+		<div class="init-login-box">
+			<!-- 电话号码 -->
+			<div class="init-login-item">
+				<span></span>
+				<input type="" name="" id="" value="" placeholder-class="phcolor" placeholder="电话号码" />
+			</div>
+			<!-- 短信验证 -->
+			<div class="init-login-item1">
+				<div class="mui-dx-input">
+					<span></span>
+					<input type="" name="" id="" value="" placeholder-class="phcolor" placeholder="短信验证码" />
+				</div>
+				<div class="mui-note-but">
+					获取验证码
+					<!-- 59秒后重新获取 -->
+				</div>
+			</div>
+			<p class="init-item">温习提示</p>
+			<p class="init-item">避免学习记录遗失，如果号码有变，请及时跟换哦！</p>
+			<button type="button" class="init-login-but">确&nbsp;&nbsp;&nbsp;定</button>
+		</div>
+
+
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+
+// 					loadPage = function() {
+// 						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+// 						/*
+//                           逻辑代码
+// 						*/
+// 						w.close();
+// 
+// 					};
+// 					loadPage();
+				});
+				// 获取验证码计时器
+				var num = 58;
+				var falg = true;
+				var timerOp = null;
+				$(".mui-note-but").on("tap", function() {
+					if (falg) {
+						falg = false;
+						$(this).html('<span id="mui-note-time">59</span>秒后重新获取');
+						timerOp = setInterval(function() {
+							$("#mui-note-time").text(num);
+							if (num <= 0) {
+								clearInterval(timerOp);
+								num = 58;
+								$(".mui-note-but").html('获取验证码');
+								falg = true;
+							}
+							num--;
+						}, 1000)
+					}
+				})
+			})();
+		</script>
+	</body>
+</html>

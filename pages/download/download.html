@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="download.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-action-back" id="fanhui">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="download">
+			<div id="a" style="">
+				<img src="../../img/noimg.png" id="oLoad">
+			</div>
+		</div>
+		<div style="border:2px #ffffff solid;width:60%;height:0.5rem;line-height: 0.5rem;font-size: 0rem;overflow: hidden;border-radius: 0.3125rem;margin:auto;">
+			<span id="jindu" style="background: linear-gradient(#adea2b, #9ad717);width:0%;display: block;height: 0.5rem;"></span>
+		</div>
+		<div style="text-align: center;color:#ffffff;"><span id="bfb">0% 0MB/0MB</span></div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, pid = "",
+					itemlist = [],
+					itemlen = 0,
+					ppid,
+					isok = false,
+					loadPage;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					pid = ws.pid;
+					YiRu.UserLogin();
+					$("#oLoad").attr("src", ws.pimg);
+					$("#a").fadeIn(300);
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('dubbing/pgelist', function(data) {
+							w.close();
+							//console.log(JSON.stringify(data));
+							itemlist = data.data.baseinfo;
+							itemlen = itemlist.length;
+							ppid = data.data.repeatmain.ID;
+							//console.log(itemlen);
+							if (itemlen == 0) {
+								plus.nativeUI.toast("资源整理中");
+								//mui.toast("资源整理中");
+								mui.back();
+								setTimeout(function() {
+									ws.close("none");
+								}, 300);
+								return false;
+							}
+							var yurl = itemlist[0].DubbingUrl.split(';')[0];
+							var lfilename = yurl.substring(yurl.lastIndexOf("/") + 1, yurl.length);
+							lfilename = "_doc/" + lfilename;
+							//判断文件是否已下载
+							plus.io.resolveLocalFileSystemURL(lfilename, function(entry) {
+								downfiles(0, function(e) {
+									if (e) {
+										zhuantiao();
+									}
+								});
+							}, function(e) {
+								plus.nativeUI.confirm('该绘本需要下载语音资源,请耐心等待一会哦.', function(event) {
+									if (0 == event.index) {
+										w = plus.nativeUI.showWaiting('加载中，请稍候...', YiRu.WaitingStyle());
+										downfiles(0, function(e) {
+											if (e) {
+												w.close();
+												zhuantiao();
+											}
+										});
+									} else {
+										mui.back();
+										return false;
+									}
+								}, '', ["好的", "取消"]);
+
+							});
+							//w = plus.nativeUI.showWaiting('内容加载中，请稍候...', YiRu.WaitingStyle());
+
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							dubbingid: pid,
+							type: '',
+							page: 1,
+							num: 100
+						}, null, 'get', {
+							key: pid + YiRu.getuserinfo().userId,
+							num: CaCheNum
+						});
+
+					};
+					loadPage();
+
+					function downfiles(n, callback) {
+						//console.log(n + "/" + itemlen);
+						// var c = parseInt(n / itemlen * 100);
+						// if (c) {
+						// 	$("#jindu").css("width", c + "% ");
+						// 	$("#bfb").html(c + "% " + n + "/" + itemlen);
+						// }
+						if (n < itemlen) {
+							//console.log(n);
+							//console.log(itemlist[n].DubbingUrl);
+							//console.log(itemlist[n].Pic);
+							var dubu = itemlist[n].DubbingUrl.split(';');
+							YiRu.getFileUrl(itemlist[n].Pic, function(imgsrc) {
+								//下载读音1
+								YiRu.getFileUrl(dubu[0], function(src) {
+									if (!dubu[1]) {
+										itemlist[n].DubbingUrl = src;
+										itemlist[n].Pic = imgsrc;
+										downfiles(n + 1, callback);
+									} else {
+										//下载读音2
+										YiRu.getFileUrl(dubu[1], function(srcc) {
+											if (!dubu[2]) {
+												itemlist[n].DubbingUrl = src + ";" + srcc;
+												itemlist[n].Pic = imgsrc;
+												downfiles(n + 1, callback);
+											} else {
+												//下载读音3
+												YiRu.getFileUrl(dubu[2], function(srccc) {
+													if (!dubu[3]) {
+														itemlist[n].DubbingUrl = src + ";" + srcc + ";" + srccc;
+														itemlist[n].Pic = imgsrc;
+														downfiles(n + 1, callback);
+													} else {
+														//下载读音4
+														YiRu.getFileUrl(dubu[3], function(srcccc) {
+															itemlist[n].DubbingUrl = src + ";" + srcc + ";" + srccc + ";" + srcccc;
+															itemlist[n].Pic = imgsrc;
+															downfiles(n + 1, callback);
+														});
+													}
+												}, function(a, b) {
+													jindutiao(a, b);
+												});
+											}
+
+										}, function(a, b) {
+											jindutiao(a, b);
+										});
+									}
+								}, function(a, b) {
+									jindutiao(a, b);
+								});
+
+							}, function(a, b) {
+								jindutiao(a, b);
+							});
+						} else {
+							isok = true;
+							return callback(true);
+						}
+					};
+				});
+
+				function jindutiao(a, b) {
+					var c = parseInt(a / b * 100);
+					var cc = parseFloat(b / 1024 / 1024).toFixed(2);
+					var ccc = parseFloat(a / 1024 / 1024).toFixed(2);
+					if (c) {
+						$("#jindu").css("width", c + "% ");
+						$("#bfb").html(c + "% " + ccc + "MB/" + cc + "MB");
+					}
+				}
+				mui('body').on('tap', '#oLoad', function() {
+					if (!isok) {
+						mui.toast("正在加载中...");
+						return false;
+					}
+					zhuantiao();
+				});
+
+				function zhuantiao() {
+					YiRu.openVW("/pages/follow/follow.html", {
+						pid: pid
+					});
+					setTimeout(function() {
+						ws.close("none");
+					}, 500);
+				}
+			})();
+		</script>
+	</body>
+</html>

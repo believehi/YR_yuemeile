@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="game.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back" id="fanhui">
+			<img src="../../img/fanhui_04.png">
+		</div>
+		<div class="game">
+			<div class="game-pic">
+				<img src="../../img/youxi_01.png">
+				<p>DHR's GAME</p>
+			</div>
+			<div class="game-pic">
+				<img src="../../img/youxi_02.png">
+				<p>DHR's GAME</p>
+			</div>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false,
+					beforeback: function() {
+						var list = plus.webview.currentWebview().opener();
+						//触发列表界面的自定义事件（refresh）,从而进行数据刷新   
+						mui.fire(list, 'updatedata');
+						//返回true，继续页面关闭逻辑   
+						return true;
+					}
+				});
+				var w, ws;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					plus.nativeUI.toast('功能开发中，敬请期待。', {
+						duration: "long"
+					});
+					// 					loadPage = function() {
+					// 						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+					// 						/*
+					//                           逻辑代码
+					// 						*/
+					// 						w.close();
+					// 
+					// 					};
+					// 					loadPage();
+				});
+				mui('body').on('tap', '.game-pic', function() {
+					plus.nativeUI.toast('功能开发中，敬请期待。');
+					//YiRu.openVW("/pages/share/share.html");
+				});
+			})();
+		</script>
+	</body>
+</html>

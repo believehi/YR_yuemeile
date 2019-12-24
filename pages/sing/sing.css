@@ -1,0 +1,477 @@
+body {
+	background-image: url(../../img/wangge_02.png);
+}
+
+html,
+body {
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
+
+.fanhui {
+	font-family: 'TongXin';
+	width: 100%;
+	height: 13%;
+	background-color: #badb34;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.fanhui span {
+	height: 100%;
+	width: 3rem;
+	color: #FFFFFF;
+}
+
+.fanhui span:nth-of-type(1) {
+	margin-left: 0.625rem;
+}
+
+.fanhui span:nth-of-type(3) {
+	margin-right: 0.625rem;
+}
+
+.fanhui span:nth-of-type(2) {
+	width: 100%;
+	text-align: center;
+	line-height: 3.125rem;
+	font-size: 1.5rem;
+	text-shadow: 0.125rem 0.125rem #99c719;
+}
+
+.fanhui span img {
+	height: 60%;
+	margin-top: 50%;
+	margin-left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.sing {
+	width: 80%;
+	height: 61%;
+	margin: 0 auto 0 auto;
+	overflow: hidden;
+}
+
+.sing .sing-img {
+	width: 30%;
+	height: 100%;
+	float: left;
+	display: flex;align-items: center
+}
+
+.sing .sing-img img {
+	width: auto;
+	max-width: 100%;
+	height: auto;
+	max-height: 100%;
+	border-radius: 50%;
+	align-items: center;
+}
+
+
+.sing-geci {
+	position: relative;
+	width: 70%;
+	height: 100%;
+	float: left;
+	overflow-y: scroll;
+	text-align: center;
+	-webkit-overflow-scrolling: touch;
+	/* transition: all .25s ease-in; */
+}
+
+.sing-geci ul {
+	position: absolute;
+	text-align: center;
+	padding-top: 75px;
+	padding-bottom: 150px;
+	/* margin: 60px 0 150px 0; */
+	left: 1%;
+	width: 99%;
+	height: 100%;
+	display: block;
+	transition: all .25s ease-in;
+	/* top: 60px; */
+	/* 	top: 40%; */
+	z-index: 1;
+}
+
+.sing-geci ul li {
+	text-align: center;
+	height: 24px;
+	line-height: 24px;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+::-webkit-scrollbar-track-piece {
+	//滚动条凹槽的颜色，还可以设置边框属性
+	background-color: #f8f8f8;
+}
+
+::-webkit-scrollbar {
+	//滚动条的宽度
+	width: 9px;
+	height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+	//滚动条的设置
+	background-color: #dddddd;
+	background-clip: padding-box;
+	min-height: 28px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: #bbb;
+}
+
+.sing-geci p {
+	color: #666666;
+	font-size: 0.875rem;
+	line-height: 1.5rem;
+}
+
+.sing-geci .sing-foo {
+	color: #badb34;
+	font-size: 1rem;
+	line-height: 1.875rem;
+}
+
+
+.sing-bottom {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 26%;
+	background-image: url(../../img/music_bottom.png);
+	background-size: auto 100%;
+}
+
+.sing-jindu {
+	width: 90%;
+	margin: 1.875rem auto 0;
+	height: 0.125rem;
+	border: 0.0625rem solid #86a800;
+	border-radius: 0.125rem;
+	position: relative;
+	background-color: #dded9a;
+}
+
+.sing-jindu span {
+	position: absolute;
+	top: -1.5rem;
+}
+
+.sing-jindu span:nth-of-type(1) {
+	left: 0;
+}
+
+.sing-jindu span:nth-of-type(2) {
+	right: 0;
+}
+
+.sing-jindu .circle {
+	display: block;
+	margin-left: -6px;
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.sing-jindu .circle i {
+	position: absolute;
+	left: 0px;
+	top: -8px;
+	-webkit-overflow-scrolling: touch;
+	/* 	width: 0.6875rem;
+	height: 0.6875rem;
+ */
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background-color: #FFFFFF;
+}
+
+.sing-icon {
+	display: flex;
+	justify-content: space-around;
+	width: 50%;
+	margin: 0.875rem auto 0;
+}
+
+.sing-icon span {
+	width: 1.875rem;
+	height: 1.875rem;
+	position: relative;
+}
+
+.sing-icon span img {
+	position: absolute;
+	top: 36%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 70%;
+	text-align: center;
+}
+
+.sing-icon .sing-like,
+.sing-icon .sing-play,
+.sing-icon .sing-danque,
+.sing-icon .sing-suiji {
+	display: none;
+}
+
+.sing-icon span:nth-of-type(3) img {
+	height: 140%;
+}
+
+.sing-icon span:nth-of-type(5) img {
+	height: 60%;
+}
+
+.sing-back {
+	position: absolute;
+	width: 7rem;
+	height: auto;
+	top: -120%;
+	right: 1rem;
+	top: -150%;
+	right: 0.5rem;
+}
+
+.sing-suc {
+	display: flex;
+	justify-content: space-around;
+	width: 50%;
+	margin: 0.3125rem auto 0;
+}
+
+.sing-suc span {
+	width: 1.875rem;
+	height: 1.5rem;
+	vertical-align: bottom;
+}
+
+.sing-suc span img {
+	width: 100%;
+	height: 100%;
+}
+
+
+.sing-suc span p {
+	color: #FFFFFF;
+	line-height: 0.375rem;
+	margin-top: 0;
+	font-size: 0.875rem;
+}
+
+
+/* 完成， 取消显示隐藏 */
+.sing-active {
+	display: none;
+}
+
+
+
+/* 弹窗 样式 */
+.popup-content p {
+	color: #99c719;
+}
+
+.popup-content .popup-foo span {
+	background-color: #99C719;
+	box-shadow: 0 0.125rem #86a800;
+
+}
+
+
+/* 歌曲列表 */
+
+.music {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 99999;
+	display: none;
+}
+
+.music-list {
+	position: absolute;
+	padding: 0 1.25rem;
+	right: 0;
+	height: 100%;
+	width: 50%;
+	background-color: rgba(255, 255, 255, 0.8);
+	box-sizing: border-box;
+	border-radius: 0.5rem 0 0 0.5rem;
+	color: #4a4a4a;
+}
+
+.music-list .music-title {
+	height: 3rem;
+	position: relative;
+	padding-left: 2rem;
+	line-height: 3rem;
+	font-size: 1rem;
+}
+
+.music-list .music-title i {
+	position: absolute;
+	top: 50%;
+	left: 0rem;
+	transform: translateY(-50%);
+	display: inline-block;
+	width: 1.25rem;
+	height: 1.25rem;
+	background-image: url(../../img/icon_22.png);
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.music-list .music-content {
+	position: absolute;
+	top: 3rem;
+	bottom: 2.625rem;
+	left: 1.25rem;
+	right: 1.25rem;
+	overflow: auto;
+}
+
+.music-list .music-mian {
+	box-sizing: border-box;
+	padding-left: 2rem;
+	padding-right: 1rem;
+}
+
+.music-list .music-mian p {
+	position: relative;
+	line-height: 2.5rem;
+	font-size: 1rem;
+}
+
+.music-list .music-mian p span {
+	position: absolute;
+	top: 50%;
+	left: -2rem;
+	transform: translateY(-50%);
+	display: inline-block;
+	width: 1.25rem;
+	height: 1.25rem;
+	background-image: url(../../img/icon_22.png);
+	background-size: 100% auto;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.music-list .music-mian p .music-icon {
+	background-image: url(../../img/pic_08.png);
+}
+
+.music-list .music-mian ul {
+	/* padding-left: 3rem; */
+	padding-left: 1rem;
+	box-sizing: border-box;
+	display: none;
+}
+
+.music-list .music-mian li {
+	height: 2rem;
+	line-height: 2rem;
+	position: relative;
+	/* padding-right: 1.25rem; */
+}
+.music-list .music-mian li.down {
+	color:#078F8C;
+}
+
+.music-list .music-mian li b,
+.music-list .music-mian li span,
+.music-list .music-mian li i {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	background-size: 100% auto;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.music-list .music-mian li span {
+	left: -3rem;
+	line-height: 1rem;
+}
+
+.music-list .music-mian li b {
+	/* background-image: url(../../img/pic_10.png);
+	left: -1.5rem; */
+	display: none;
+}
+
+.music-list .music-mian li b.isdown {
+	/* background-image: url(../../img/pic_10_1.png);
+	left: -1.5rem; */
+	display: none;
+}
+
+.music-list .music-like li span {
+	background-image: url(../../img/pic_07.png);
+	left: -3rem;
+}
+
+/* 已下载样式icon */
+.music-list .music-mian li .music-xiaqZai {
+	background-image: url(../../img/pic_09.png);
+}
+
+.music-list .music-mian li i {
+	right: 0;
+}
+
+/* 播放icon */
+.music-boFan {
+	background-image: url(../../img/icon_23.png);
+}
+
+
+.music-list footer {
+	position: absolute;
+	bottom: 0;
+	height: 2.5rem;
+	left: 1.25rem;
+	right: 1.25rem;
+	border-top: 0.0625rem solid #CCCCCC;
+	text-align: center;
+	line-height: 2.5rem;
+	font-size: 1rem;
+}
+
+#tishi_box{
+	position: fixed;
+	top: 35vh;
+	left: 26vw;
+	background: #99c719;
+	color: white;
+	border-radius: 0.5rem;
+	height: 20vh;
+	text-align: center;
+	width: 50vw;
+	line-height: 20vh;
+	z-index: 999999;
+}
+#tishi_box i{
+	position: absolute;
+	right: 0.425rem;
+	top: -7.8vh;
+	font-size: 1.875rem;
+	color: white;
+}

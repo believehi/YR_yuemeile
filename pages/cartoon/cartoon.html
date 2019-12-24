@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-每日一句动画</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="cartoon.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="sign_out-fanhui mui-action-back" id="fanhui">
+			<img src="../../img/fanhui_03.png">
+		</div>
+		<div class="cartoon">
+			<div class="init" id="init">
+				<div class="video" id="videoplayer">
+					<!-- <img src="../../img/btn_04.png"> -->
+				</div>
+				<div class="speed" id="speed">
+					<span id="jd">0%/0MB</span>
+					<span>
+						<u id="jdt">&nbsp;</u>
+					</span>
+					<!-- <span id="jindudian"></span>
+					<span></span> -->
+				</div>
+			</div>
+			<!-- 显示收藏，配音界面 -->
+			<ul class="control control_a">
+				<li id="shoucang">
+					<img src="../../img/btn_11.png">
+					<p>收藏</p>
+				</li>
+				<li id="peiyin">
+					<img src="../../img/btn_06.png" class="o-large peiyin-icon">
+					<p class="peiyin-icon">配音</p>
+					<img src="../../img/btn_09.png" class="o-large peiyin-text">
+					<p class="peiyin-text">结束配音</p>
+				</li>
+				<li id="MyList">
+					<img src="../../img/btn_08.png">
+					<p>我的全部录音</p>
+				</li>
+			</ul>
+			<!-- 显示完成，重录界面 -->
+			<ul class="control control_b control-active">
+				<li id="o-cancal">
+					<img src="../../img/icon_11.png">
+					<p>重录</p>
+				</li>
+				<li id="o-suc">
+					<img src="../../img/icon_12.png">
+					<p>完成</p>
+				</li>
+			</ul>
+		</div>
+		<!-- 弹窗 -->
+		<div class="popup">
+			<div class="popup-content">
+				<img src="../../img/bianwen_02.png" class="huabian">
+				<p><img src="../../img/icon_25.png">完成录制</p>
+				<div class="popup-foo">
+					<span id="o-return">取消</span>
+					<span>
+						确定<br>保存并转发
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- 退出提示弹窗函数 -->
+		<div class="sign_out-init">
+			<div class="sign_out-suc mui-action-back" id="tuichu">
+				<img src="../../img/icon_45_01.png">
+				<p>Quit</p>
+			</div>
+			<div class="sign_out-suc sign_out-on" id="jixu">
+				<img src="../../img/icon_45_02.png">
+				<p>Continue</p>
+			</div>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+
+				// 退出提示弹窗函数
+				//sign_out();
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, pid, videopay = null,
+					liststr = [],
+					zsj = 0,
+					dqsj = 0,
+					videourl, _videourl, _silentvideo, datasrc, thumbnail, name, sort, isshoucang, silentvideo, peiyin = "",
+					loadPage,
+					peiyinpay = null,
+					play_bofang = null;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					pid = ws.pid;
+					videourl = ws.videourl;
+					silentvideo = ws.silentvideo;
+					thumbnail = ws.thumbnail;
+					datasrc = ws.datasrc;
+					name = ws.name;
+					sort = ws.sort;
+					isshoucang = ws.isshoucang;
+					//console.log(isshoucang);
+					$("#videoplayer").css("background-image", "url(" + thumbnail + ")");
+
+					var lfilename = videourl.substring(videourl.lastIndexOf("/") + 1, videourl.length);
+					lfilename = "_doc/" + lfilename;
+					//判断文件是否已下载
+					plus.io.resolveLocalFileSystemURL(lfilename, function(entry) {
+						loaddata();
+					}, function(e) {
+						plus.nativeUI.confirm('需要下载跟读视频资源,请耐心等待一会哦.', function(event) {
+							if (0 == event.index) {
+								loaddata();
+							} else {
+								if (videopay != null) videopay.close();
+								setTimeout(function() {
+									ws.close("none");
+								}, 300);
+								oldback();
+								return false;
+							}
+						}, '', ["好的", "取消"]);
+
+					});
+
+					function loaddata() {
+
+						w = plus.nativeUI.showWaiting('加载中,请稍候...', YiRu.WaitingStyle());
+						// console.log(silentvideo);					
+						var xzbz = 0;
+						$("#speed").show();
+						YiRu.getFileUrl(videourl, function(lurl) {
+							xzbz = 1;
+							YiRu.getFileUrl(silentvideo, function(surl) {
+								//w.close();
+								//$("#speed").hide();
+								_videourl = lurl;
+								_silentvideo = surl;
+								//--------------------------------
+
+								YiRu.getajax('day/pagelist', function(data) {
+									var Data = data.data.baseinfo;
+									if (Data.length > 0) {
+										for (var i = 0; i < Data.length; i++) {
+											//Data[i].RecordUrl = Data[i].RecordUrl.replace("http://yml.02.t1m.cnhttp://yml.02.t1m.cn/",
+											//	"http://yml.02.t1m.cn/");
+											liststr.push({
+												url: Data[i].DayUrl
+											}, {
+												url: Data[i].SilentDayUrl
+											}, {
+												url: Data[i].RecordUrl
+											});
+										}
+										xiazai(0, liststr, function() {
+											w.close();
+											loadPage();
+											$("#speed").hide();
+										});
+									}
+								}, {
+									studentid: YiRu.getuserinfo().userId,
+									dayid: ws.pid
+								}, null, 'get', {
+									key: ws.pid + YiRu.getuserinfo().userId,
+									num: CaCheNum
+								});
+
+								//--------------------------------
+
+							}, function(a, b) {
+								//console.log(xzbz);
+								var cc = parseInt(a / b * 100);
+								var zcc = parseFloat(b / 1024 / 1024).toFixed(2);
+								if (cc && zcc) {
+									$("#jd").html(cc + "%/" + zcc + "MB");
+									$("#jdt").css("width", cc + "%");
+								}
+							});
+						}, function(a, b) {
+							//console.log(xzbz);
+							if (xzbz == 0) {
+								var c = parseInt(a / b * 100);
+								var zc = parseFloat(b / 1024 / 1024).toFixed(2);
+								if (c && zc) {
+									$("#jd").html(c + "%/" + zc + "MB");
+									$("#jdt").css("width", c + "%");
+								}
+							}
+						});
+					}
+
+
+
+					if (isshoucang == 1) {
+						$("#shoucang p").html("已收藏");
+					}
+
+					//console.log(videourl);
+
+					loadPage = function() {
+
+						videopay = new plus.video.VideoPlayer("videoplayer", {
+							//poster: thumbnail, //封面
+							position: 'static',
+							loop: true
+						});
+						videopay.setStyles({
+							src: _videourl
+						});
+
+						if (plus.webview.getTopWebview().id == "/pages/cartoon/cartoon.html") {
+							videopay.play();
+						}
+
+
+					};
+
+					function xiazai(i, obj, callback) {
+						YiRu.getFileUrl(obj[i].url, function(_src) {
+							if (i < obj.length - 1) {
+								xiazai(i + 1, obj, callback);
+							} else {
+								return callback();
+							}
+						}, function(a, b) {
+							var ccc = parseInt(a / b * 100);
+							var zccc = parseFloat(b / 1024 / 1024).toFixed(2);
+							if (ccc && zccc) {
+								$("#jd").html(ccc + "%/" + zccc + "MB");
+								$("#jdt").css("width", ccc + "%");
+							}
+						});
+					}
+					$("#init").on("tap", function() {
+						if (videopay != null) {
+							videopay.show();
+							videopay.play();
+						}
+					});
+					$("#shoucang").on("tap", function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('day/collectionday', function(data) {
+							//console.log(JSON.stringify(data));
+							if (data.info == "1") {
+								mui.toast("收藏成功");
+								$("#shoucang p").html("已收藏");
+							} else {
+								mui.toast("已取消收藏");
+								$("#shoucang p").html("收藏");
+							}
+							mui.fire(plus.webview.getWebviewById("/pages/cartoonList/cartoonList.html"), "updatedata");
+							w.close();
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							dayid: pid
+						}, w, 'get');
+					});
+					$("#jixu").on("tap", function() {
+						$(".sign_out-init").hide();
+						if (videopay != null) {
+							videopay.show();
+							videopay.play();
+						}
+					});
+					$("#tuichu").on("tap", function() {
+						if (videopay != null) videopay.close();
+						setTimeout(function() {
+							ws.close("none");
+						}, 300);
+						oldback();
+					});
+
+					// 点击开始配音，显示结束配音按钮
+					$(".peiyin-icon").on("tap", function() {
+						if (YiRu.ios()) {
+							if (videopay != null) videopay.close();
+							setTimeout(function() {
+								ws.close("none");
+							}, 400);
+						} else {
+							if (videopay != null) videopay.pause();
+						}
+						YiRu.openVW("CartList.html", {
+							dayid: ws.pid,
+							silentvideo: silentvideo,
+							datasrc: datasrc,
+							thumbnail: thumbnail,
+							name: name
+						});
+					});
+					// 跳转到录音列表
+					mui('body').on('tap', '#MyList', function() {
+						if (videopay != null) videopay.pause();
+						YiRu.openVW("Mylist.html");
+					});
+					var oldback = mui.back;
+					mui.back = function() {
+						if (videopay != null) {
+							videopay.stop();
+							videopay.hide();
+						}
+						$(".sign_out-init").css({
+							"display": "flex"
+						});
+					}
+				});
+			})();
+		</script>
+	</body>
+</html>

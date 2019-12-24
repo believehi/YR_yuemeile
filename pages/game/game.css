@@ -1,0 +1,32 @@
+body {
+	background-image: url(../../img/page_04.jpg);
+}
+
+
+.game {
+	font-family: 'TongXin';
+	color: #FFFFFF;
+	width: 60%;
+	height: 60%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: space-around;
+}
+
+.game .game-pic {
+	width: 50%;
+}
+
+.game .game-pic img {
+	width: 70%;
+	margin-left: 50%;
+	transform: translate(-50%, 0);
+}
+
+.game .game-pic p {
+	text-align: center;
+	text-shadow: 0.125rem 0.125rem #30ba9f;
+}

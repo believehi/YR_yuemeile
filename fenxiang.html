@@ -1,0 +1,378 @@
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>每日一句分享页面</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/Areas/Web/Content/js/jquery.qrcode.min.js"></script>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            background-image: url('../../Areas/Web/Content/img/sharePY.png');
+            background-size: 100% 100%;
+            overflow: hidden;
+            color: #75D7D6;
+        }
+
+        .sharePY {
+            position: absolute;
+            width: 70%;
+            height: 78%;
+            top: 15%;
+            left: 15%;
+        }
+
+        .share_Fenxian {
+            width: 100%;
+            height: 80%;
+            background-image: url('../../Areas/Web/Content/img/wangge_01.png');
+            background-size: 300%;
+            border-radius: 0.5rem;
+            box-shadow: 0.1875rem 0.1875rem 0.625rem #50C1BD;
+            overflow: hidden;
+        }
+
+        .P-title {
+            position: absolute;
+            width: 8rem;
+            height: 7rem;
+            top: -3.5rem;
+            left: 50%;
+            margin-left: -4rem;
+        }
+
+            .P-title img {
+                width: 100%;
+                height: 100%;
+            }
+
+            .P-title p {
+                position: absolute;
+                top: 3.75rem;
+                width: 100%;
+                text-align: center;
+                color: #FFFFFF;
+                text-shadow: -0.0625rem 0.0625rem #F14358;
+            }
+
+        .p-init {
+            height: 25%;
+        }
+
+        .P-name {
+            text-align: center;
+            margin-top: 4rem;
+            font-size: 1.625rem
+        }
+
+        .P-content {
+            display: table;
+            width: 100%;
+            text-align: center;
+        }
+
+            .P-content span {
+                display: table-cell;
+                width: 50%;
+            }
+
+                .P-content span p:nth-of-type(1) {
+                    font-size: 1.375rem;
+                    margin-bottom: 0.625rem;
+                }
+
+        audio {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .P-details {
+            height: 40%;
+            margin: 1.75rem auto 0;
+        }
+
+            .P-details img {
+                height: 100%;
+                display: block;
+                margin: 0 auto;
+            }
+
+        .sharePY-but {
+            width: 100%;
+            height: 20%;
+            position: relative;
+        }
+
+        .PY_Lihe {
+            display: block;
+            margin: 0.75rem auto 0;
+            width: 4.875rem;
+            height: 5rem;
+        }
+
+        .sharePY-but p {
+            text-align: center;
+            color: #188098;
+            font-size: 0.625rem;
+            margin-top: 0.1875rem;
+        }
+
+        .sharePY-but-img {
+            position: absolute;
+            top: 1.14rem;
+            left: 50.1%;
+            transform: translateX(-50%);
+            width: 3.625rem;
+            height: 3.5rem;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+            .sharePY-but-img img {
+                width: 100%;
+                height: 100%;
+            }
+    </style>
+</head>
+
+<body>
+    
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>每日一句分享页面</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        html,
+        body,
+        .wrapper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wrapper {
+            background-image: url('../../Areas/Web/Content/img/back.png');
+            background-size: 100% 100%;
+            overflow: hidden;
+            padding: 6% 10%;
+            box-sizing: border-box;
+            color: #fff;
+        }
+
+        .logo {
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+            .logo b {
+                margin-left: 18px;
+                font-size: 18px;
+                text-shadow: 2px 2px #6E42C0;
+            }
+
+        .logo_img {
+            height: 58px;
+            width: 58px;
+            overflow: hidden;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            border: 2px solid #fff;
+        }
+
+            .logo_img img {
+                height: 100%;
+            }
+
+        .content {
+            margin-top: 3%;
+            width: 100%;
+            height: 30%;
+            padding: 7px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-image: url('../../Areas/Web/Content/img/video_img.png');
+            background-size: 130%;
+        }
+
+        #video {
+            background-color: #000;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content source {
+            width: 100%;
+            height: 100%;
+        }
+
+        .text {
+            margin-top: 5%;
+            height: 40%;
+        }
+
+            .text strong,
+            .text b {
+                text-shadow: 2px 2px #6E42C0;
+                display: block;
+                text-align: center;
+            }
+
+            .text strong {
+                font-size: 12px;
+                margin-top: 30px;
+            }
+
+            .text ul {
+                margin-top: 3%;
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                height: 60%;
+            }
+
+            .text li {
+                width: 42%;
+                padding: 4px 6px;
+                border-radius: 4px;
+                background-color: #fff;
+                color: #6E42C0;
+                box-shadow: 3px 3px 5px #6E42C0;
+            }
+
+                .text li img {
+                    width: 100%;
+                    height: 70%;
+                }
+
+                .text li p {
+                    font-size: 12px;
+                    overflow: hidden;
+                     text-overflow: ellipsis;
+                    display: -webkit-box;
+                     -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
+                }
+
+        .but {
+            height: 15%;
+            text-align: center;
+            position: relative;
+        }
+
+            .but .but_img {
+                display: inline-block;
+                height: 80px;
+                width: 80px;
+                background-image: url('../../Areas/Web/Content/img/pic_04.png');
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                position: relative;
+            }
+
+        .box_img {
+            top: 19px;
+            left: 11px;
+            width: 59px;
+            height: 56px;
+            position: absolute;
+        }
+
+            .but p {
+                font-size: 8px;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="logo">
+            <div class="logo_img">
+                <img src="http://yml.02.t1m.cn/Content/images/head/Head.png" alt="">
+            </div>
+            <b>Bill</b>
+        </div>
+        <div class="content">
+            <video id="video" autoplay="autoplay">
+                <source src="http://ymlht.02.t1m.cn/Resource/EnglishDay/19061304511904383.mp4" type="video/mp4">
+            </video>
+            <div id="audioBox"></div>
+        </div>
+        <div class="text">
+            <b>他的个人作品</b>
+            <ul>
+                    <li>
+                        <img src="http://ymlht.02.t1m.cn/Resource/EnglishDay/19071804460266507.jpg" alt="">
+                        <p>第三集 Birthday Present 生日礼物</p>
+                    </li>
+                    <li>
+                        <img src="http://ymlht.02.t1m.cn/Resource/EnglishDay/19071804425678811.jpg" alt="">
+                        <p>第一集 Go Fishing钓鱼记</p>
+                    </li>
+
+            </ul>
+            <strong>阅美乐带给孩子不一样的阅读体验</strong>
+        </div>
+        <div class="but">
+            <div class="but_img">
+                
+                <div class="box_img">
+
+                </div>
+                <img src="/Areas/Web/Content/img/app-icon.png" alt="" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0;">
+            </div>
+            <p>想了解更多，点击我</p>
+        </div>
+    </div>
+    <script src="/Areas/Web/Content/js/jquery.js"></script>
+    <script src="/Areas/Web/Content/js/jquery.qrcode.min.js"></script>
+</body>
+
+</html>
+
+<script>
+      var downurl = "http://ymlht.02.t1m.cn/Web/Web/Download";
+        // 请求地址，动态改变下载
+
+
+        //把链接转换为二维码
+        jQuery('.box_img').qrcode({
+            width:59,
+            height: 56,
+            render: 'canvas',
+            typeNumber: -1,
+            correctLevel: 0,
+            background: '#ffffff',
+            foreground: '#000000',
+            text: downurl
+        });
+</script>
+
+
+</body>
+
+</html>
+
+

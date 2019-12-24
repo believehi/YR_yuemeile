@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-背包-确认订单</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="ConfirmOrder.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/mui.poppicker.css" />
+	</head>
+	<body>
+		<div class="confirm-init">
+			<div class="confirm-title">
+				<span class="mui-action-back confirm-icon" id="Fan_but"><i></i>返回</span>
+				<p>确定订单</p>
+			</div>
+			<div class="confirm-address">
+				<i></i>
+				<p><span id="confirm-name"></span>&emsp;<span id="confirm-phone"></span></p>
+				<p><span id="confirm-id"></span><span id="confirm-class" style="margin-left: 0.9375rem;"></span></p>
+				<b id="confirm-detail"></b>
+			</div>
+			<div class="confirm">
+				<ul id="baglist">
+
+				</ul>
+			</div>
+			<div class="order-but">
+				<p>共<span id="Quantity"></span>件</p>
+				<p>合计：<span id="zj_box"></span>金币&emsp;</p>
+				<p><span id="back-DuiHuan">提交订单</span></p>
+			</div>
+		</div>
+		<!-- 编辑地址弹窗 -->
+		<div class="edit-init">
+			<div class="edit">
+				<p>编辑地址</p>
+				<div class="edit-list">
+					<span>名&emsp;字</span>
+					<input type="text" name="" id="edit-name" value="" placeholder="您的真实姓名" />
+				</div>
+				<div class="edit-list">
+					<span>电&emsp;话</span>
+					<input type="number" name="" id="edit-phone" value="" placeholder="联系电话" />
+				</div>
+				<div class="edit-list">
+					<span>地&emsp;址</span>
+					<input type="text" name="" value="" id="edit-id_1" placeholder="" style="width: 85%;position: relative;z-index: -222;" />
+					<input type="text" name="" value="" id="city_1" placeholder="" class="city_1" style="display: none;" />
+					<input type="text" name="" value="" id="city_2" placeholder="" class="city_2" style="display: none;" />
+					<input type="text" name="" value="" id="city_3" placeholder="" class="city_3" style="display: none;" />
+					<div id="dq_but">选择地区</div>
+				</div>
+				<div class="edit-list">
+					<span>详细地址</span>
+					<input type="text" name="" id="edit-id" value="" placeholder="详细收货地址" />
+				</div>
+				<div class="edit-list" style="display: none;">
+					<span>班&emsp;级</span>
+					<input type="text" name="" id="edit-class" value="" placeholder="您所在的班级名称" />
+				</div>
+				<button type="button" id="edit-pre">保&emsp;存</button>
+				<i class="edit-icon"></i>
+			</div>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script src="../../js/mui.poppicker.js"></script>
+		<script src="../../js/city.data.js"></script>
+		<script src="../../js/city.data-3.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				// 编辑地址弹窗
+				$(".confirm-address").on("tap", function() {
+					$(".edit-init").css({
+						"display": "block"
+					})
+				})
+				$(".edit-icon").on("tap", function() {
+					$(".edit-init").css({
+						"display": "none"
+					})
+				})
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, xuanid;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview(); //获得参数
+					xuanid = ws.xuanid;
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						// 获取订单信息
+						YiRu.getajax('shop/getorderinfo', function(data) {
+							//console.log(JSON.stringify(data.data));
+							var total_count = 0;
+							var StudentName = data.data.baseinfo.StudentName; //姓名
+							var Address = data.data.baseinfo.Address; //班级
+							var Phone = data.data.baseinfo.Phone; //班级
+							var Provice = data.data.baseinfo.Provice;
+							var City = data.data.baseinfo.City;
+							var Area = data.data.baseinfo.Area;
+							var ProviceStr = Provice + City + Area; //地址
+							var SumAmount = data.data.baseinfo.SumAmount; //订单总价格
+							var Quantity = data.data.baseinfo.Quantity;
+
+							$("#confirm-name").html(StudentName);
+							$("#confirm-id").html(ProviceStr);
+							$("#confirm-class").html(Address);
+							$("#confirm-phone").html(Phone);
+							$("#edit-name").val(StudentName);
+							$("#edit-phone").val(Phone);
+							$("#edit-id_1").val(ProviceStr);
+							$("#edit-id").val(Address);
+							$("#city_1").val(Provice);
+							$("#city_2").val(City);
+							$("#city_3").val(Area);
+
+							//$("#edit-class").val(Class);
+							$("#zj_box").html(SumAmount);
+							$("#Quantity").html(Quantity);
+							var dataarry = data.data.itemsinfo;
+							if (dataarry.length > 0) {
+								var html = "";
+								$.each(dataarry, function(key, value) {
+									var goods1 = parseInt(value.Count);
+									total_count += goods1
+									html +=
+										'<li>' +
+										'<img data-loadimg="true" data-src="' + value.Pic + '" src="../../img/noimg.png" />' +
+										'<p>' + value.ProductName + '</p>' +
+										'<p>x <span class="confirm-num">' + value.Count + '</span></p>' +
+										'<p><span class="confirm-JinBi">' + value.SumAmount + '</span> 金币</p>' +
+										'</li>';
+
+								});
+								$("#baglist").html(html);
+								GetloadImg();
+							}
+							w.close();
+						}, {
+							orderid: ws.orderid,
+						}, w, 'get');
+					};
+					loadPage();
+					// 修改收货地址
+					mui('body').on('tap', '#edit-pre', function() {
+						//
+						if ($("#edit-name").val() == "") {
+							plus.nativeUI.toast('请输入您的收货人名字');
+							return false;
+						}
+						if ($("#edit-phone").val() == "") {
+							plus.nativeUI.toast('请输入您的手机号码');
+							return false;
+						}
+						if (!YiRu.checkPhone($('#edit-phone').val())) {
+							plus.nativeUI.toast('请填写正确的手机号码');
+							return false;
+						}
+						if ($("#city_1").val() == "") {
+							plus.nativeUI.toast('请选择地址');
+							return false;
+						}
+						if ($("#edit-id").val() == "") {
+							plus.nativeUI.toast('请输入您的收货地址');
+							return false;
+						}
+						// if ($("#edit-class").val() == "") {
+						// 	plus.nativeUI.toast('请输入您的班级名称');
+						// 	return false;
+						// }
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('shop/orderaddress', function(data) {
+							w.close();
+							$(".edit-init").hide();
+
+							$("#confirm-name").html($("#edit-name").val());
+							$("#confirm-id").html($("#edit-id_1").val());
+							$("#confirm-class").html($("#edit-id").val());
+							$("#confirm-phone").html($("#edit-phone").val());
+
+							plus.nativeUI.toast('保存成功！');
+						}, {
+							orderid: ws.orderid,
+							phone: $("#edit-phone").val(),
+							truename: $("#edit-name").val(),
+							province: $("#city_1").val(),
+							city: $("#city_2").val(),
+							area: $("#city_3").val(),
+							address: $("#edit-id").val()
+						}, w, 'get');
+
+					});
+
+					// $("#Fan_but").on("tap", function() {
+					// 	mui.confirm('还未提交订单,确定返回？', '提示', ['确定', '取消'], function(e) {
+					// 		if (e.index == 0) {
+					// 			YiRu.getajax('shop/orderaddress', function(data) {
+					// 				plus.nativeUI.toast('保存成功！');
+					// 			}, {
+					// 				orderid: ws.orderid,
+					// 				status:'3'
+					// 			}, w, 'get');
+					// 		}
+					// 	});
+					// 
+					// });
+					// 地区选择
+					var city_picker = new mui.PopPicker({
+						layer: 3
+					});
+					city_picker.setData(cityData3);
+					mui('body').on('tap', '#dq_but', function() {
+						setTimeout(function() {
+							city_picker.show(function(items) {
+								if ((items[0] || {}).text == undefined) {
+									(items[0] || {}).text = "";
+								} else if ((items[1] || {}).text == undefined) {
+									(items[1] || {}).text = "";
+								} else if ((items[2] || {}).text == undefined) {
+									(items[2] || {}).text = "";
+								}
+								var dizi = items[0].text + items[1].text + items[2].text;
+								$("#edit-id_1").val(dizi);
+								$("#city_1").val(items[0].text); //省
+								$("#city_2").val(items[1].text); //市
+								$("#city_3").val(items[2].text); //区
+							})
+						}, 200);
+					});
+
+					// 提交订单
+					mui('body').on('tap', '#back-DuiHuan', function() {
+						mui.confirm('确定提交订单？', '提示', ['确定', '取消'], function(e) {
+							if (e.index == 0) {
+								w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+								YiRu.getajax('shop/confirmorder', function(data) {
+									w.close();
+									plus.nativeUI.toast('提交成功！');
+									YiRu.openVW("/pages/schedule/schedule.html");
+									//mui.fire(plus.webview.getWebviewById("/pages/shopping/shopping.html"), "shopping");
+									mui.fire(plus.webview.getWebviewById("/pages/shopping/shopping.html"), "updatedata");
+									var det = plus.webview.getWebviewById("/pages/ExDetails/ExDetails.html");
+									if (det) {
+										mui.fire(det, "ExDetails");
+									}
+									if (xuanid) {
+										YiRu.getajax('shop/editbaglist', function(data) {
+											mui.fire(plus.webview.getWebviewById("/pages/backMall/backMall.html"), "updatedata");
+										}, {
+											type: 2,
+											bagid: xuanid,
+										}, null, 'get');
+									}
+									setTimeout(function() {
+										ws.close("none");
+									}, 500);
+
+								}, {
+									orderid: ws.orderid,
+								}, w, 'get');
+							}
+
+						});
+
+					});
+				});
+			})();
+		</script>
+	</body>
+</html>

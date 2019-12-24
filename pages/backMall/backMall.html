@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>购物车</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="backMall.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="order-init">
+			<div class="order-title">
+				<span class="mui-action-back order-icon"><i></i>返回</span>
+				<p>共 <span id="Num_top">0</span> 件宝贝</p>
+				<span class="order-icon"><i></i><span id="back-sw">管理</span></span>
+			</div>
+			<div class="cartBox">
+				<div class="order order_content">
+					<ul id="baglist">
+
+					</ul>
+				</div>
+			</div>
+			<div class="order-but">
+				<p class="order-one">
+					<div class="checkbox_box ">
+						<li class="list_chk">
+							<!--所有商品全选-->
+							<input type="checkbox" name="all" id="all" class="whole_check back_radio1">
+						</li>
+					</div>
+					<span class="qutext">全选</span>
+				</p>
+				<p class="order-two">合计：<span id="total" class="total_text">0</span>金币&emsp;<span id="back-DuiHuan" class="piece order_but">兑换（<span
+						 id="num" class="piece_num">0</span>）</span></p>
+				<p class="order-three"><span id="back-shoucang" class="back-addbox">移入收藏夹</span>&emsp;<span id="back-delete">删除</span></p>
+			</div>
+			<!--底部-->
+			<div class="bar-wrapper" style="display: none;">
+				<div class="bar-right">
+					<div class="piece">已选商品<strong class="piece_num">0</strong>件</div>
+					<div class="totalMoney">共计: <strong class="total_text">0.00</strong></div>
+					<div class="calBtn"><a href="javascript:;">结算</a></div>
+				</div>
+			</div>
+		</div>
+		<!-- 删除弹窗 -->
+		<div class="except-init">
+			<div class="except">
+				<p>确认要删除该商品吗？</p>
+				<div class="except-content">
+					<button type="button" id="except-no">我再想想</button>
+					<button type="button" id="except-ok">确&emsp;定</button>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, heji = 0,
+					xuanheji = 0,
+					alllist,
+					xuanid = "",
+					loadPage;
+				mui.plusReady(function() {
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('shop/baglist', function(data) {
+							var dataarry = data.data.baseinfo;
+							//console.log(dataarry)
+							$("#Num_top").html(dataarry.length);
+							var html = "";
+							$.each(dataarry, function(key, value) {
+								html +=
+									'<li class="order_lists" id="' + value.ID + '">' +
+									'<div><input type="checkbox" name="checkbox" ProductId="' + value.ProductId + '" Pic="' + value.Pic +
+									'" ProductName="' + value.ProductName + '" data-id="' + value.ID + '" id="checkbox_' + value.ID +
+									'" class="son_check back_radio1"></div>' +
+									'<img class="back_img" data-loadimg="true" data-src="' + value.Pic + '" src="../../img/noimg.png" />' +
+									'<p class="ProductName">' + value.ProductName + '</p>' +
+									'<p><span class="Amount price" id="Amount_' + value.ID + '">' + value.Amount + '</span>金币</p>' +
+									'<span class="sum_price" style="display:none"></span>' +
+									'<div class="amount_box back-num">' +
+									'<span data-id="' + value.ID + '" class="reduce reSty back-duc icon"></span>' +
+									'<input type="text" id="text_' + value.ID + '" value="' + value.Quantity +
+									'" class="sum mui-input-numbox" disabled="true">' +
+									'<span data-id="' + value.ID + '" class="plus back-add icon" >+</span>' +
+									'</div>' +
+									'</li>';
+								heji += value.Amount * value.Quantity;
+							});
+							$("#baglist").html(html);
+							GetloadImg();
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							page: '1',
+							num: '100',
+						}, w, 'get');
+					};
+					loadPage();
+					//管理
+					var order_aa = true;
+					mui('body').on('tap', '#back-sw', function() {
+						if (order_aa) {
+							order_aa = false;
+							$("#back-sw").html("完成");
+							$(".order-two").hide();
+							$(".order-three").show();
+						} else {
+							order_aa = true;
+							$("#back-sw").html("管理");
+							$(".order-two").show();
+							$(".order-three").hide();
+						}
+					});
+					// 减少数量
+					mui('#baglist').on('tap', '.back-duc', function() {
+
+						var thisid = this.getAttribute("data-id");
+						var shop_num = parseInt($("#text_" + thisid).val());
+						if (shop_num > 1) {
+							var sl = shop_num - 1;
+							$("#text_" + thisid).val(sl);
+							Grteditbag(thisid, 1, sl);
+						} else {
+							plus.nativeUI.toast('最小数量不能小于1！');
+						}
+					});
+					//增加数量
+					mui('#baglist').on('tap', '.back-add', function() {
+						var thisid = this.getAttribute("data-id");
+						var shop_num = parseInt($("#text_" + thisid).val());
+						var sl = shop_num + 1;
+						$("#text_" + thisid).val(sl);
+						Grteditbag(thisid, 1, sl);
+					});
+					//单选
+					mui('#baglist').on('change', 'input[name=checkbox]', function() {
+						//this.getAttribute("data-id")
+						if ($(this).is(":checked")) {
+							//勾选
+							//console.log("勾选");
+						} else {
+							//取消勾选
+							//console.log("取消勾选");
+						}
+						jisuan();
+					});
+					//全选
+					mui('body').on('change', '#all', function() {
+						//this.getAttribute("data-id")
+						var allthis = $(this);
+						alllist = $("input[name=checkbox]");
+						jisuan();
+						alllist.each(function() {
+							if (allthis.is(":checked")) {
+								//勾选
+								//console.log("勾选");
+								$(this).prop("checked", true);
+							} else {
+								//取消勾选
+								//console.log("取消勾选");
+								$(this).prop("checked", false);
+							}
+						});
+						jisuan();
+					});
+					//确定删除商品
+					mui('body').on('tap', '#except-ok', function() {
+						editbaglist(xuanid, 2, "删除成功");
+						$(".except-init").hide();
+					});
+
+					function jisuan() {
+						alllist = $("input[name=checkbox]");
+						heji = 0;
+						xuanheji = 0;
+						alllist.each(function() {
+							var iid = this.getAttribute("data-id");
+
+							if ($(this).is(":checked")) {
+								var thisjine = parseInt($("#Amount_" + iid).html() * $("#text_" + iid).val());
+								heji += thisjine;
+								xuanheji++;
+							}
+						});
+						$("#total").html(heji);
+						$("#num").html(xuanheji);
+						$("#Num_top").html(alllist.length);
+					};
+					// 加入收藏
+					mui('body').on('tap', '#back-shoucang', function() {
+						alllist = $("input[name=checkbox]");
+						xuanid = "";
+						alllist.each(function() {
+							if ($(this).is(":checked")) {
+								var iid = this.getAttribute("data-id");
+								xuanid += iid + ",";
+							}
+						});
+						if (xuanid == "") {
+							mui.toast("请选择需要收藏的商品");
+						} else {
+							xuanid = xuanid.substring(0, xuanid.length - 1);
+							editbaglist(xuanid, 1, "收藏成功");
+						}
+					});
+					// 删除商品
+					mui('body').on('tap', '#back-delete', function() {
+						alllist = $("input[name=checkbox]");
+						xuanid = "";
+						alllist.each(function() {
+							if ($(this).is(":checked")) {
+								var iid = this.getAttribute("data-id");
+								xuanid += iid + ",";
+							}
+						});
+						if (xuanid == "") {
+							mui.toast("请勾选需要删除的商品");
+						} else {
+							xuanid = xuanid.substring(0, xuanid.length - 1);
+							$(".except-init").show();
+						}
+					});
+					mui('body').on('tap', '#except-no', function() {
+						$(".except-init").hide();
+					});
+
+					// 选中背包中商品进行兑换
+					mui('body').on('tap', '#back-DuiHuan', function() {
+						var sumamount = parseInt($("#total").html()); //总金额
+						var quantity = parseInt($("#num").html()); //总数量
+						if (quantity <= 0) {
+							plus.nativeUI.toast('请选择要兑换的商品');
+							return false;
+						}
+						var dataResult = [];
+						alllist = $("input[name=checkbox]");
+						xuanid = "";
+						alllist.each(function() {
+							if ($(this).is(":checked")) {
+								var iid = this.getAttribute("data-id");
+								xuanid += iid + ",";
+								var _Amount = parseInt($("#Amount_" + iid).html());
+								var _Count = parseInt($("#text_" + iid).val());
+								dataResult.push({
+									ProductId: this.getAttribute("ProductId"),
+									Pic: this.getAttribute("Pic"),
+									ProductName: this.getAttribute("ProductName"),
+									Amount: _Amount,
+									Count: _Count,
+									SumAmount: _Amount * _Count
+								});
+							}
+						});
+						xuanid = xuanid.substring(0, xuanid.length - 1);
+						
+						//console.log(xuanid);
+						order(sumamount, quantity, dataResult);
+					});
+
+					// 选中背包中商品进行兑换
+					function order(sumamount, quantity, orderitems) {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('shop/order', function(data) {
+							w.close();
+
+							YiRu.openVW("/pages/ConfirmOrder/ConfirmOrder.html", {
+								orderid: data.data.orderid,
+								xuanid: xuanid
+							});
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							SumAmount: sumamount,
+							Quantity: quantity,
+							orderitems: orderitems
+						}, w, 'post');
+					};
+
+					// 编辑背包
+					function Grteditbag(id, type, quantity) {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('shop/editbag', function(data) {
+							w.close();
+							jisuan();
+						}, {
+							type: type,
+							bagid: id,
+							quantity: quantity
+						}, w, 'get');
+					}
+
+					// 删除或收藏商品
+					function editbaglist(id, type, tishi) {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('shop/editbaglist', function(data) {
+							w.close();
+							//判断是收藏还是删除商品
+							if (type == 2) {
+								var liid = id.split(',');
+								for (var i = 0; i < liid.length; i++) {
+									$("#" + liid[i]).remove();
+								}
+								jisuan();
+							}
+							order_aa = true;
+							$("#back-sw").html("管理");
+							$(".order-two").show();
+							$(".order-three").hide();
+							plus.nativeUI.toast(tishi);
+						}, {
+							type: type,
+							bagid: id,
+						}, w, 'get');
+					}
+					document.addEventListener('updatedata', function(tab) {
+						$("#total").html("0");
+						$("#num").html("0");
+						loadPage();
+					});
+				});
+			})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="follow.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-action-back" id="fanhui">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="follow">
+			<div class="cont">
+				<div class="contimg" id="contimg"></div>
+				<div class="cont-title">
+					<i></i>
+					<span id="playtxt" data-src="">
+						<p id="txt"></p>
+					</span>
+				</div>
+				<!-- 分数 -->
+				<div class="score">
+					<img src="../../img/pingfen_02.png">
+					<p>95分</p>
+				</div>
+			</div>
+			<!-- 播放功能键 1 -->
+			<ul class="control control_a">
+				<li id="wode">
+					<img src="../../img/btn_08.png">
+					<p>我的读音</p>
+				</li>
+				<li id="gendu">
+					<img src="../../img/btn_06.png" class="play-img">
+					<p>跟读</p>
+				</li>
+				<li id="oKeep">
+					<img src="../../img/btn_05.png">
+					<p>下一页</p>
+				</li>
+			</ul>
+			<!-- 播放功能键 2 -->
+			<ul class="control control_b play-active">
+				<li id="luyin">
+					<img src="../../img/btn_09.png" class="play-img">
+					<p>结束录音</p>
+				</li>
+			</ul>
+			<!-- 播放功能键 3 -->
+			<!-- <ul class="control control_c play-active">
+				<li>
+					<img src="../../img/btn_08.png">
+					<p>我的读音</p>
+				</li>
+				<li id="chongdu">
+					<img src="../../img/btn_10.png" class="play-img">
+					<p>重读</p>
+				</li>
+				<li class="oKeep">
+					<img src="../../img/btn_05.png">
+					<p>下一页</p>
+				</li>
+			</ul> -->
+		</div>
+		<!-- 完成录制弹窗 -->
+		<div class="popup">
+			<div class="popup-content">
+				<img src="../../img/bianwen_03.png" class="huabian">
+				<p><img src="../../img/icon_52.png">完成录制</p>
+				<div class="popup-foo">
+					<span class="popup-quxiao">取消</span>
+					<span>
+						确定<br>保存并转发
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+
+
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, pid, itemlist = [],
+					play_bofang = null,
+					play_bofanga = null,
+					play_luyin = null,
+					play_thisluyin = "",
+					play_luyinlist = [],
+					itemlen = 0,
+					pagenum = 1,
+					isbofang = true,
+					loadPage,
+					isluyin = false,
+					dafen = 100,
+					mjsj = 0,
+					ppid,
+					dysj = 0,
+					lysj = 0,
+					token = '',
+					caiyanglv = 8000;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					pid = ws.pid;
+					play_bofang = plus.audio.createPlayer({});
+					//play_bofanga = plus.audio.createPlayer({});
+					play_luyin = plus.audio.getRecorder();
+					//caiyanglv = play_luyin.supportedSamplerates[0];
+					//console.log(play_luyin.supportedSamplerates);
+					loadPage = function() {
+						getlocaltoken();
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('dubbing/pgelist', function(data) {
+							w.close();
+							//console.log(JSON.stringify(data));
+							itemlist = data.data.baseinfo;
+							itemlen = itemlist.length;
+							ppid = data.data.repeatmain.ID;
+							//console.log(itemlen);
+							if (itemlen == 0) {
+								mui.toast("资源整理中");
+								mui.back();
+								return;
+							}
+							//w = plus.nativeUI.showWaiting('内容加载中，请稍候...', YiRu.WaitingStyle());
+							//downfiles(0, function(e) {
+							//	if (e) {
+							//w.close();
+
+							//YiRu.getFileUrlbyLocal(bfurl[0], fpath)
+							$("#txt").html(itemlist[0].Text);
+							$("#contimg").css("background-image", "url(" + YiRu.getFileUrlbyLocal(itemlist[0].Pic) + ")");
+							$("#playtxt").attr("data-src", itemlist[0].DubbingUrl);
+							playaudio(itemlist[0].DubbingUrl);
+							//console.log(JSON.stringify(itemlist));
+							//	}
+							//});
+
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							dubbingid: pid,
+							type: '',
+							page: 1,
+							num: 100
+						}, w, 'get', {
+							key: pid + YiRu.getuserinfo().userId,
+							num: CaCheNum
+						});
+
+					};
+					$(".popup-quxiao").on("tap", function() {
+						$(".popup").css({
+							"display": "none"
+						})
+					});
+
+					$("#wode").on("tap", function() {
+						if (bofangzhong()) return;
+						playaudio(play_thisluyin, true, true, 'audio');
+					});
+					var yuyinshibieint = 0;
+					// 播放功能 切换
+					$("#gendu").on("tap", function() {
+						if (isbofang) {
+							mui.toast("正在播放中");
+							return true;
+						};
+						//如果显示分数的层还没有消失,则点击无效.
+						if (!$(".score").is(":hidden")) return;
+						isluyin = true;
+						$(".control_a").addClass("play-active");
+						$(".control_b").removeClass("play-active");
+
+						//新增语音识别
+						/*
+						yuyinshibieint = 0;
+						plus.speech.startRecognize({
+							continue: true,
+							engine: 'baidu',
+							lang: 'en-us',
+							userInterface: false,
+						}, function(s) {
+							if (yuyinshibieint == 0) {
+								yuyinshibieint++;
+								//alert(s);
+								pingfen_baidu(s, $("#txt").html());
+								//plus.speech.stopRecognize();
+							}
+						}, function(e) {
+							console.log("返回错误：" + JSON.stringify(e));
+							//alert(JSON.stringify(e));
+							//plus.speech.stopRecognize();
+						});
+						*/
+						recorder();
+						//$(".control_b").addClass("control");
+					});
+					$("#luyin").on("tap", function() {
+						play_luyin.stop();
+						isluyin = false;
+						$(".play-active").removeClass("play-active");
+						$(".control_c").addClass("play-active");
+
+						$("#gendu p").html("重读");
+						//新增语音识别
+						//plus.speech.stopRecognize();
+						// $(".popup").css({
+						// 	"display": "block"
+						// });
+					});
+					mui('body').on('tap', '#oKeep', function() {
+						//YiRu.openVW("/pages/share/share.html", null, true);
+						//return;
+						if (play_thisluyin == "") {
+							mui.toast("请先跟读");
+							return;
+						}
+						if (isbofang) {
+							mui.toast("正在播放中");
+							return;
+						}
+						$("#gendu p").html("跟读");
+
+						// if (pagenum == itemlen - 1) {
+						// 	$("#oKeep p").html("完成");
+						// }
+						//逐条上传
+						//console.log(YiRu.getuserinfo().loginMark)
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						//开始上传
+						var task = plus.uploader.createUpload(URL + "annexes/uploadvoice", {
+								method: "POST"
+							},
+							function(t, status) {
+								// 上传完成
+								if (status == 200) {
+									var fh = JSON.parse(t.responseText);
+									//上传成功
+									//console.log(JSON.stringify(fh));
+									if (fh.code == 200) {
+										//上传完之后删除
+										delFile(play_thisluyin);
+										YiRu.getajax('dubbing/saverepeat', function(datas) {
+											//console.log(JSON.stringify(datas));
+
+											//全部读完了
+											play_bofang.stop();
+											if (play_bofanga != null) {
+												play_bofanga.stop();
+											}
+											//play_bofang.close();
+											//play_bofang = null;
+											play_luyin.stop();
+											//play_luyin.close();
+											//play_luyin = null;
+											play_thisluyin = "";
+											mjsj = 0;
+											pagenum = pagenum + 1;
+
+											if (pagenum == itemlen + 1) {
+												play_bofang.close();
+												if (play_bofanga != null) {
+													play_bofanga.stop();
+												}
+												YiRu.openVW("/pages/share/share.html", {
+													DubbingId: datas.data.baseinfo.DubbingId,
+													studentId: YiRu.getuserinfo().userId,
+													ppid: ppid
+												}, true);
+												return;
+											} else {
+												//console.log(JSON.stringify(itemlist[pagenum - 1]));
+												$("#txt").html(itemlist[pagenum - 1].Text);
+												$("#contimg").css("background-image", "url(" + YiRu.getFileUrlbyLocal(itemlist[pagenum - 1].Pic) +
+													")");
+												$("#playtxt").attr("data-src", itemlist[pagenum - 1].DubbingUrl);
+												playaudio(itemlist[pagenum - 1].DubbingUrl);
+												setTimeout(function() {
+													dysj = parseInt(play_bofang.getDuration());
+													//console.log(dqsj);
+												}, 300);
+											}
+											//GetloadImg();
+										}, {
+											dubbingid: pid,
+											rid: ppid,
+											studentId: YiRu.getuserinfo().userId,
+											repeat: fh.info,
+											time: mjsj,
+											states: 2,
+											score: dafen
+										}, w, 'get');
+
+
+									} else if (fh.code == 410) {
+										w.close();
+										YiRu.openVW("/pages/UserLogin/Userlogin.html");
+										YiRu.logout();
+										return;
+									} else {
+										mui.toast("上传失败，请联系客服");
+										w.close();
+									}
+								} else {
+									mui.toast("上传失败，请重试");
+									w.close();
+								}
+							}
+						);
+						task.addFile(play_thisluyin, {
+							key: "testdoc"
+						});
+						task.addData("token", YiRu.getuserinfo().token);
+						task.addData("loginMark", YiRu.getuserinfo().loginMark);
+						task.addData("data", "{\"type\":0}");
+						//task.addEventListener( "statechanged", onStateChanged, false );
+						task.start();
+
+						//YiRu.openVW("/pages/share/share.html");
+					});
+					loadPage();
+
+					mui('body').on('tap', '#playtxt', function() {
+
+						var _src = this.getAttribute('data-src');
+						//console.log(_src + "/" + isbofang);
+						if (_src == "" || isbofang || isluyin) return;
+						playaudio(_src);
+					});
+					//播放音频文件
+					function playaudio(urlstr, flag, iswode, fpath) {
+						fpath = fpath || false;
+						if (play_bofang != null) play_bofang.stop();
+						if (play_bofanga != null) {
+							play_bofanga.stop();
+							play_bofanga.close();
+						};
+						//console.log(urlstr);
+						var bfurl = urlstr.split(';');
+						isbofang = true;
+						var _dysj = 0;
+						play_bofang.setStyles({
+							src: YiRu.getFileUrlbyLocal(bfurl[0], fpath)
+						});
+						//isbofang = false;
+						play_bofang.play(function(e) {
+
+							_dysj = play_bofang.getDuration();
+							if (bfurl.length > 1) {
+								//console.log(play_bofanga);
+								play_bofanga = plus.audio.createPlayer({});
+								play_bofanga.setStyles({
+									src: YiRu.getFileUrlbyLocal(bfurl[1], fpath)
+								});
+								//console.log(YiRu.getFileUrlbyLocal(bfurl[1], fpath));
+								play_bofanga.play(function(e) {
+
+									_dysj += play_bofanga.getDuration();
+
+									isbofang = false;
+
+									if (flag) {
+										lysj = play_bofang.getDuration();
+										mjsj = parseInt(lysj);
+										if (!iswode) pingfen();
+										//plus.speech.stopRecognize();
+										//yuyinshibieint = 0;
+										//console.log(lysj + "/" + dysj);
+									} else {
+										dysj = _dysj;
+										//console.log(dysj);
+									}
+								}, function(ee) {
+									console.log("播放出错啦" + JSON.stringify(ee));
+									isbofang = false;
+								});
+
+							} else {
+								isbofang = false;
+
+								if (flag) {
+									lysj = play_bofang.getDuration();
+									mjsj = parseInt(lysj);
+									if (!iswode) pingfen();
+									//plus.speech.stopRecognize();
+									//yuyinshibieint = 0;
+									//console.log(lysj + "/" + dysj);
+								} else {
+									dysj = _dysj;
+									//console.log(dysj);
+								}
+
+
+							}
+
+						}, function(e) {
+							console.log("播放出错" + JSON.stringify(e) + "/" + urlstr);
+							isbofang = false;
+						});
+					}
+
+					function pingfen() {
+
+						shibie(function(msg) {
+							pingfen_baidu(msg, $("#txt").html());
+							//console.log(msg);
+						}, function() {
+							if (parseInt(lysj) == parseInt(dysj)) {
+								dafen = 100;
+							} else if (lysj <= dysj + dysj / 3 && lysj >= dysj * 0.6) {
+								//dafen = lysj / dysj * 100;
+								dafen = Math.floor(Math.random() * (95 - 75 + 1) + 75);
+							} else if (lysj < dysj) {
+								dafen = lysj / dysj * 100;
+							} else if (lysj > dysj) {
+								dafen = dysj / lysj * 100;
+							}
+							dafen = parseInt(dafen);
+							$(".score p").html(dafen);
+							$(".score").css({
+								'display': 'block'
+							});
+							setTimeout(function() {
+								$(".score").fadeOut(1000);
+							}, 1000);
+						});
+					}
+
+					function pingfen_baidu(s, f) {
+						s = s.replace(/[\r|\n|\\s|,|:|!|.| ]/g, "");
+						f = f.replace(/[\r|\n|\\s|,|:|!|.| ]/g, "");
+						s = s.toLowerCase();
+						f = f.toLowerCase();
+						// console.log(s);
+						// console.log(f);
+						//dafen = similar(s.split(' '), f.split(' '));
+						dafen = similar(s, f);
+						dafen = parseInt(dafen * 100);
+						dafen = dafen > 60 ? dafen + 6 : dafen;
+						dafen = dafen >= 100 ? 100 : dafen;
+						if (dafen >= 30) {
+							//console.log("分数：" + dafen);
+							$(".score p").html(dafen);
+							$(".score").css({
+								'display': 'block'
+							});
+							setTimeout(function() {
+								$(".score").fadeOut(1000);
+							}, 1000);
+						} else {
+							mui.toast("你说的啥呀！重读吧。");
+						}
+					}
+
+					function recorder() {
+						if (isbofang) {
+							mui.toast("正在播放中");
+							return;
+						};
+						//play_luyin = plus.audio.getRecorder();
+						if (play_thisluyin != "") {
+							delFile(play_thisluyin);
+						}
+						play_luyin.record({
+							filename: "_doc/audio/",
+							format: "wav",
+							channels: "mono",
+							samplerate: caiyanglv
+						}, function(recordFile) {
+							play_thisluyin = recordFile;
+							//console.log(play_thisluyin);
+							playaudio(play_thisluyin, true, false, 'audio');
+							//录音时长
+
+						}, function(e) {
+							mui.toast("小失误，请重新跟读哦" + JSON.stringify(e));
+						});
+					}
+
+					function bofangzhong() {
+						if (play_thisluyin == "") {
+							mui.toast("请先跟读");
+							return true;
+						}
+						if (isbofang) {
+							mui.toast("正在播放中");
+							return true;
+						}
+					}
+
+					function downfiles(n, callback) {
+						//console.log(n + "/" + itemlen);
+						var c = parseInt(n / itemlen * 100);
+						if (c) w.setTitle("内容加载中，请稍候...(" + c + "%)");
+						if (n < itemlen) {
+							//console.log(n);
+							//console.log(itemlist[n].DubbingUrl);
+							//console.log(itemlist[n].Pic);
+							var dubu = itemlist[n].DubbingUrl.split(';');
+							YiRu.getFileUrl(itemlist[n].Pic, function(imgsrc) {
+								//下载读音1
+								YiRu.getFileUrl(dubu[0], function(src) {
+									if (!dubu[1]) {
+										itemlist[n].DubbingUrl = src;
+										itemlist[n].Pic = imgsrc;
+										downfiles(n + 1, callback);
+									} else {
+										//下载读音2
+										YiRu.getFileUrl(dubu[1], function(srcc) {
+											if (!dubu[2]) {
+												itemlist[n].DubbingUrl = src + ";" + srcc;
+												itemlist[n].Pic = imgsrc;
+												downfiles(n + 1, callback);
+											} else {
+												//下载读音3
+												YiRu.getFileUrl(dubu[2], function(srccc) {
+													if (!dubu[3]) {
+														itemlist[n].DubbingUrl = src + ";" + srcc + ";" + srccc;
+														itemlist[n].Pic = imgsrc;
+														downfiles(n + 1, callback);
+													} else {
+														//下载读音4
+														YiRu.getFileUrl(dubu[3], function(srcccc) {
+															itemlist[n].DubbingUrl = src + ";" + srcc + ";" + srccc + ";" + srcccc;
+															itemlist[n].Pic = imgsrc;
+															downfiles(n + 1, callback);
+														});
+													}
+												});
+											}
+
+										});
+									}
+								});
+							});
+						} else {
+							return callback(true);
+						}
+					};
+					//语音识别
+					function shibie(callback, errback) {
+						plus.io.resolveLocalFileSystemURL(play_thisluyin, function(entry) {
+							entry.file(function(file) {
+								var reader = new plus.io.FileReader();
+								//urlSize 为 文件的字节 大小
+								var urlSize = file.size;
+								//reader.onload = function(e) {};
+								reader.readAsDataURL(file);
+								reader.onloadend = function(e) {
+									//urlStr 的值，为返回转换的base64数据
+									var urlStr = e.target.result;
+									urlArr = urlStr.split(",")[1];
+									//dataURL2Audio(urlArr,play_thisluyin,function(entry){});
+									//console.log(e.target.result);
+									getVoice2Text(urlArr, urlSize, function(msg) {
+										//alert(msg);
+										return callback(msg);
+									}, function() {
+										return errback();
+									});
+								}
+
+							})
+						}, function(e) {
+							return errback();
+						});
+
+					}
+
+					function getVoice2Text(base64, urlSize, callback, errback) {
+						var lsdata = {
+							"format": YiRu.ios() ? "wav" : "amr", //格式支持pcm（不压缩）、wav（不压缩，pcm编码）、amr（压缩格式）采样率
+							"rate": caiyanglv, //前方有坑，请绕行：此处文档参数16000，达不到这种高保真音频，故 使用8000
+							"dev_pid": 1737, //普通话：1536,英语：1737
+							"channel": 1, //固定写法（声道）
+							"cuid": YiRu.deviceId(), //设备的唯一id
+							"speech": base64, //base64的音频文件
+							"len": urlSize, //文件的大小，字节数
+							"token": token //获取到的token值
+						}
+						w = plus.nativeUI.showWaiting('正在打分，请稍候哦...', YiRu.WaitingStyle());
+						mui.ajax('https://vop.baidu.com/server_api', {
+							data: JSON.stringify(lsdata), //注意，data内部为json格式，所以，必须是字符串
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 5000, //超时时间设置为3秒；
+							success: function(data) {
+								w.close();
+								//服务器返回响应，根据响应结果，分析是否登录成功；
+								//console.log(JSON.stringify(data));
+								if (data.err_msg == 'success.' && data.err_no == 0) {
+									return callback(data.result[0]);
+								} else if (data.err_no == 3301) {
+									mui.toast("没有听清，请重读哦");
+									//return callback("");
+								} else {
+									return errback();
+								}
+								//alert(JSON.stringify(data));
+								//callback(data.result[0]);
+
+							},
+							error: function(xhr, type, errorThrown) {
+								w.close();
+								return errback();
+								//异常处理；
+								// console.log(type);
+								// console.log(errorThrown);
+								// console.log("识别fail");
+							}
+						});
+
+					}
+
+					function getToken() {
+						mui.ajax('https://openapi.baidu.com/oauth/2.0/token', {
+							data: {
+								grant_type: 'client_credentials',
+								client_id: 'TesSVoeCsdR6jgM4bMEPHplt', //需要替换
+								client_secret: 'RoBmWGF6t8ik97SHRSXL9vfqXPENuhg8' //需要替换
+							},
+							dataType: 'json',
+							type: 'post',
+							timeout: 10000,
+							success: function(data) {
+								token = data.access_token;
+								var baidutoken = {};
+								baidutoken.token = token;
+								baidutoken.time = new Date();
+								localStorage.setItem('$yml_baidutoken', JSON.stringify(baidutoken));
+								//alert(JSON.stringify(baidutoken));
+							},
+							error: function(xhr, type, errorThrown) {
+								//alert(xhr.responseText);
+							}
+						});
+					}
+
+					function getlocaltoken() {
+						localStorage.getItem('$yml_baidutoken');
+						var _token = localStorage.getItem('$yml_baidutoken') || "";
+						if (!!_token) {
+							var tokenjson = JSON.parse(_token);
+							if ((new Date() - tokenjson.time) / (1000 * 60 * 60 * 24) <= 28) {
+								token = tokenjson.token;
+							} else {
+								getToken();
+							}
+						} else {
+							getToken();
+						}
+
+
+					}
+					/**  
+					 * base64字符串转成语音文件(参考http://ask.dcloud.net.cn/question/16935)  
+					 * @param {Object} base64Str  
+					 * @param {Object} callback  
+					 */
+					function dataURL2Audio(base64Str, _filename, callback) {
+						//var base64Str = base64Str.replace('data:audio/amr;base64,', '');
+						var audioName = _filename.split('.')[0] + '.wav'; // (new Date()).valueOf() + '.mp3';
+
+						plus.io.requestFileSystem(plus.io.PRIVATE_DOC, function(fs) {
+							fs.root.getFile(audioName, {
+								create: true
+							}, function(entry) {
+								// 获得平台绝对路径  
+								var fullPath = entry.fullPath;
+								if (mui.os.android) {
+									// 读取音频  
+									var Base64 = plus.android.importClass("android.util.Base64");
+									var FileOutputStream = plus.android.importClass("java.io.FileOutputStream");
+									try {
+										var out = new FileOutputStream(fullPath);
+										var bytes = Base64.decode(base64Str, Base64.DEFAULT);
+										out.write(bytes);
+										out.close();
+										// 回调  
+										callback && callback(entry);
+									} catch (e) {
+										console.log(e.message);
+									}
+								} else if (mui.os.ios) {
+									var NSData = plus.ios.importClass('NSData');
+									var nsData = new NSData();
+									nsData = nsData.initWithBase64EncodedStringoptions(base64Str, 0);
+									if (nsData) {
+										nsData.plusCallMethod({
+											writeToFile: fullPath,
+											atomically: true
+										});
+										plus.ios.deleteObject(nsData);
+									}
+									// 回调  
+									callback && callback(entry);
+								}
+							})
+						})
+					}
+					//语音识别
+					var oldback = mui.back;
+					mui.back = function() {
+						if (play_bofang != null) {
+							play_bofang.close();
+						}
+						if (play_bofanga != null) {
+							play_bofanga.close();
+						}
+						oldback();
+						setTimeout(function() {
+							ws.close("none");
+						}, 300);
+					}
+				});
+
+				function similar(s, t, f) {
+
+					if (!s || !t) {
+						return 0
+					}
+					var l = s.length > t.length ? s.length : t.length
+					var n = s.length
+					var m = t.length
+					var d = []
+					f = f || 3
+					var min = function(a, b, c) {
+						return a < b ? (a < c ? a : c) : (b < c ? b : c)
+					}
+					var i, j, si, tj, cost
+					if (n === 0) return m
+					if (m === 0) return n
+					for (i = 0; i <= n; i++) {
+						d[i] = []
+						d[i][0] = i
+					}
+					for (j = 0; j <= m; j++) {
+						d[0][j] = j
+					}
+					for (i = 1; i <= n; i++) {
+						si = s.charAt(i - 1)
+						//si = s[i - 1];
+						for (j = 1; j <= m; j++) {
+							tj = t.charAt(j - 1)
+							//tj = t[j - 1];
+							if (si === tj) {
+								cost = 0
+							} else {
+								cost = 1
+							}
+							d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost)
+						}
+					}
+					let res = (1 - d[n][m] / l);
+					return res.toFixed(f);
+
+				}
+			})();
+		</script>
+	</body>
+</html>

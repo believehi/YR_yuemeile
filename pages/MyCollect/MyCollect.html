@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-我的收藏</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="MyCollect.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<h2>我的收藏夹</h2>
+		<div class="wrapper-container">
+			<div class="title-list">
+				<li class="mui-title-active">歌曲</li>
+				<li>商品</li>
+				<li>动画</li>
+			</div>
+			<div class="content">
+				<div class="content-init init-GeQu mui-title-active">
+					<h6><i></i>我喜欢的歌曲</h6>
+					<ul id="Music">
+					</ul>
+				</div>
+				<div class="content-init init-ShangPin">
+					<ul id="Commodity">
+
+					</ul>
+				</div>
+				<div class="content-init init-DongHua">
+					<ul id="Video">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws;
+				mui.plusReady(function() {
+					var _this = this;
+					var type = '1';
+					getyecare1 = function(index) {
+						YiRu.getajax('browse/collectionlist', function(data) {
+							var dataarry = JSON.stringify(data.data.baseinfo);
+							if (dataarry == "[]") {
+								$("#Music").append('<div style="text-align: center;">暂无收藏歌曲</div>');
+							}
+							$.each($.parseJSON(dataarry), function(key1, value) {
+								var Musichtml = '<li>' +
+									'<b class="muisc_xiaZai">' +
+									'</b>' + value.Name +
+									'<span class="qx_but" proudctid="' + value.ID + '">取消收藏</span>' +
+									'</li>';
+								$("#Music").append(Musichtml);
+							});
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							type: index,
+							page: '1',
+							num: '10000'
+						}, w, 'get');
+					};
+					getyecare2 = function(index) {
+						YiRu.getajax('browse/collectionlist', function(data) {
+							var dataarry = JSON.stringify(data.data.baseinfo);
+							if (dataarry == "[]") {
+								$("#Commodity").append('<div style="text-align: center;">暂无收藏商品</div>');
+							}
+							$.each($.parseJSON(dataarry), function(key, value) {
+								var Commodity = '<li>' +
+									'<img src="' + value.Pic + '">' +
+									'<p>' + value.ProductName + '</p>' +
+									'<p>（随机兑换）</p>' +
+									'<span class="init-ShangPin_dec" proudctid="' + value.ProductId + '">取消收藏</span>' +
+									'<span id="beibao_but" proudctid="' + value.ProductId + '">加入背包</span>' +
+									'</li>';
+								$("#Commodity").append(Commodity);
+							});
+
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							type: index,
+							page: '1',
+							num: '10000'
+						}, w, 'get');
+					};
+					getyecare3 = function(index) {
+						YiRu.getajax('browse/collectionlist', function(data) {
+							var dataarry = JSON.stringify(data.data.baseinfo);
+							if (dataarry == "[]") {
+								$("#Video").append('<div style="text-align: center;">暂无收藏动画</div>');
+							}
+							$.each($.parseJSON(dataarry), function(key, value) {
+								var Video = '<li>' +
+									'<img src="' + value.Video + '">' +
+									'<p>' + value.Name + '</p>' +
+									'<p>更新至' + value.Sort + '集</p>' +
+									'<span id="videoBut"  dayid="' + value.ID + '">取消收藏</span>' +
+									'</li>';
+								$("#Video").append(Video);
+							});
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							type: index,
+							page: '1',
+							num: '10000'
+						}, w, 'get');
+					};
+
+					//取消收藏
+					mui('body').on('tap', '.qx_but', function() {
+						var proudctid = $(this).attr("proudctid");
+						$(this).parents("li").remove()
+						Music(proudctid)
+					});
+					// 音乐取消收藏
+					Music = function(proudctid) {
+						YiRu.getajax('sing/addmysong', function(data) {
+							plus.storage.removeItem("sing/singbygrade1" + YiRu.getuserinfo().userId);
+							plus.nativeUI.toast('取消成功！');
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							songid: proudctid,
+						}, w, 'get');
+					};
+					//商品取消收藏
+					mui('body').on('tap', '.init-ShangPin_dec', function() {
+						var ProductId = $(this).attr("proudctid");
+						$(this).parents("li").remove();
+						cproduct(ProductId);
+					});
+					// 商品取消收藏
+					cproduct = function(ProductId) {
+						YiRu.getajax('browse/cproduct', function(data) {
+							plus.nativeUI.toast('取消成功！');
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							Productid: ProductId,
+						}, w, 'get');
+					};
+					//视频取消收藏
+					mui('body').on('tap', '#videoBut', function() {
+						var dayid = $(this).attr("dayid");
+						$(this).parents("li").remove();
+						collectionday(dayid);
+					});
+					// 视频取消收藏
+					collectionday = function(dayid) {
+						YiRu.getajax('day/collectionday', function(data) {
+
+							var cls = plus.webview.getWebviewById("/pages/cartoonList/cartoonList.html");
+							if (cls) {
+								mui.fire(cls, "updatedata");
+							} else {
+								YiRu.RemoveItem('day/daylistcartonlist' + YiRu.getuserinfo().userId);
+							}
+
+							plus.nativeUI.toast('取消成功！');
+							//console.log(1)
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							dayid: dayid,
+						}, w, 'get');
+					};
+					//商品加入背包
+					mui('body').on('tap', '#beibao_but', function() {
+						var ProductId = $(this).attr("proudctid");
+						$(this).text("已加入背包")
+						editbag(ProductId)
+					});
+					// 商品加入背包
+					editbag = function(ProductId) {
+						YiRu.getajax('browse/addbag', function(data) {
+							plus.nativeUI.toast('成功加入背包！');
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							ProductId: ProductId,
+						}, w, 'get');
+					};
+
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						var music = 1;
+						var commodity = 2;
+						var video = 3;
+						getyecare1(music);
+						getyecare2(commodity);
+						getyecare3(video);
+						/*
+                          逻辑代码
+						*/
+					};
+					loadPage();
+
+					// 选项卡 
+					$(".title-list li").on("tap", function() {
+						// w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						//获取点击的元素给其添加样式，讲其兄弟元素的样式移除
+						$(this).addClass("mui-title-active").siblings().removeClass("mui-title-active");
+						//获取选中元素的下标
+						var index = $(this).index();
+						_this.type = index + 1;
+
+						$(this).parent().siblings().children().eq(index).addClass("mui-title-active").siblings().removeClass(
+							"mui-title-active");
+					});
+
+					// 点击显示下载图标
+					$(".init-GeQu li b").on("tap", function() {
+						$(this).addClass("muisc_xiaZai");
+					});
+					// 歌曲取消收藏
+					$(".init-GeQu li span").on("tap", function() {
+						$(this).parent().remove();
+					});
+					$(".init-ShangPin .init-ShangPin_dec").on("tap", function() {
+						$(this).parent().remove();
+					});
+					$(".init-DongHua li span").on("tap", function() {
+						$(this).parent().remove();
+					})
+				});
+
+			})();
+		</script>
+	</body>
+</html>

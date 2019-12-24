@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-用户登录</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<style type="text/css">
+			input[disabled],
+			input:disabled {
+				background-color: #ffffff;
+				opacity: 1;
+				-webkit-opacity: 1;
+				color: #75d7d5;
+				-webkit-text-fill-color: #75d7d5;
+			}
+
+			.xieyi {
+				display: none;
+				border-radius: 1.25rem;
+				border: 0.625rem rgba(255, 255, 255, 0.9) solid;
+				overflow: hidden;
+				position: absolute;
+				top: 1.25rem;
+				right: 3.125rem;
+				bottom: 1.25rem;
+				left: 3.125rem;
+				background-color: rgba(255, 255, 255, 0.9);
+			}
+
+			.xieyitit {
+				width: 100%;
+				font-size: 1.125rem;
+				font-weight: bold;
+				letter-spacing: 0.625rem;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				text-align: center;
+			}
+
+			.xieyitit span {
+				display: block;
+				float: right;
+				background: url(../../img/guanbi.png) no-repeat center center;
+				width: 1.25rem;
+				height: 1.25rem;
+				background-size: 100%;
+				margin: 0.3125rem 0.3125rem 0.625rem 0
+			}
+
+			.xieyicon {
+				padding: 0 1.25rem;
+				overflow-y: scroll;
+				height: 100%;
+				text-align: justify;
+			}
+
+			.xieyicon p {
+				text-indent: 2rem;
+			}
+
+			.xieyicon b {
+				display: block;
+				text-indent: 2rem;
+				margin-top: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- logo -->
+		<div class="mui-logo" id="mui-logo">
+			<img id="thislogo" src="../../img/logo.png">
+		</div>
+		<div id="gao" style="display: none;height: 1.25rem;"></div>
+		<div class="mui-login-box">
+			<!-- 电话号码 -->
+			<div class="mui-login-item">
+				<input type="number" name="Phone" id="Phone" value="" placeholder-class="phcolor" placeholder="请输入手机号码" />
+			</div>
+			<!-- 短信验证 -->
+			<div class="mui-login-item1">
+				<div class="mui-dx-input">
+					<input type="number" name="" id="Yzm" value="" placeholder-class="phcolor" placeholder="短信验证码" />
+				</div>
+				<div class="mui-note-but" id="getcode">
+					获取验证码
+				</div>
+				<div class="cl"></div>
+			</div>
+		</div>
+		<a id="LoginBut" class="mui-login-but">登&nbsp;&nbsp;&nbsp;&nbsp;录</a>
+		<!-- 教师登录按钮-->
+		<div class="mui-Teacher-box">
+			<span>www.dhredu.cn<a href="javascript:void(0)" id="Xieyi">用户协议</a> <a href="javascript:void(0)" id="Teacher">教师登录</a></span>
+			<span>Copyright © 2019-2020 DHR All Rights Reserved</span>
+		</div>
+		<div id="ViewXieYi" class="xieyi">
+			<div class="xieyitit"><span id="GuanBiXieYi"></span>用户协议</div>
+			<div class="xieyicon">
+				<p>本应用尊重并保护所有使用服务用户的个人隐私权。为了给您提供更准确、更有个性化的服务，本应用会按照本协议的规定使用和披露您的个人信息。但本应用将以高度的勤勉、审慎义务对待这些信息。除本协议另有规定外，在未征得您事先许可的情况下，本应用不会将这些信息对外披露或向第三方提供。本应用会不时更新本协议。
+					您在同意本应用服务使用协议之时，即视为您已经同意本协议全部内容。本协议属于本应用服务使用协议不可分割的一部分。</p>
+				<b>适用范围</b>
+				<p>(a) 在您注册本应用帐号时，您根据本应用要求提供的个人注册信息；</p>
+				<p>(b) 在您使用本应用网络服务，或访问本应用平台网页时，本应用自动接收并记录的您的浏览器和计算机上的信息，包括但不限于您的IP地址、浏览器的类型、使用的语言、访问日期和时间、软硬件特征信息及您需求的网页记录等数据；</p>
+				<p>(c) 本应用通过合法途径从商业伙伴处取得的用户个人数据。</p>
+				您了解并同意，以下信息不适用本协议：</p>
+				<p>(a) 您在使用本应用平台提供的搜索服务时输入的关键字信息；</p>
+				<p>(b) 本应用收集到的您在本应用发布的有关信息数据，包括但不限于参与活动、成交信息及评价详情；</p>
+				<p>(c) 违反法律规定或违反本应用规则行为及本应用已对您采取的措施。</p>
+				<b>信息使用</b>
+				<p>(a)
+					本应用不会向任何无关第三方提供、出售、出租、分享或交易您的个人信息，除非事先得到您的许可，或该第三方和本应用（含本应用关联公司）单独或共同为您提供服务，且在该服务结束后，其将被禁止访问包括其以前能够访问的所有这些资料。</p>
+				<p>(b) 本应用亦不允许任何第三方以任何手段收集、编辑、出售或者无偿传播您的个人信息。任何本应用平台用户如从事上述活动，一经发现，本应用有权立即终止与该用户的服务协议。</p>
+				<p>(c) 为服务用户的目的，本应用可能通过使用您的个人信息，向您提供您感兴趣的信息，包括但不限于向您发出产品和服务信息，或者与本应用合作伙伴共享信息以便他们向您发送有关其产品和服务的信息（后者需要您的事先同意）。</p>
+				<b>信息披露</b>
+				<p>在如下情况下，本应用将依据您的个人意愿或法律的规定全部或部分的披露您的个人信息：</p>
+				<p>(a) 经您事先同意，向第三方披露；</p>
+				<p>(b) 为提供您所要求的产品和服务，而必须和第三方分享您的个人信息；</p>
+				<p>(c) 根据法律的有关规定，或者行政或司法机构的要求，向第三方或者行政、司法机构披露；</p>
+				<p>(d) 如您出现违反中国有关法律、法规或者本应用服务协议或相关规则的情况，需要向第三方披露；</p>
+				<p>(e) 如您是适格的知识产权投诉人并已提起投诉，应被投诉人要求，向被投诉人披露，以便双方处理可能的权利纠纷；</p>
+				<p>(f) 在本应用平台上创建的某一交易中，如交易任何一方履行或部分履行了交易义务并提出信息披露请求的，本应用有权决定向该用户提供其交易对方的联络方式等必要信息，以促成交易的完成或纠纷的解决。</p>
+				<p>(g) 其它本应用根据法律、法规或者网站政策认为合适的披露。</p>
+				<b>信息存储和交换</b>
+				<p>本应用收集的有关您的信息和资料将保存在本应用及（或）其关联公司的服务器上，这些信息和资料可能传送至您所在国家、地区或本应用收集信息和资料所在地的境外并在境外被访问、存储和展示。</p>
+				<b>信息安全</b>
+				<p>(a) 本应用帐号均有安全保护功能，请妥善保管您的用户名及密码信息。本应用将通过对用户密码进行加密等安全措施确保您的信息不丢失，不被滥用和变造。尽管有前述安全措施，但同时也请您注意在信息网络上不存在“完善的安全措施”。</p>
+				<p>(b) 在使用本应用网络服务进行网上交易时，您不可避免的要向交易对方或潜在的交易对</p>
+				<b>本协议的更改</b>
+				<p>(a) 如果决定更改本协议，我们会在本应用中、本公司网站中以及我们认为适当的位置发布这些更改，以便您了解我们如何收集、使用您的个人信息，哪些人可以访问这些信息，以及在什么情况下我们会透露这些信息。</p>
+				<p>(b) 本公司保留随时修改本协议的权利，因此请经常查看。如对本协议作出重大更改，本公司会通过网站通知的形式告知。</p>
+				<p>请您妥善保护自己的个人信息，仅在必要的情形下向他人提供。如您发现自己的个人信息泄密，尤其是本应用用户名及密码发生泄露，请您立即联络本应用客服，以便本应用采取相应措施。</p>
+				<p>如您对本协议或其他相关事宜有疑问，请通过您对应的教师与我们联系。</p>
+				<br />
+				<br />
+				<br />
+			</div>
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, time = null;
+				mui.plusReady(function() {
+					YiRu.quitApp();
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					var flag = false; //  阻止用户反复点击获取验证码
+
+					if (!YiRu.ios()) {
+						var ina = false,
+							inb = false;
+						$("#Phone").focus(function() {
+							ina = true;
+							ruan();
+						});
+						$("#Phone").blur(function() {
+							ina = false;
+							ruan();
+						});
+						$("#Yzm").focus(function() {
+							inb = true;
+							ruan();
+						});
+						$("#Yzm").blur(function() {
+							inb = false;
+							ruan();
+						});
+
+						function ruan() {
+							if (ina || inb) {
+								$("#mui-logo").hide();
+								$("#gao").show();
+							} else {
+								$("#mui-logo").show();
+								$("#gao").hide();
+							}
+						}
+					}
+					if (YiRu.isLogin()) {
+						setTimeout(function() {
+							YiRu.openVW(plus.runtime.appid);
+							mui.fire(plus.webview.getLaunchWebview(), "updateheadimg");
+							mui.fire(plus.webview.getLaunchWebview(), 'updatedata');
+						}, 300);
+						setTimeout(function() {
+							YiRu.closeAllwebview("/pages/UserLogin/Userlogin.html");
+						}, 400);
+					}
+
+					// 获取验证码按钮
+					$("body").on('tap', '#getcode', function() {
+						$("#Phone").blur();
+						$("#Yzm").blur();
+
+						if (flag) {
+							return;
+						};
+						if (!YiRu.checkPhone($('#Phone').val())) {
+							plus.nativeUI.toast('请填写正确的手机号码');
+							return;
+						}
+						var dataResult1 = YiRu.PostData({
+							phone: $("#Phone").val()
+						});
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						$("#Phone").attr("disabled", "disabled");
+						YiRu.getajax('send', function(data) {
+							//console.log(JSON.stringify(data));
+							//localStorage.setItem('$statexjysj', $("#Phone").val());
+							flag = true;
+							var total = 60;
+							time = setInterval(function() {
+								if (total > 0) {
+									total--;
+									$("#getcode").html(total + 's(重发)<br />');
+								} else {
+									$("#getcode").html('重发验证码<br />');
+									clearInterval(time);
+									$("#Phone").removeAttr("disabled");
+									flag = false;
+								}
+							}, 1000);
+							plus.nativeUI.toast("短信已发送");
+						}, {
+							phone: $("#Phone").val(),
+						}, w, 'get');
+
+						function MathRand(len) {
+							var Num = "";
+							for (var i = 0; i < len; i++) {
+								Num += Math.floor(Math.random() * 10);
+							}
+							return Num;
+						}
+					});
+
+
+					// 登录按钮
+					mui('body').on('tap', '#LoginBut', function() {
+						$("#Phone").blur();
+						$("#Yzm").blur();
+
+						if (!YiRu.checkPhone($('#Phone').val())) {
+							plus.nativeUI.toast('请填写正确的手机号码');
+							return;
+						}
+						if ($("#Yzm").val() == "") {
+							plus.nativeUI.toast('请填写手机验证码');
+							return;
+						}
+						// if ($("#Phone").val() != localStorage.getItem('$statexjysj')) {
+						// 	plus.nativeUI.toast('手机号码不正确');
+						// 	return;
+						// }
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('user/loginbyphone', function(data) {
+
+							//YiRu.setuserinfo(data.data.baseinfo);
+							//console.log(JSON.stringify(data));
+
+							if (time != null) {
+								clearInterval(time);
+								$("#Phone").removeAttr("disabled");
+								$("#getcode").html('获取验证码');
+								flag = false;
+							}
+							if (data.data.islogin) {
+								YiRu.setuserinfo(data.data.baseinfo, function() {
+									plus.nativeUI.toast("登录成功");
+									YiRu.openVW(plus.runtime.appid);
+									mui.fire(plus.webview.getLaunchWebview(), "updateheadimg");
+									mui.fire(plus.webview.getLaunchWebview(), 'updatedata');
+									setTimeout(function() {
+										YiRu.closeAllwebview("/pages/UserLogin/Userlogin.html");
+									}, 500);
+								});
+								//console.log("111");
+							} else {
+								//临时保存
+								localStorage.setItem('$yml_linshiuserinfo', JSON.stringify(data.data.baseinfo));
+								YiRu.openVW('/pages/UserRegister/UserRegister.html');
+							}
+							w.close();
+							$("#Phone").val("");
+							$("#Yzm").val("");
+							//$("#Phone").removeAttr("disabled");
+
+						}, {
+							phone: $("#Phone").val(),
+							code: $("#Yzm").val()
+						}, w, 'get');
+
+					});
+
+					// 跳转到教师登录
+					mui('body').on('tap', '#Teacher', function() {
+						if (time != null) {
+							clearInterval(time);
+							$("#Phone").removeAttr("disabled");
+							$("#getcode").html('获取验证码');
+							flag = false;
+						}
+						$("#Phone").val("");
+						$("#Yzm").val("");
+						$("#Phone").blur();
+						$("#Yzm").blur();
+						YiRu.openVW('/pages/teacherLogin/teacherLogin.html', {}, true);
+						// setTimeout(function(){
+						// 	ws.close("none");
+						// },300);
+
+					});
+					mui('body').on('tap', '#Xieyi', function() {
+						// if (time != null) {
+						// 	clearInterval(time);
+						// 	$("#Phone").removeAttr("disabled");
+						// 	$("#getcode").html('获取验证码');
+						// 	flag = false;
+						// }
+						// $("#Phone").val("");
+						// $("#Yzm").val("");
+						$("#Phone").blur();
+						$("#Yzm").blur();
+						$("#ViewXieYi").show();
+
+					});
+					mui('body').on('tap', '#GuanBiXieYi', function() {
+
+						$("#ViewXieYi").hide();
+
+					});
+
+				});
+			})();
+		</script>
+	</body>
+</html>

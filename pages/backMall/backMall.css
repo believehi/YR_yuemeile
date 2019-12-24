@@ -1,0 +1,376 @@
+body {
+	background-image: url(../../img/page_teacher.jpg);
+}
+
+.order-init {
+	position: fixed;
+	width: 90%;
+	height: 90%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #74D7D5;
+}
+
+.order-but,
+.order-title {
+	position: relative;
+	width: 100%;
+	background-color: #EFFFFE;
+	border: 0.0625rem solid #3FBABD;
+	border-radius: 0.3125rem;
+	height: 2.5rem;
+}
+
+.order-title .order-icon {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	padding-top: 0.25rem;
+	font-size: 1.125rem;
+}
+
+.order-title .order-icon:nth-of-type(1) {
+	left: 0;
+	padding-left: 2.1875rem;
+}
+
+.order-title .order-icon:nth-of-type(2) {
+	right: 0;
+	padding-right: 2.1875rem;
+}
+
+.order-title .order-icon i {
+	position: absolute;
+	top: 50%;
+	margin-top: -0.625rem;
+	display: inline-block;
+	width: 1.25rem;
+	height: 1.25rem;
+	background-size: 100%;
+	background-position: center;
+}
+
+.order-title .order-icon:nth-of-type(1) i {
+	left: 0;
+	margin-left: 0.625rem;
+	background-image: url(../../img/shop_left.png);
+}
+
+.order-title .order-icon:nth-of-type(2) i {
+	right: 0;
+	margin-right: 0.625rem;
+	background-image: url(../../img/shop_right.png);
+}
+
+.order-title p {
+	line-height: 2.5rem;
+	text-align: center;
+	font-size: 1.25rem;
+}
+
+.order {
+	position: absolute;
+	width: 97%;
+	top: 2.625rem;
+	bottom: 2.5rem;
+	left: 50%;
+	transform: translateX(-50%);
+	border-left: 0.0625rem solid #3FBBBD;
+	border-right: 0.0625rem solid #3FBBBD;
+	background-color: #FFFFFF;
+	padding: 0.25rem 0.5rem;
+	box-sizing: border-box;
+	font-size: 1rem;
+}
+
+.order ul {
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+	padding: 0 1.375rem;
+	box-sizing: border-box;
+}
+
+.order ul::-webkit-scrollbar {
+	width: 0.5rem;
+}
+
+.order ul::-webkit-scrollbar-track {
+	background-color: #6ED8D6;
+	border-radius: 0.25rem;
+}
+
+.order ul::-webkit-scrollbar-thumb {
+	background-color: #90EEED;
+	border-radius: 0.25rem;
+}
+
+.order li {
+	width: 100%;
+	height: 5rem;
+	border-top: 0.0625rem solid #B1DFDD;
+	position: relative;
+}
+
+.order .back-icon {}
+
+.back_radio[type='checkbox'],
+.back_radio1[type='checkbox'] {
+	width: 1.4375rem;
+	height: 1.4375rem;
+	background-color: #fff;
+	-webkit-appearance: none;
+	border: 0.09375rem solid #67c4ca;
+	border-radius: 0.3125rem;
+	outline: none;
+
+
+}
+
+.back_radio1[type="checkbox"]:checked,
+.back_radio[type="checkbox"]:checked {
+	background: url(../../img/ck.png) no-repeat center;
+	background-size: 1rem 1rem;
+}
+
+.checkbox_box {
+	position: relative;
+	left: -0.625rem;
+}
+
+.checkbox_box img {
+	display: none;
+	width: 1.625rem;
+	height: 1.6875rem !important;
+	position: absolute;
+	left: 0.125rem;
+	top: -0.4375rem;
+}
+
+
+.order li {
+	display: flex;
+	align-items: center;
+}
+
+.order li:nth-of-type(1) {
+	border: 0;
+	/* border: 0.0625rem solid red; */
+}
+
+
+.back_img {
+	height: 3.5rem;
+	width: 4.375rem;
+	margin-left: 2.25rem;
+	position: absolute;
+	top: 50%;
+	margin-top: -1.75rem;
+}
+
+.order li p {
+	display: inline-block;
+	line-height: 1.125rem;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.order li p:nth-of-type(1) {
+	margin-left: 7rem;
+	text-align: center;
+}
+
+.order li p:nth-of-type(2) {
+	right: 7rem;
+}
+
+.back-num {
+	position: absolute;
+	height: 1.5rem;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.ProductName{
+	text-align: left !important;  
+	width: 40%;
+		overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap
+}
+.back-num .icon {
+	display: inline-block;
+	top: 0;
+	width: 1rem !important;
+	height: 1.5rem !important;
+	vertical-align: top;
+	background-image: url(../../img/icon_47_01.png);
+	background-size: 100% 100%;
+
+box-shadow: none;
+}
+
+.back-num .icon:nth-of-type(2) {
+	background-image: url(../../img/icon_47_02.png);
+box-shadow: none;
+}
+
+.back-num span {
+	padding: 0 0.3125rem;
+}
+
+.order-but {
+	position: absolute;
+	bottom: 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.order-but p {
+	font-size: 1.125rem;
+	line-height: 2.5rem;
+}
+
+.order-but .order-one {
+	position: relative;
+}
+
+.back-icon,
+.order-but .order-one i {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin-top: -1rem;
+	display: inline-block;
+	width: 1.5rem;
+	height: 1.5rem;
+	background-image: url(../../img/false.png);
+	background-size: 100%;
+}
+
+.back-icon:nth-of-type(1),
+.order-but .order-one i:nth-of-type(1) {
+	background-image: url(../../img/true.png);
+	display: none;
+}
+
+
+
+.order-but .order-two {
+	margin-right: 1.5rem;
+}
+
+.order-three {
+	margin-right: 1.25rem;
+	display: none;
+}
+
+.order-three span {
+	background-color: #FDC928;
+	color: #FFFFFF;
+	padding: 0.125rem 0.625rem;
+	border-radius: 0.25rem;
+	box-shadow: 0 0.125rem #FDAC12;
+	font-size: 1rem;
+}
+
+.order-three span:nth-of-type(2) {
+	background-color: #FF7887;
+	box-shadow: 0 0.125rem #FF596B;
+}
+
+
+#back-DuiHuan {
+	background-color: #FFC309;
+	color: #FFFFFF;
+	font-size: 1rem;
+	padding: 0.1875rem 0.75rem 0.0625rem 0.75rem;
+	border-radius: 0.25rem;
+	box-shadow: 0 0.125rem #F6A201;
+}
+
+/* 删除弹窗 */
+
+.except-init {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	display: none;
+}
+
+.except {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #EFFFFE;
+	width: 20rem;
+	border-radius: 0.4375rem;
+	border: 0.0625rem solid #40BCBE;
+}
+
+.except p {
+	margin-top: 1.5rem;
+	text-align: center;
+	font-size: 1.25rem;
+	color: #FF7887;
+}
+
+.order li img {
+	height: 3.5rem;
+	margin-left: 2.25rem;
+	position: absolute;
+	top: 50%;
+	margin-top: -1.75rem;
+}
+
+
+.except-content {
+	margin: 1.75rem 0 1.5rem;
+	display: flex;
+	justify-content: center;
+}
+
+.except-content button {
+	margin: 0 0.625rem;
+	border: 0;
+	outline: none;
+	width: 8rem;
+	height: 2.375rem;
+	font-size: 1rem;
+	color: #FFFFFF;
+	background-color: #FF7887;
+	border-radius: 0.25rem;
+	box-shadow: 0 0.125rem #FF596B;
+}
+
+.order-but {
+	display: flex;
+	align-items: center;
+}
+
+.order-but .checkbox_box {
+	position: absolute;
+	left: 2rem;
+	top: 0.5rem;
+}
+
+.order-but .qutext {
+	position: absolute;
+	left: 4.6875rem;
+}
+
+.mui-input-numbox {
+	color: #000000;
+	background: white;
+	border: none;
+	padding: 0 0.625rem;
+	width: 0.9375rem;
+	text-align: center;
+}

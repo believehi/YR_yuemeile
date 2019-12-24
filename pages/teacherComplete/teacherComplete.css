@@ -1,0 +1,101 @@
+body {
+	background-image: url(../../img/page_teacher.jpg);
+	height: 100%;
+}
+
+.complete {
+	width: 80%;
+	height: 80%;
+	margin: 0 auto;
+	padding-top: 5%;
+	font-family: 'TongXin';
+	color: #FFFFFF;
+}
+.complete-title {
+	text-align: center;
+	font-size: 1.5rem;
+	text-shadow: 0.125rem 0.125rem #3fbbbd;
+}
+
+.complete-content {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 2rem;
+	height: 80%;
+}
+	
+.complete-init {
+	box-sizing: border-box;
+	width: 40%;
+	height: 100%;
+	text-align: center;
+	border: 0.1875rem solid #c6cacb;
+	border-radius: 0.5rem;
+	box-shadow: 0.125rem 0.125rem #50908f;
+	padding: 1.875rem 0 1.5rem;
+	background-color: #FFFFFF;
+	position: relative;
+}
+.complete-init span {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: -1.125rem;
+	display: inline-block;
+	width: 9rem;
+	height: 2rem;
+	line-height: 1.875rem;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+}
+.complete-init:nth-of-type(1) span {
+	background-image: url(../../img/title_02.png);
+}
+.complete-init:nth-of-type(2) span {
+	background-image: url(../../img/title_03.png);
+}
+
+.complete-init .complete-roster {
+	height: 100%;
+	width: 90%;
+	margin: 0 auto;
+	/* border: 0.0625rem solid red; */
+	overflow: auto;
+	color: #4b4b4b;
+	font-family: 'YueYuan';
+	box-sizing: border-box;
+}
+
+.complete-init i {
+	position: absolute;
+	display: inline-block;
+	width: 0.75rem;
+	height: 0.75rem;
+	background-image: url(../../img/xiaoyuan_01.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.complete-init:nth-of-type(1) i:nth-of-type(1),
+.complete-init:nth-of-type(2) i:nth-of-type(1) {
+	top: 0.5rem;
+	left: 0.5rem;
+}
+.complete-init:nth-of-type(1) i:nth-of-type(2),
+.complete-init:nth-of-type(2) i:nth-of-type(2) {
+	top: 0.5rem;
+	right: 0.5rem;
+}
+
+.complete-init:nth-of-type(1) i:nth-of-type(3),
+.complete-init:nth-of-type(2) i:nth-of-type(3) {
+	left: 0.5rem;
+	bottom: 0.5rem;
+}
+
+.complete-init:nth-of-type(1) i:nth-of-type(4),
+.complete-init:nth-of-type(2) i:nth-of-type(4) {
+	right: 0.5rem;
+	bottom: 0.5rem;
+}

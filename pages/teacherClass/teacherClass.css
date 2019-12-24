@@ -1,0 +1,169 @@
+body {
+	background-image: url(../../img/page_teacher.jpg);
+	height: 100%;
+}
+
+#renwu{
+	background: #506e9c ;
+	text-shadow: 0.1rem 0.1rem #3dbabc;
+	box-shadow: 0 0.25rem #365985;
+}
+
+.class-student {
+	padding-top: 1.875rem;
+	margin-left: 4.375rem;
+	color: #FFFFFF;
+	font-size: 1.25rem;
+	font-family: 'TongXin';
+	text-shadow: 0.125rem 0.125rem #3dbabc;
+	
+}
+
+.mui-mytast{
+	top: 15%;
+	height: 70%;
+}
+
+.mui-my {
+	width: 96%;
+	display: flex;
+	padding: 0 2%;
+	
+	align-items: center;
+	background: #ef4b54;
+	border-bottom-left-radius: 0.3125rem;
+	border-bottom-right-radius: 0.3125rem;
+}
+
+.mui-my span,
+.mui-my span:nth-child(2) {
+	color: #FFFFff;
+
+}
+
+.mui-gold-list ul li span:nth-child(2),
+.mui-my span:nth-child(2) {
+	width: 30%;
+	padding-left: 5%;
+	text-align: left;
+}
+
+.mui-gold-list ul li span:nth-child(3),
+.mui-my span:nth-child(3) {
+	width: 30%;
+	text-align: right;
+	color: #fffc00;
+
+
+}
+
+.mui-gold-list ul li span:nth-child(4),
+.mui-my span:nth-child(4) {
+	width: 30%;
+	text-align: right;
+	color: #ffffff;
+}
+
+.mui-gold-list ul li:nth-of-type(odd) {
+	background: #f1d2d6;
+	border-left: #f1d2d6 solid 0.125rem;
+}
+
+.mui-gold-list ul li:nth-of-type(even) {
+	background: #f38b91;
+}
+
+#trapezium {
+	margin: auto;
+	width: 35%;
+	height: 0;
+	border-bottom: 20px solid #f18289;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	position: relative;
+	z-index: 999;
+}
+
+.mui-task {
+	width: 30%;
+	height: 100%;
+	position: relative;
+}
+
+.mui-task img {
+	width: auto;
+	height: 62%;
+	position: absolute;
+	top: 27%;
+	left: 10%;
+}
+
+.class-init {
+	position: fixed;
+	top: 20%;
+	left: 0;
+	width: 100%;
+}
+.class-content {
+	margin: 0 auto;
+	width: 70%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.class-content-to {
+	padding: 0.625rem 0;
+	box-sizing: border-box;
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	border-radius: 0.625rem;
+	color: #FFFFFF;
+}
+
+.class-content-to:nth-of-type(1) {
+	background: #ff999a;
+	box-shadow: 0 0.25rem #f37173;
+}
+.class-content-to:nth-of-type(2) {
+	background: #b6e82d;
+	box-shadow: 0 0.25rem #85bd11;
+}
+
+.class-content-to img {
+	width: 70%;
+}
+.class-content-to:nth-of-type(1) img {
+	margin-top: 1rem;
+}
+
+.class-content-to:nth-of-type(1) p {
+
+	text-shadow: 0.1rem 0.1rem #f37173;
+}
+.class-content-to:nth-of-type(2) p {
+
+	text-shadow: 0.1rem 0.1rem #85bd11;
+}
+
+.class-content-to:nth-of-type(3) img {
+
+	margin-top: 1.8rem;
+}
+
+.class-content-to p {
+		font-family: 'TongXin';
+	vertical-align:bottom; 
+}
+
+.class-tips {
+	width: 80%;
+	margin: 0.625rem auto 0;
+	color: #27898c;
+}
+.class-tips p{
+	font-size:0.75rem;line-height:1rem;
+}
+

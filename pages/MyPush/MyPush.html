@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-我-推送</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="MyPush.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- 返回按钮 -->
+		<div class="mui-fanhui mui-action-back" id="Return">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<p class="push-title">推送设置</p>
+		<div class="push-init">
+			<img src="../../img/pic_20.png" >
+			<p>接受推送消息</p>
+			<p>每天19：30提醒小朋友学习</p>
+			<span class="push_false"></span>
+			<span class="push_true"></span>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				// 推送显示隐藏
+				$(".push_false").on("tap", function(){
+					$(".push_false").css({"display": "none"})
+					$(".push_true").css({"display": "block"})
+				})
+				$(".push_true").on("tap", function(){
+					$(".push_false").css({"display": "block"})
+					$(".push_true").css({"display": "none"})
+				})
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+
+					loadPage = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						/*
+                          逻辑代码
+						*/
+						w.close();
+
+					};
+					loadPage();
+				});
+			})();
+		</script>
+	</body>
+</html>

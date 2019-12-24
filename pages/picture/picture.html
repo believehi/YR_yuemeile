@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="picture.css" rel="stylesheet" />
+		<style type="text/css">
+			/* .huibendrr{background: #000000;}
+			.huibendrr li{
+				width:26%;
+				margin:2% 3%;
+			} */
+		</style>
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back" id="fanhui">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="wrapper">
+			<div class="title">
+				<a id="picture" class="title-active" data-id="1.1" data-nav="0">
+					<p>DHR</p>
+					<p>杜杜快乐阅读</p>
+				</a>
+				<a id="picture-file" data-id="2.1" data-nav="1">
+					<p>DHP</p>
+					<p>杜杜快乐拼词</p>
+				</a>
+				<a id="picture-hind" data-id="3" data-nav="2">
+					<p>DRR</p>
+					<p>杜杜深度阅读</p>
+				</a>
+			</div>
+			<div class="content">
+				<div class="content-biaoti title-active">
+					<ul class="biaoti">
+						<li data-id="1.1" class="biaoti-active"><a>1 A</a></li>
+						<li data-id="1.2"><a>1 B</a></li>
+						<li data-id="1.3"><a>2 A</a></li>
+						<li data-id="1.4"><a>2 B</a></li>
+						<li data-id="1.5"><a>3 A</a></li>
+						<li data-id="1.6"><a>3 B</a></li>
+					</ul>
+					<div class="huiben-content">
+						<div class="mybox">
+							<ul class="huiben huibendhr" id="dhr">
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="content-biaoti">
+					<ul class="biaoti">
+						<li data-id="2.1" class="biaoti-active"><a>L 1</a></li>
+						<li data-id="2.2"><a>L 2</a></li>
+						<li data-id="2.3"><a>L 3</a></li>
+						<li data-id="2.4"><a>L 4</a></li>
+					</ul>
+					<div class="huiben-content">
+						<div class="mybox" id="dhp">
+							<span class="huiben-DHP-title">
+								<img src="../../img/huitu_01.png">
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="content-biaoti">
+					<div class="huiben-content" style="height: 100%;">
+						<div class="mybox">
+							<ul class="huiben huibendrr" id="drr">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 敬请期待弹窗 -->
+		<div class="catalog-init" style="display: none;">
+			<div class="catalog-app">
+				<p>敬请期待!</p>
+				<img src="../../img/pic_21.png">
+				<i class="catalog-on"></i>
+			</div>
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false,
+					beforeback: function() {
+						var list = plus.webview.currentWebview().opener();
+						//触发列表界面的自定义事件（refresh）,从而进行数据刷新   
+						mui.fire(list, 'updatedata');
+						//返回true，继续页面关闭逻辑   
+						return true;
+					}
+
+				});
+				var w, ws, getajax;
+				var _this = this;
+				var nav_index = '0'; //当前所在的大类,dhr,dhp,drr
+				var navlist_index = '0';
+				var IsunlockID = '1.1'; //当前请求的细类
+
+				//localStorage.setItem('$IsunlockID', IsunlockID);
+
+				mui.plusReady(function() {
+					//plus.webview.currentWebview().getSubNViews()[0].show('pop-in');
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					getajax = function() {
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('draw/drawbygrade', function(data) {
+							//console.log(JSON.stringify(data));
+							var list = data.data.baseinfo;
+							var htmlstr = "";
+							$("#dhr").html("");
+							$("#dhp").html("");
+							$("#drr").html("");
+							for (var i = 0; i < list.length; i++) {
+								var imgsrc = "";
+								if (i == 0 || (!data.data.istourist && data.data.isunlock)) {
+									htmlstr += '<li data-sort="' + list[i].Sort + '" data-name="' + list[i].Name + '" data-id="' + list[i].TypeName +
+										'"><a><img class="fm" data-loadimg="true" data-src="' + list[i].Thumbnail +
+										'" src="../../img/noimg.png" /></a></li>';
+								} else {
+									htmlstr += '<li data-sort="' + list[i].Sort + '" data-name="' + list[i].Name +
+										'" data-id=""><a><span class="Mc_box"></span><img class="fm" data-loadimg="true" data-src="' + list[i].Thumbnail +
+										'" src="../../img/noimg.png" /><img class="suo1" src="../../img/suo.png"></a></li>';
+								}
+							}
+							htmlstr = htmlstr + "<div class=\"cl\"></div>";
+							if (nav_index == "0") {
+								$("#dhr").html(htmlstr);
+							}
+							if (nav_index == "1") {
+								var dhphtml = '<span class="huiben-DHP-title">' +
+									'<img src="../../img/huitu_01.png">' +
+									'</span>' +
+									'<ul class="huiben huibendhp">' + htmlstr + '</ul>';
+								$("#dhp").html(dhphtml);
+							}
+							if (nav_index == "2") {
+								$("#drr").html(htmlstr);
+							}
+							GetloadImg();
+							$(".huiben-content").eq(nav_index).fadeIn(300);
+							w.close();
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							type: IsunlockID,
+							page: "1",
+							num: "10"
+
+						}, w, 'get', {
+							key: IsunlockID + YiRu.getuserinfo().userId,
+							num: CaCheNum
+						});
+					};
+					getajax();
+
+
+					// 选项卡 1
+					mui('.wrapper').on('tap', '.title a', function() {
+						if (IsunlockID == this.getAttribute('data-id')) return;
+						IsunlockID = this.getAttribute('data-id');
+						//获取点击的元素给其添加样式，讲其兄弟元素的样式移除
+						$(this).addClass("title-active").siblings().removeClass("title-active");
+						nav_index = this.getAttribute('data-nav');
+						$(".huiben-content").hide();
+						if (nav_index == "1" || nav_index == "2") {
+							// $(".catalog-init").css({
+							// 	"display": "block"
+							// });
+							// return;
+						}
+						$(this).parent().siblings().children().eq(parseInt(nav_index)).addClass("title-active").siblings().removeClass(
+							"title-active");
+						if (nav_index != "2") {
+							$(this).parent().siblings().children().eq(parseInt(nav_index)).find("li").eq(0).addClass("biaoti-active").siblings()
+								.removeClass("biaoti-active");
+						}
+						getajax();
+					});
+
+					// 子选项卡 2
+					mui('body').on('tap', '.biaoti li', function() {
+						if (IsunlockID == this.getAttribute('data-id')) return;
+						//获取点击的元素给其添加样式，讲其兄弟元素的样式移除
+						$(this).addClass("biaoti-active").siblings().removeClass("biaoti-active");
+						IsunlockID = this.getAttribute('data-id');
+						$(".huiben-content").hide();
+						getajax();
+					});
+
+					mui('body').on('tap', '.huiben li', function() {
+						var typename = this.getAttribute('data-id');
+						var sort = this.getAttribute('data-sort');
+						var name = this.getAttribute('data-name');
+						if (typename == "") {
+							mui.toast("成为正式学员才能解锁");
+							return;
+						}
+						YiRu.openVW("/pages/picture/read.html", {
+							typename: typename,
+							sort: sort,
+							name: name,
+							img: $(this).find("img").attr("src")
+						}, true);
+					});
+				});
+			})();
+		</script>
+	</body>
+</html>

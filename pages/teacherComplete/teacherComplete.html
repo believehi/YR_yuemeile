@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐-完成情况</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="teacherComplete.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back">
+			<img src="../../img/fanhui_01.png">
+		</div>
+		<div class="complete">
+			<div class="complete-title">作业完成情况</div>
+			<div class="complete-content">
+				<div class="complete-init">
+					<span>已完成</span>
+					<div class="complete-roster" id="ywc">
+						还没有哇
+					</div>
+					<i></i>
+					<i></i>
+					<i></i>
+					<i></i>
+				</div>
+				<div class="complete-init">
+					<span>未完成</span>
+					<div class="complete-roster" id="wwc">
+						得催催小朋友哦
+					</div>
+					<i></i>
+					<i></i>
+					<i></i>
+					<i></i>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, complete, undone;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.teacherLogin();
+					undone = ws.undone;
+					complete = ws.complete;
+					//console.log(undone + "---" + complete);
+					if (undone != "null") {
+						var wwc = undone.split(',');
+						if (wwc.length > 0) {
+							var html = "";
+							for (var i = 0; i < wwc.length; i++) {
+								html += "<p>" + wwc[i] + "</p>";
+							}
+							$("#wwc").html(html);
+						}
+					}
+					if (complete != "null") {
+						var ywc = complete.split(',');
+						if (ywc.length > 0) {
+							var html = "";
+							for (var i = 0; i < ywc.length; i++) {
+								html += "<p>" + ywc[i] + "</p>";
+							}
+							$("#ywc").html(html);
+						}
+					}
+
+					// 					loadPage = function() {
+					// 						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+					// 						/*
+					//                           逻辑代码
+					// 						*/
+					// 						w.close();
+					// 
+					// 					};
+					// 					loadPage();
+				});
+			})();
+		</script>
+	</body>
+</html>

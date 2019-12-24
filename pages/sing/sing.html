@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="sing.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- 顶部 -->
+		<div class="fanhui" id="fanhui">
+			<span class="sign_out-fanhui mui-action-back">
+				<img src="../../img/icon_20.png">
+			</span>
+			<span id="gequmingcheng">歌曲名称</span>
+			<span id="music_list">
+				<img src="../../img/icon_19.png">
+			</span>
+		</div>
+		<!-- 中间歌词 -->
+		<div class="sing">
+			<div class="sing-img">
+				<img src="../../img/dish_02.png" id="gequimg">
+			</div>
+			<div id="canzhaohang" style="height:32px;position: absolute;top:7.45rem;width:90%;z-index: 99;">
+				<div id="canzhaoxian" style="background: url(../../img/btn_08.png) no-repeat left center;background-size: 24px auto; display: none;height:32px;transition: all .25s ease-in;border-top:1px #ff6600 dotted;border-bottom:1px #ff6600 dotted; margin:0px 12% 0px 27%">&nbsp;</div>
+			</div>
+			<div class="sing-geci" id="geci">
+				<ul>
+					<span>请点击右上角图片播放歌曲</span>
+				</ul>
+			</div>
+		</div>
+		<!-- 底部功能部分 -->
+		<div class="sing-bottom">
+			<div class="sing-jindu">
+				<span id="dqsj">0:0</span>
+				<span id="zsj">0:0</span>
+				<i class="circle" id="circle"><i id="jdt"></i></i>
+			</div>
+			<!-- 播放功能按钮 -->
+			<div class="sing-icon" id="sing-icon">
+				<span id="xihuan">
+					<img src="../../img/icon_13.png" class="sing-ordinary" id="sing-ordinary">
+					<img src="../../img/icon_29.png" class="sing-like" id="sing-like">
+				</span>
+				<span id="shangyishou">
+					<img src="../../img/icon_14.png">
+				</span>
+				<span>
+					<img src="../../img/icon_17.png" class="sing-stop" id="sing-stop">
+					<img src="../../img/icon_28.png" class="sing-play" id="sing-play">
+				</span>
+				<span id="xiayishou">
+					<img src="../../img/icon_15.png">
+				</span>
+				<span>
+					<img src="../../img/icon_18.png" class="sing-suiji" id="sing-suiji">
+					<img src="../../img/icon_30.png" class="sing-danque" id="sing-danque">
+					<img src="../../img/icon_31.png" class="sing-sunxu" id="sing-sunxu">
+				</span>
+				<span class="luzhi" id="luzhi">
+					<img src="../../img/icon_16.png">
+				</span>
+			</div>
+			<!-- 录制完成，取消 -->
+			<div class="sing-suc sing-active" id="sing-active">
+				<span class="quxiao" id="quxiao">
+					<img src="../../img/icon_11.png">
+					<p>取消</p>
+				</span>
+				<span class="wancheng" id="wancheng">
+					<img src="../../img/icon_12.png">
+					<p>完成</p>
+				</span>
+			</div>
+			<img src="../../img/pic_06.png" class="sing-back" id="sing-back">
+		</div>
+		<!-- 弹窗 -->
+		<div class="popup" id="popup">
+			<div class="popup-content">
+				<img src="../../img/bianwen_01.png" class="huabian">
+				<p><img src="../../img/icon_21.png">完成录制</p>
+				<div class="popup-foo">
+					<span class="popup-quxiao" id="popup-quxiao">取消</span>
+					<span class="popup-save" id="popup-save">
+						确定<br>保存并转发
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- 歌曲列表 -->
+		<div class="music" id="music">
+			<div class="music-list" id="music-list">
+				<div class="music-title"><i></i>歌曲列表</div>
+				<div class="music-content">
+					<div class="music-mian music-like">
+						<p class="music-likes" ismylike="1"><span class="music-icon"></span>我喜欢的歌曲</p>
+						<ul id="xihuande">
+						</ul>
+					</div>
+					<div class="music-mian music-en" style="display: none;" id="yingwenerge">
+						<p class="music-likes" ismylike="2"><span></span>英文儿歌</p>
+						<ul id="erge">
+						</ul>
+					</div>
+					<div class="music-mian music-1a">
+						<p class="music-bar" typeid="1.1"><span></span>1A故事歌曲</p>
+						<ul id="1.1">
+						</ul>
+					</div>
+					<div class="music-mian music-1a">
+						<p class="music-bar" typeid="1.2"><span></span>1B故事歌曲</p>
+						<ul id="1.2">
+
+						</ul>
+					</div>
+					<div class="music-mian music-1a">
+						<p class="music-bar" typeid="1.3"><span></span>2A故事歌曲</p>
+						<ul id="1.3">
+
+						</ul>
+					</div>
+					<div class="music-mian music-1a">
+						<p class="music-bar" typeid="1.4"><span></span>2B故事歌曲</p>
+						<ul id="1.4">
+
+						</ul>
+					</div>
+					<div class="music-mian music-1a">
+						<p class="music-bar" typeid="1.5"><span></span>3A故事歌曲</p>
+						<ul id="1.5">
+
+						</ul>
+					</div>
+					<div class="music-mian music-1a">
+						<p class="music-bar" typeid="1.6"><span></span>3B故事歌曲</p>
+						<ul id="1.6">
+
+						</ul>
+					</div>
+					<div class="music-mian music-1a">
+						<p class="music-bar" typeid="2.1"><span></span>L1故事歌曲</p>
+						<ul id="2.1">
+
+						</ul>
+					</div>
+					<div class="music-mian music-1a">
+						<p class="music-bar" typeid="2.2"><span></span>L2故事歌曲</p>
+						<ul id="2.2">
+
+						</ul>
+					</div>
+					<div class="music-mian music-1a">
+						<p class="music-bar" typeid="2.3"><span></span>L3故事歌曲</p>
+						<ul id="2.3">
+
+						</ul>
+					</div>
+					<div class="music-mian music-1a">
+						<p class="music-bar" typeid="2.4"><span></span>L4故事歌曲</p>
+						<ul id="2.4">
+
+						</ul>
+					</div>
+				</div>
+				<footer id="footer">关闭</footer>
+			</div>
+		</div>
+		<!-- 退出提示弹窗函数 -->
+		<div class="sign_out-init" style="z-index:999;" id="sign_out-init">
+			<div class="sign_out-suc" id="tuichu">
+				<img src="../../img/icon_45_01.png">
+				<p>Quit</p>
+			</div>
+			<div class="sign_out-suc sign_out-on" id="sign_out-on">
+				<img src="../../img/icon_45_02.png">
+				<p>Continue</p>
+			</div>
+		</div>
+		<!-- 文字提示框 -->
+		<div id="tishi_box">
+			<i class="fa fa-close">x</i>
+			<span>点击右上方列表，可以选择歌曲收听演唱哦！</span>
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				// 退出提示弹窗函数
+				//sign_out();
+				mui.init({
+					swipeBack: false,
+					gestureConfig: {
+						tap: true, //默认为true  
+						doubletap: true, //默认为false  
+						longtap: true, //默认为false  
+						swipe: true, //默认为true  
+						drag: true //默认为true  
+					},
+				});
+				var w, ws, typeid = '',
+					ismylike = "",
+					_thisbox = "";
+				var changplay = null;
+				var zsj = "0:0",
+					dqsj = "0:0",
+					timer = null,
+					gequ = {},
+					luyinpay = null,
+					luyinurl = "",
+					luyinquxiao = false,
+					luyinchangdu = 0,
+					bancouchangdu = 0,
+					luyinbofang = null,
+					gequlist = null,
+					gequlistlength = 0,
+					luyinzhong = false,
+					gecistr = [],
+					xiazaizhong = false,
+					shun = null,
+					shunx = 0,
+					dangqiannum = 0,
+					canzhaohang = 0,
+					istuogeci = false,
+					dq = 0,
+					kfenxiang = true;
+
+				mui.plusReady(function() {
+					//console.log(RandomNumBoth(0, 18));
+					//console.log(JSON.stringify(YiRu.getuserinfo().realName));
+					//alert(window.screen.height+"/"+window.screen.width);
+					// if (!YiRu.ios()) {
+					// 	$("#yingwenerge").show();
+					// }
+					$("#yingwenerge").show();
+					//定义播放器
+					canzhaohang = $("#canzhaohang").offset().top;
+					changplay = plus.audio.createPlayer({
+						backgroundControl: true,
+						loop: false
+					});
+					luyinbofang = plus.audio.createPlayer({
+						backgroundControl: false,
+						loop: true
+					});
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					//点击我喜欢的歌曲和英文儿歌
+					mui('#music').on('tap', '.music-likes', function() {
+						_thisbox = $(this);
+						ismylike = this.getAttribute('ismylike');
+
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+
+						YiRu.getajax('sing/singbygrade', function(data) {
+							//w.setTitle("耐心等待哦...");
+							//console.log(JSON.stringify(data));
+							_thisbox.siblings().toggle();
+							var baseinfo = data.data.baseinfo;
+							var html = "";
+							for (var i = 0; i < baseinfo.length; i++) {
+								html += '<li recording="' + baseinfo[i].Recording + '" id="' + baseinfo[i].ID + '"><span></span><b></b>' +
+									baseinfo[i]
+									.Name +
+									'<i></i></li>'
+							};
+							_thisbox.siblings().eq(0).html(html);
+							isdown(_thisbox.siblings().eq(0).find("li"));
+							w.close();
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							ismylike: ismylike,
+							page: "1",
+							num: "100"
+						}, w, 'get', {
+							key: ismylike + YiRu.getuserinfo().userId,
+							num: CaCheNum
+						});
+
+					});
+
+					//点击故事歌曲列表标题
+					mui('body').on('tap', '.music-bar', function() {
+						var typeid = this.getAttribute('typeid');
+						var thisbox = $(this);
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('sing/singbygrade', function(data) {
+							//alert(JSON.stringify(data));
+							//console.log(JSON.stringify(data));
+							if ((!data.data.istourist && data.data.isunlock)) {
+								thisbox.siblings().toggle();
+								var baseinfo = data.data.baseinfo;
+								//console.log(JSON.stringify(baseinfo));
+								var html = '';
+								for (var i = 0; i < baseinfo.length; i++) {
+									html += '<li recording="' + baseinfo[i].Recording + '" id="' + baseinfo[i].ID + '"><span>' + (i + 1) +
+										'</span><b></b>' + baseinfo[i]
+										.Name +
+										'<i></i></li>'
+								};
+								thisbox.siblings().eq(0).html(html);
+								isdown(thisbox.siblings().eq(0).find("li"));
+							} else {
+								mui.toast("此为会员权限，赶紧报名阅美乐吧！");
+							}
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							type: typeid,
+							page: "1",
+							num: "100"
+						}, w, 'get', {
+							key: typeid + YiRu.getuserinfo().userId,
+							num: CaCheNum
+						});
+					});
+					//判断是否下载了
+					function isdown(li) {
+						$(li).each(function(nn, obj) {
+
+							var u = $(obj).attr("recording");
+							u = u.substring(u.lastIndexOf("/") + 1, u.length);
+							u = "_doc/" + u;
+							//检查是否已存在  
+							plus.io.resolveLocalFileSystemURL(u, function(entry) {
+								//$(obj).find("b").addClass("isdown");
+								$(obj).addClass("down");
+							}, function(e) {
+								//$(obj).find("b").removeClass("isdown");
+								$(obj).removeClass("down");
+							});
+						});
+					}
+
+					function playbyurl(url) {
+						xiazaizhong = false;
+						changplay.setStyles({
+							src: url,
+							backgroundControl: true,
+							loop: false
+						});
+						jindu(changplay);
+						changplay.play();
+						$("#sing-play").hide();
+						$("#sing-stop").show();
+					}
+
+					// 音乐列表点击播放切换 icon
+					mui('#music-list').on('tap', 'ul li', function() {
+						if (luyinzhong) {
+							mui.toast("正在录音中");
+							return;
+						}
+						if (xiazaizhong) {
+							mui.toast("缓冲中，请稍候...");
+							return;
+						}
+						gequlist = $(this).parent().children();
+						gequlistlength = gequlist.length;
+						bofanggequ(this.getAttribute('id'), $(this));
+					});
+
+					// 播放方式
+					mui('body').on('tap', '#tishi_box i', function() {
+						$("#tishi_box").hide();
+					});
+					// 播放方式
+					mui('body').on('tap', '#sing-suiji', function() {
+						$("#sing-suiji").hide();
+						$("#sing-danque").show();
+						shunx = 2;
+					});
+					mui('body').on('tap', '#sing-danque', function() {
+						$("#sing-danque").hide();
+						$("#sing-sunxu").show();
+						shunx = 0;
+					});
+					mui('body').on('tap', '#sing-sunxu', function() {
+						$("#sing-sunxu").hide();
+						$("#sing-suiji").show();
+						shunx = 1;
+					});
+					// 收藏
+					mui('body').on('tap', '#xihuan', function() {
+						if (!gequ.ID) {
+							mui.toast("请先点击右上角图标选择歌曲");
+							return;
+						}
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						YiRu.getajax('sing/addmysong', function(data) {
+
+							if (data.info == "1") {
+								$("#sing-like").show();
+								$("#sing-ordinary").hide();
+
+							} else {
+								$("#sing-like").hide();
+								$("#sing-ordinary").show();
+							}
+							plus.storage.removeItem("sing/singbygrade1" + YiRu.getuserinfo().userId);
+							w.close();
+
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							songid: gequ.ID
+						}, w, 'get')
+
+
+					});
+
+					// 播放暂停切换
+					mui('body').on('tap', '#sing-stop', function() {
+						if (!gequ.ID) {
+							mui.toast("请先点击右上角图标选择歌曲");
+							return;
+						}
+						if (xiazaizhong) {
+							mui.toast("缓冲中，请稍候...");
+							return;
+						}
+						$("#sing-play").show();
+						$("#sing-stop").hide();
+						changplay.pause();
+					});
+					mui('body').on('tap', '#sing-play', function() {
+						if (!gequ.ID) {
+							mui.toast("请先点击右上角图标选择歌曲");
+							return;
+						}
+						$("#sing-stop").show();
+						$("#sing-play").hide();
+						changplay.resume();
+					});
+					// 录制切换
+					mui('body').on('tap', '#luzhi', function() {
+						if (!gequ.ID) {
+							mui.toast("请先点击右上角图标选择歌曲");
+							return;
+						}
+						if (gequ.Bgmusic == "") {
+							mui.toast("该歌曲没有伴奏哦");
+							return;
+						}
+						if (xiazaizhong) {
+							mui.toast("缓冲中，请稍候...");
+							return;
+						}
+						$("#sing-active").removeClass("sing-active");
+						$("#sing-icon").addClass("sing-active");
+						$("#sing-play").show();
+						$("#sing-stop").hide();
+						$("#zsj").html("缓冲中,请稍候...");
+						changplay.stop();
+						gecihuiwei();
+						changplay.setStyles({
+							src: gequ.Bgmusic,
+							backgroundControl: false,
+							loop: false
+						});
+						jindu(changplay);
+						//console.log("点录音" + gequ.Bgmusic);
+						changplay.play();
+						luyinzhong = true;
+						//延迟0.5秒开始纶音
+						setTimeout(function() {
+							recorder();
+						}, 300);
+					});
+					//录音时点取消
+					mui('body').on('tap', '#quxiao', function() {
+						$("#sing-active").addClass("sing-active");
+						$("#sing-icon").removeClass("sing-active");
+
+						$("#sing-play").hide();
+						$("#sing-stop").show();
+						$("#zsj").html("缓冲中,请稍候...");
+						gecihuiwei();
+						luyinzhong = false;
+						changplay.stop();
+						changplay.setStyles({
+							src: gequ.Recording,
+							backgroundControl: true,
+							loop: false
+						});
+						jindu(changplay);
+						changplay.play();
+
+						luyinquxiao = true;
+						luyinpay.stop();
+
+					});
+					// 录音时点击完成按钮
+					mui('body').on('tap', '#wancheng', function() {
+						kfenxiang = true;
+						$("#popup").show();
+						luyinquxiao = false;
+						luyinzhong = false;
+						luyinpay.stop();
+						changplay.stop();
+					});
+					//录音完成之后要取消
+					mui('body').on('tap', '#popup-quxiao', function() {
+						if (luyinurl != "") {
+							delFile(luyinurl);
+						}
+						$("#popup").hide();
+						$("#sing-active").addClass("sing-active");
+						$("#sing-icon").removeClass("sing-active");
+
+						$("#zsj").html("缓冲中,请稍候...");
+						gecihuiwei();
+						luyinzhong = false;
+						changplay.stop();
+						changplay.setStyles({
+							src: gequ.Recording,
+							backgroundControl: true,
+							loop: false
+						});
+						jindu(changplay);
+						changplay.play();
+
+						luyinbofang.stop();
+						$("#sing-play").hide();
+						$("#sing-stop").show();
+					});
+					//点击保存并转发
+					mui('body').on('tap', '#popup-save', function() {
+						if (luyinurl == "") {
+							mui.toast("录音文件不存在");
+							return;
+						}
+						if (!kfenxiang) {
+							mui.toast("正在分享中，请稍候或点击取消");
+							return;
+						}
+						kfenxiang = false;
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						//开始上传
+						var task = plus.uploader.createUpload(URL + "annexes/uploadvoice", {
+								method: "POST"
+							},
+							function(t, status) {
+								// 上传完成
+								if (status == 200) {
+									var fh = JSON.parse(t.responseText);
+									//上传成功
+									if (fh.code == 200) {
+
+										//上传完之后删除
+										YiRu.getajax('sing/saverecord', function(datas) {
+											//console.log(JSON.stringify(datas));
+											var rid = datas.data.baseinfo.ID;
+											var src = datas.data.baseinfo.RecordUrl;
+											var name = datas.data.baseinfo.SongName;
+											delFile(luyinurl);
+
+											//分享后跳转
+											var toMySing = function() {
+
+												changplay.close();
+												luyinbofang.close();
+												changplay = null;
+												luyinpay = null;
+												jinduclose();
+
+												YiRu.openVW("MySing.html", {
+													daysrc: src,
+													name: gequ.Name
+												});
+												setTimeout(function() {
+													ws.close("none");
+												}, 500);
+											}
+											//分享记录
+											var sharesong = function() {
+
+												//w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+												YiRu.getajax('sing/sharesong', function(datas) {
+													toMySing();
+												}, {
+													songid: datas.data.baseinfo.SongId,
+													studentid: datas.data.baseinfo.StudentId,
+													rid: rid,
+													sharetype: 1
+												}, null, 'get');
+
+											};
+
+											//需要改成唱歌的分享页面
+											loadShare({
+												title: gequ.Name,
+												href: wwwUrl + "/Web/web/ShareSing?rid=" + rid,
+												pictures: gequ.Thumbnail,
+												thumbs: gequ.Thumbnail,
+												content: gequ.Name,
+												callBack: function() {
+													sharesong();
+												},
+												NocallBack: function() {
+													changplay.close();
+													luyinbofang.close();
+													changplay = null;
+													luyinpay = null;
+													jinduclose();
+
+													ws.reload();
+												}
+											});
+											//需要改成唱歌的分享页面
+											w.close();
+										}, {
+											songid: gequ.ID,
+											studentid: YiRu.getuserinfo().userId,
+											time: luyinchangdu,
+											status: bancouchangdu - luyinchangdu > 20 ? 1 : 2, //1未完成,2完成
+											recordurl: fh.info
+										}, w, 'get');
+
+
+									} else {
+										//console.log(t.responseText+"--"+luyinurl);
+										mui.toast("上传失败，请联系客服");
+										w.close();
+									}
+								} else {
+									mui.toast("上传失败，请重试");
+									w.close();
+								}
+							}
+						);
+						task.addFile(luyinurl, {
+							key: "luyin"
+						});
+						task.addData("token", YiRu.getuserinfo().token);
+						task.addData("loginMark", YiRu.getuserinfo().loginMark);
+						task.addData("data", "{\"type\":1}");
+						task.start();
+
+					});
+
+
+					// 音乐列表
+					mui('body').on('tap', '#music_list', function() {
+						$("#music").show();
+						$("#tishi_box").hide();
+
+					});
+					mui('body').on('tap', '#footer', function() {
+						$("#music").hide();
+					});
+					//点下一首
+					mui('body').on('tap', '#xiayishou', function() {
+						if (!gequ.ID) {
+							mui.toast("请先点击右上角图标选择歌曲");
+							return;
+						}
+						xiayishou();
+					});
+					//点上一首
+					mui('body').on('tap', '#shangyishou', function() {
+						if (!gequ.ID) {
+							mui.toast("请先点击右上角图标选择歌曲");
+							return;
+						}
+						shangyishou();
+					});
+
+					function jindu(obj) {
+						//总长度
+						clearInterval(timer);
+						timer = null;
+						$("#dqsj").html("0.0");
+						$("#jdt").css("left", "0%");
+						timer = setInterval(function() {
+
+							if (!istuogeci) {
+								dq = obj.getPosition();
+								zsj = obj.getDuration();
+								$("#zsj").html(getfenmiao(zsj));
+								$("#dqsj").html(getfenmiao(dq));
+								$("#jdt").css("left", dq / zsj * 100 + "%");
+								$('#geci ul li').each(function(i) {
+									var ti = $(this).attr("data-time");
+									if (dq >= ti) {
+										//$('#geci').scrollTop(i * 24);
+										$('#geci ul li').css({
+											'color': '#000000',
+											'font-weight': 'normal'
+										});
+										$('#geci').stop().animate({
+											scrollTop: i * 24 + 'px'
+										}, 300);
+
+										//高亮显示当前播放的哪一句歌词
+										$(this).css({
+											'color': '#ff6600',
+											//'font-weight': 'bold'
+										});
+									}
+								});
+							}
+						}, 500);
+						obj.removeEventListener("ended", false);
+						obj.addEventListener("ended", function() {
+							if (luyinzhong) {
+								$("#popup").show();
+								luyinquxiao = false;
+								luyinzhong = false;
+								luyinpay.stop();
+								changplay.stop();
+							} else {
+								shun();
+							}
+						}, false);
+						obj.removeEventListener("prev", false);
+						obj.addEventListener("prev", function() {
+							shangyishou();
+						}, false);
+						obj.removeEventListener("next", false);
+						obj.addEventListener("next", function() {
+							xiayishou();
+						}, false);
+					}
+
+					function jinduclose() {
+						clearInterval(timer);
+						timer = null;
+					}
+
+					function getfenmiao(num) {
+						var fz = num / 60; //1.5
+						var fzzs = parseInt(fz);
+						var mz = fz > 0 ? fz - fzzs : fz;
+						var miao = mz * 60;
+						return fzzs + ":" + parseInt(miao);
+					}
+					//录音了
+					function recorder() {
+
+						luyinpay = plus.audio.getRecorder();
+						if (luyinurl != "") {
+							delFile(luyinurl);
+						}
+						luyinpay.record({
+							filename: "_doc/audio/",
+							format: "mp3"
+						}, function(recordFile) {
+							luyinurl = recordFile;
+							//console.log(luyinurl);
+							if (luyinquxiao) {
+								if (luyinurl != null && luyinurl != "") {
+									delFile(luyinurl);
+								}
+								luyinurl = "";
+								//console.log("删除录音");
+							} else {
+								playaudio(luyinurl);
+								//console.log("播放录音");
+							}
+
+						}, function(e) {
+							//alert("Audio record failed: " + e.message);
+						});
+					}
+					//播放音频文件
+					function playaudio(urlstr) {
+						luyinbofang.setStyles({
+							src: urlstr
+						});
+						luyinbofang.play(function() {}, function(e) {
+							//console.log(JSON.stringify(e));
+						});
+
+						setTimeout(function() {
+							luyinchangdu = parseInt(luyinbofang.getDuration());
+							//console.log(luyinchangdu);
+						}, 300);
+					}
+
+
+					function xiayishou() {
+						if (xiazaizhong) {
+							mui.toast("缓冲中，请稍候...");
+							return;
+						}
+						//gequlist = $(".music-list ul li");
+						//gequlistlength = gequlist.length;
+						var syqid = 0;
+						gequlist.each(function(index) {
+							//console.log($(this).attr("id") + "-------" + gequ.ID);
+							if ($(this).attr("id") == gequ.ID) {
+								syqid = index + 1; //获得下一首得索引
+								//console.log(syqid);
+								var thisli = null;
+								if (syqid < gequlistlength) {
+									thisli = gequlist.eq(syqid);
+								} else {
+									thisli = gequlist.eq(0);
+								}
+								bofanggequ(thisli.attr("id"), thisli);
+								return false;
+							}
+						});
+					}
+
+					function shangyishou() {
+						if (xiazaizhong) {
+							mui.toast("缓冲中，请稍候...");
+							return;
+						}
+						//gequlist = $(".music-list ul li");
+						//gequlistlength = gequlist.length;
+						var syqid = 0;
+						gequlist.each(function(index) {
+							if ($(this).attr("id") == gequ.ID) {
+								syqid = index - 1; //获得上一首得索引
+								var thisli = null;
+								if (syqid >= 0) {
+									thisli = gequlist.eq(syqid);
+								} else {
+									thisli = gequlist.eq(gequlistlength - 1);
+								}
+								bofanggequ(thisli.attr("id"), thisli);
+								return false;
+							}
+						});
+						//console.log(gequ.ID);
+						//console.log(index);
+					}
+
+					function bofanggequ(gequid, obj) {
+						xiazaizhong = true;
+						w = plus.nativeUI.showWaiting('', YiRu.WaitingStyle());
+						changplay.stop();
+						jinduclose();
+						YiRu.getajax('sing/getsing', function(data) {
+							// 音乐列表点击播放切换 icon
+							//console.log(JSON.stringify(data))
+							$("#zsj").html("缓冲中,请稍候...");
+							//console.log(JSON.stringify(data));
+							$("#music-list li i").removeClass("music-boFan");
+							obj.find("i").addClass("music-boFan");
+							$("#music").hide();
+							gequ = data.data.baseinfo;
+							//console.log(gequ.Thumbnail)
+							var gequfm = "../../img/dish_02.png";
+							if (gequ.Thumbnail != "") {
+								gequfm = gequ.Thumbnail;
+							}
+							$("#gequimg").attr('src', gequfm);
+							$("#gequmingcheng").html(gequ.Name);
+							$("#geci ul").html("");
+							gecihuiwei();
+							changplay.setStyles({
+								coverImgUrl: gequfm,
+								epname: 'Englishi Music',
+								loop: false,
+								singer: 'Happy Rhythm',
+								title: gequ.Name
+							});
+							//$("#geci").html(gequ.Lyrics.replace(/\n/g, '<br />'));
+							//设置歌词
+							//console.log(gequ.Lyrics);
+							gecistr = parseLyric(gequ.Lyrics);
+							//console.log(JSON.stringify(gecistr));
+							for (var i = 0, li; i < gecistr.length; i++) {
+								li = $('<li data-time="' + gecistr[i][0] + '">' + gecistr[i][1] + '</li>');
+								$('#geci ul').append(li);
+							}
+							$('#geci ul').append("<div style=\"height:150px;\"></div>");
+							YiRu.getFileUrl(gequ.Recording, function(src) {
+								if (gequ.Bgmusic != "") {
+									YiRu.getFileUrl(gequ.Bgmusic, function(bjsrc) {
+										gequ.Bgmusic = bjsrc;
+										//console.log("背景："+gequ.Bgmusic);
+										gequ.Recording = src;
+										//console.log(gequ.Recording)
+										//$(obj).find("b").addClass("isdown");
+										$(obj).addClass("down");
+										playbyurl(gequ.Recording);
+
+									}, function(a, b) {
+										var c = parseInt(a / b * 100);
+										if (c) $("#zsj").html("缓冲中,请稍候...(" + c + "% " + parseFloat(b / 1024 / 1024).toFixed(2) + "MB)");
+
+									});
+								} else {
+									gequ.Bgmusic = "";
+									gequ.Recording = src;
+									//$(obj).find("b").addClass("isdown");
+									$(obj).addClass("down");
+									playbyurl(gequ.Recording);
+
+								}
+							}, function(a, b) {
+								var c = parseInt(a / b * 100);
+								if (c) $("#zsj").html("缓冲中,请稍候...(" + c + "% " + parseFloat(b / 1024 / 1024).toFixed(2) + "MB)");
+							});
+							//gequ.Bgmusic = YiRu.getFileUrl(gequ.Bgmusic);
+							//gequ.Recording = YiRu.getFileUrl(gequ.Recording);
+							if (gequ.Islike == 0) {
+								$("#sing-ordinary").show();
+								$("#sing-like").hide();
+							} else {
+								$("#sing-ordinary").hide();
+								$("#sing-like").show();
+							}
+							//bancoubyurl(gequ.Bgmusic);
+							w.close();
+
+							//GetloadImg();
+						}, {
+							studentid: YiRu.getuserinfo().userId,
+							songid: gequid
+						}, w, 'get', {
+							key: gequid + YiRu.getuserinfo().userId,
+							num: CaCheNum
+						});
+					}
+
+					function parseLyric(text) {
+
+						//将文本分隔成一行一行，存入数组
+						var lines = text.split('\n'),
+							//用于匹配时间的正则表达式，匹配的结果类似[xx:xx.xx]
+							pattern = /\[\d{2}:\d{2}.\d{2}\]/g,
+							//保存最终结果的数组
+							result = [];
+						//去掉不含时间的行
+
+						while (!pattern.test(lines[0])) {
+							lines = lines.slice(1);
+						};
+						//return;
+						//上面用'\n'生成生成数组时，结果中最后一个为空元素，这里将去掉
+						lines[lines.length - 1].length === 0 && lines.pop();
+						lines.forEach(function(v /*数组元素值*/ , i /*元素索引*/ , a /*数组本身*/ ) {
+							//提取出时间[xx:xx.xx]
+							var time = v.match(pattern),
+								//提取歌词
+								value = v.replace(pattern, '');
+							//因为一行里面可能有多个时间，所以time有可能是[xx:xx.xx][xx:xx.xx][xx:xx.xx]的形式，需要进一步分隔
+							time.forEach(function(v1, i1, a1) {
+								//去掉时间里的中括号得到xx:xx.xx
+								var t = v1.slice(1, -1).split(':');
+								//将结果压入最终数组
+								result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);
+							});
+						});
+						//最后将结果数组中的元素按时间大小排序，以便保存之后正常显示歌词
+						result.sort(function(a, b) {
+							return a[0] - b[0];
+						});
+						return result;
+					}
+
+					function gecihuiwei() {
+						//$('#geci ul').css('top', '60px'); //让歌词向上移动
+						$('#geci').stop().animate({
+							scrollTop: '0px'
+						}, 300);
+						$('#geci ul li').css({
+							'color': '#000000',
+							'font-weight': 'normal'
+						});
+					}
+
+					function fn(data) {
+						//$.get('music/' + sgname + '.lrc', function(data) {
+						var str = parseLyric(data);
+						for (var i = 0, li; i < str.length; i++) {
+							li = $('<li>' + str[i][1] + 'li>');
+							$('#gc ul').append(li);
+						}
+					}
+					// 跳转到我的
+					mui('body').on('tap', '#sing-back', function() {
+						changplay.stop();
+						//changplay.close();
+						//luyinbofang.close();
+						// setTimeout(function() {
+						// 	ws.reload();
+						// }, 300);
+						YiRu.openVW("singlist.html");
+
+					});
+					mui('body').on('tap', '#sign_out-on', function() {
+						$("#sign_out-init").hide();
+					});
+					mui('body').on('tap', '#tuichu', function() {
+
+						$("#sign_out-init").hide();
+						changplay.close();
+						luyinbofang.close();
+						jinduclose();
+						var list = plus.webview.currentWebview().opener();
+						//plus.webview.currentWebview().close();
+						//触发列表界面的自定义事件（refresh）,从而进行数据刷新						
+						YiRu.openVW(plus.runtime.appid);
+						mui.fire(list, 'updatedata');
+						setTimeout(function() {
+							ws.close("none");
+						}, 500);
+
+					});
+
+					// mui('body').on('drag', '#jdt', function() {
+					// 	console.log("你向下滑动了");
+					// });
+					var div = document.getElementById('jdt');
+					var divwid = $("#circle").width();
+					var thispoint = 0;
+					div.addEventListener('touchmove', function(event) {
+						if (!gequ.ID || xiazaizhong) {
+							return false;
+						}
+						istuogeci = true;
+						event.preventDefault(); //阻止其他事件
+						// 如果这个元素的位置内只有一个手指的话
+						//if (event.targetTouches.length == 1) {
+						var touch = event.targetTouches[0]; // 把元素放在手指所在的位置
+						if (touch.pageX <= divwid) {
+							div.style.left = touch.pageX + 'px';
+							thispoint = touch.pageX;
+						}
+						//}
+					}, false);
+					div.addEventListener('touchend', function(event) {
+						if (!gequ.ID || xiazaizhong) {
+							return false;
+						}
+						//changplay.getDuration();
+
+						changplay.pause();
+						changplay.seekTo(changplay.getDuration() * (thispoint / divwid));
+						changplay.play();
+						setTimeout(function() {
+							istuogeci = false;
+						}, 500);
+
+
+					}, false);
+
+					mui('body').on('tap', '#circle', function(event) {
+						if (!gequ.ID || xiazaizhong) {
+							return false;
+						}
+						var eventdian = event.detail.gesture.changedTouches[0].pageX;
+						if (eventdian <= divwid) {
+							div.style.left = eventdian + 'px';
+							changplay.pause();
+							changplay.seekTo(changplay.getDuration() * (eventdian / divwid));
+							changplay.play();
+						}
+						//console.log(event.detail.gesture.changedTouches[0].pageX);
+					});
+					var tuocizhong = true;
+					$("#geci").scroll(function() {
+						if (!gequ.ID || xiazaizhong) {
+							$(this).scrollTop(0);
+							return false;
+						}
+						if (tuocizhong) {
+							return false;
+						}
+						//console.log($(this).scrollTop() + "//" + canzhaohang);
+						$('#geci ul li').each(function(i) {
+							if ($(this).offset().top >= canzhaohang - 10 && $(this).offset().top + 24 <= canzhaohang + 42) {
+								$('#geci ul li').css({
+									'color': '#000000',
+									'font-weight': 'normal'
+								});
+								dq = $(this).attr("data-time");
+								//console.log(dq);
+								//高亮显示当前播放的哪一句歌词
+								$(this).css({
+									'color': '#ff6600',
+									//'font-weight': 'bold'
+								});
+							}
+						});
+					});
+					var czx = 0;
+					document.getElementById('geci').addEventListener('touchstar', function(event) {
+
+					});
+					document.getElementById('geci').addEventListener('touchmove', function(event) {
+						if (!gequ.ID || xiazaizhong) {
+							return false;
+						}
+						istuogeci = true;
+						tuocizhong = false;
+						if (czx == 0) {
+							$("#canzhaoxian").show();
+							czx = 1;
+						}
+					});
+					document.getElementById('geci').addEventListener('touchend', function(event) {
+						if (!gequ.ID || xiazaizhong) {
+							return false;
+						}
+						tuocizhong = true;
+						czx = 0;
+						$("#canzhaoxian").hide();
+						$("#jdt").css("left", dq / changplay.getDuration() * divwid + "px");
+						changplay.pause();
+						changplay.seekTo(dq);
+						changplay.play();
+						setTimeout(function() {
+							istuogeci = false;
+						}, 500);
+						//changplay.getDuration();
+						//console.log(dq);
+						// getPosition()/
+						//changplay.seekTo(changplay.getDuration() * (thispoint / divwid));
+					}, false);
+					shun = function() {
+						//按顺序播放
+						if (shunx == 0) {
+							xiayishou();
+						}
+						//单曲循环
+						if (shunx == 2) {
+							gequlist.each(function(index) {
+								//console.log($(this).attr("id") + "-------" + gequ.ID);
+								if ($(this).attr("id") == gequ.ID) {
+									bofanggequ($(this).attr("id"), $(this));
+									return false;
+								}
+							});
+						}
+						//随机播放
+						if (shunx == 1) {
+							var thisli = gequlist.eq(RandomNumBoth(0, gequlistlength - 1));
+							bofanggequ(thisli.attr("id"), thisli);
+						}
+					}
+					//随机数字
+					function RandomNumBoth(Min, Max) {
+						var Range = Max - Min;
+						var Rand = Math.random();
+						var num = Min + Math.round(Rand * Range); //四舍五入
+						return num;
+					};
+					var oldback = mui.back;
+					mui.back = function() {
+						$("#sign_out-init").css({
+							"display": "flex"
+						});
+						$("#tishi_box").hide();
+						//oldback();
+					}
+				});
+			})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,600 @@
+.test {
+	display: inline-block !important;
+	position: relative;
+}
+
+.bd {
+	transition: translate3d 5s;
+}
+
+.bd {
+	font-size: 0;
+}
+
+html,
+body,
+article,
+.bd,
+.tempWrap,
+.test,
+.test_con {
+	height: 100%;
+}
+
+#ID_IMG_ROLE {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	left: 7.2%;
+	top: 5%;
+}
+
+#ID_IMG_ROLE {
+	width: 32%;
+	height: 45%;
+}
+
+#bd12 .test {
+	height: 100%;
+	background-size: 100% 100%;
+}
+
+
+.item {
+	height: 100%;
+}
+
+#oImg {
+	position: absolute;
+	top: 9.3%;
+	left: 35.5%;
+	width: 19.2%;
+	height: 24%;
+}
+
+#HDR-3 {
+	width: 10%;
+	height: 20%;
+	position: absolute;
+	left: 2%;
+	top: 8%;
+	z-index: 999;
+}
+
+#HDR-4 {
+	width: 5%;
+	height: 10%;
+	position: absolute;
+	left: 8%;
+	bottom: 45%;
+	z-index: 999;
+}
+
+#HDR-5 {
+	width: 5%;
+	height: 10%;
+	position: absolute;
+	left: 9%;
+	bottom: 34%;
+	z-index: 999;
+}
+
+#HDR-6 {
+	width: 6%;
+	height: 13%;
+	position: absolute;
+	left: 1.8%;
+	bottom: 41%;
+	z-index: 999;
+}
+
+#HDR-7 {
+	width: 6%;
+	height: 13%;
+	position: absolute;
+	left: 10%;
+	bottom: 22%;
+	z-index: 999;
+}
+
+#HDR-8 {
+	width: 6%;
+	height: 13%;
+	position: absolute;
+	right: 5%;
+	bottom: 30%;
+	z-index: 999;
+}
+
+#HDR-9 {
+	width: 6%;
+	height: 13%;
+	position: absolute;
+	right: 9%;
+	bottom: 50%;
+	z-index: 999;
+}
+
+#DHR-10 {
+	width: 33.1%;
+	height: 56%;
+	position: absolute;
+	right: 4.9%;
+	top: 9.3%;
+}
+
+.DHR-7 {
+	width: 100%;
+	position: absolute;
+	bottom: 2.5%;
+	display: flex;
+	justify-content: center;
+}
+
+.DHR-7 img:nth-child(1) {
+	width: 56%;
+}
+
+.DHR-7 img {
+	width: 40%;
+	padding: 0 1.5%;
+}
+
+#DHR-13 {
+	position: absolute;
+	top: 33%;
+	left: 14.5%;
+	width: 25%;
+	height: 50%;
+}
+
+#DHR-14 {
+	top: 10.1%;
+	position: absolute;
+	left: 52.5%;
+	width: 37%;
+	height: 73%;
+}
+
+#DHR-15 {
+	position: absolute;
+	left: 0%;
+	width: 10%;
+	height: 82%;
+}
+
+#d1818 {
+	z-index: 999;
+	position: absolute;
+	top: 67%;
+	left: 25%;
+	width: 10%;
+	height: 18%;
+}
+
+#d1820 {
+	z-index: 999;
+	position: absolute;
+	top: 55%;
+	left: 60%;
+	width: 17%;
+	height: 15%;
+}
+
+#d1821 {
+	z-index: 999;
+	position: absolute;
+	top: 68%;
+	left: 60%;
+	width: 17%;
+	height: 15%;
+}
+
+#d1823 {
+	z-index: 999;
+	position: absolute;
+	top: 50%;
+	right: 0%;
+	width: 17%;
+	height: 15%;
+}
+
+#d1822 {
+	z-index: 999;
+	position: absolute;
+	top: 10%;
+	right: 0%;
+	width: 14%;
+	height: 25%;
+}
+
+.DHR-y2 {
+	width: 100%;
+	position: absolute;
+	bottom: 2.5%;
+	display: flex;
+	justify-content: center;
+}
+
+.DHR-y2 img:nth-child(1) {
+	width: 49%;
+}
+
+.DHR-y2 img {
+	width: 43%;
+	padding: 0 3%;
+	opacity: 1;
+}
+
+.DHR-y2 img:active {
+	opacity: 0.5;
+}
+
+#d1829 {
+	z-index: 111;
+	position: absolute;
+	top: 45%;
+	left: 7%;
+	width: 4%;
+	height: 10%;
+}
+
+#d1830 {
+	z-index: 111;
+	position: absolute;
+	top: 45%;
+	left: 11%;
+	width: 5%;
+	height: 10%;
+}
+
+#d1831 {
+	position: absolute;
+	top: 23%;
+	left: 6%;
+	width: 35%;
+	height: 60%;
+}
+
+#d1832 {
+	position: absolute;
+	top: 1.5%;
+	left: 58%;
+	width: 25%;
+	height: 55%;
+}
+
+#d1833 {
+	position: absolute;
+	top: 35%;
+	right: 0%;
+	width: 20%;
+	height: 20%;
+}
+
+#d1834 {
+	position: absolute;
+	top: 40%;
+	right: 25%;
+	width: 30%;
+	height: 42%;
+}
+
+#d1840 {
+	position: absolute;
+	top: 6%;
+	left: 2%;
+	width: 55%;
+	height: 60%;
+}
+
+#d1839 {
+	position: absolute;
+	top: 24.5%;
+	left: 17%;
+	width: 23%;
+	height: 42%;
+}
+
+#d1841 {
+	position: absolute;
+	top: 34%;
+	right: 20%;
+	width: 25%;
+	height: 42%;
+}
+
+#d1842 {
+	position: absolute;
+	top: 0%;
+	right: 0%;
+	width: 20%;
+	height: 81%;
+}
+
+#d1848 {
+	position: absolute;
+	top: 0%;
+	left: 3%;
+	width: 10%;
+	height: 60%;
+}
+
+#d1849 {
+	position: absolute;
+	top: 15%;
+	left: 11%;
+	width: 8%;
+	height: 8%;
+}
+
+#d1850 {
+	position: absolute;
+	top: 40%;
+	left: 26.8%;
+	width: 73%;
+	height: 43%;
+}
+
+#d1847 {
+	position: absolute;
+	top: 3%;
+	left: 8.4%;
+	width: 43%;
+	height: 52%;
+}
+
+#d1859 {
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 15%;
+	height: 55%;
+	z-index: 111;
+}
+
+#d1860 {
+	position: absolute;
+	top: 56%;
+	left: 0%;
+	width: 10%;
+	height: 20%;
+	z-index: 111;
+
+}
+
+#d1861 {
+	position: absolute;
+	top: 56%;
+	left: 10.5%;
+	width: 10%;
+	height: 20%;
+	z-index: 111;
+
+}
+
+#d1862 {
+	position: absolute;
+	top: 0%;
+	right: 0%;
+	width: 100%;
+	height: 100%;
+
+}
+
+#d1858 {
+	position: absolute;
+	top: 25.1%;
+	right: 55%;
+	width: 28%;
+	height: 58%;
+
+}
+
+#d1867 {
+	z-index: 111;
+	position: absolute;
+	top: 24%;
+	left: 20%;
+	width: 20%;
+	height: 45%;
+}
+
+#d1869 {
+	z-index: 111;
+	position: absolute;
+	top: 25%;
+	left: 0%;
+	width: 15%;
+	height: 30%;
+}
+
+#d1870 {
+
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 80%;
+
+}
+
+#d1868 {
+	z-index: 111;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 51%;
+	height: 63%;
+}
+
+#d1875 {
+	position: absolute;
+	left: 10%;
+	top: 16%;
+	width: 30%;
+	height: 60%;
+}
+
+#d1876 {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 35%;
+	height: 30%;
+}
+
+#d1877 {
+	position: absolute;
+	right: 20%;
+	top: 49%;
+	width: 27%;
+	height: 34%;
+}
+
+#d1878 {
+	position: absolute;
+	right: 13%;
+	top: 50%;
+	width: 9%;
+	height: 9%;
+}
+
+#d1879 {
+	position: absolute;
+	right: 8%;
+	top: 38%;
+	width: 10%;
+	height: 11%;
+	z-index: 999;
+}
+
+#d1880 {
+	position: absolute;
+	right: 0;
+	top: 47%;
+	width: 7%;
+	height: 10%;
+}
+
+#d1885 {
+	position: absolute;
+	top: 31%;
+	width: 42%;
+	left: 16%;
+	height: 40%;
+}
+
+#d1886 {
+	position: absolute;
+	left: 0;
+	top: 0%;
+	width: 45%;
+	height: 30%;
+}
+
+#d1887 {
+	position: absolute;
+	right: 0;
+	top: 22%;
+	width: 26%;
+	height: 48%;
+}
+
+#d1905 {
+	position: absolute;
+	left: 0;
+	top: 10%;
+	width: 17%;
+	height: 33%;
+}
+
+#d1904 {
+	position: absolute;
+	left: 14%;
+	top: 0%;
+	width: 17%;
+	height: 50%;
+}
+
+#d1895 {
+	position: absolute;
+	left: 0%;
+	top: 33%;
+	width: 17%;
+	height: 33%;
+
+}
+
+#d1896 {
+	position: absolute;
+	left: 20%;
+	top: 54%;
+	width: 10%;
+	height: 12%;
+}
+
+#d1897 {
+	position: absolute;
+	left: 25%;
+	top: 27%;
+	width: 15%;
+	height: 27%;
+	z-index: 999;
+}
+
+#d1898 {
+	position: absolute;
+	left: 40%;
+	top: 9%;
+	width: 6%;
+	height: 10%;
+}
+
+#d1899 {
+	position: absolute;
+	left: 43%;
+	top: 28%;
+	width: 9%;
+	height: 23%;
+}
+
+#d1900 {
+	position: absolute;
+	left: 43%;
+	top: 40%;
+	width: 20%;
+	height: 28%;
+}
+
+#d1901 {
+	position: absolute;
+	left: 63%;
+	top: 33%;
+	width: 21%;
+	height: 33%;
+}
+
+#d1902 {
+	position: absolute;
+	left: 80%;
+	top: 42%;
+	width: 16%;
+	height: 30%;
+}
+
+#d1903 {
+	position: absolute;
+	left: 81%;
+	top: 8%;
+	width: 15%;
+	height: 21%;
+	;
+}
+
+#waitTime {
+	z-index: 9999;
+	position: fixed;
+	top: 3px;
+	left: 8%;
+}

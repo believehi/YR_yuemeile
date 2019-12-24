@@ -1,0 +1,209 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>阅美乐</title>
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="read.css" rel="stylesheet" />
+		<style type="text/css">
+			#name{
+				width: 14rem;
+				text-align: left;
+				overflow: hidden;
+				text-overflow:ellipsis;
+				white-space: nowrap;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-fanhui mui-action-back" id="fanhui">
+			<img src="../../img/fanhui_02.png">
+		</div>
+		<div class="let-read" id="let-read"></div>
+		<div class="wrapper" id="wrapper" style="display: none;">
+			<div class="read-left read-bar" id="huib">
+				<img id="miniimg" src="../../img/reading_01.png">
+				<p id="name"></p>
+			</div>
+			<div class="read-right read-bar" id="yuedu">
+				<img id="miniimg2" src="../../img/reading_02.png">
+				<p>DuDu Happy Rhythm</p>
+				<span></span>
+			</div>
+
+		</div>
+		<div id="jdtbox" style="display: none;position: absolute;bottom:0.625rem;margin:0rem;left:1.25rem;right: 1.25rem;line-height: 0.3125rem;height: 0.3125rem;background-color: #F6A200;border-radius: 0.1875rem;">
+			<span style="position: absolute;top:-0.625rem;font-size:0.75rem;display: block;text-align: center;left:0rem;right: 0rem;">下载中,请稍后...<b
+				 style="font-weight: normal;" id="bfb">0%</b></span>
+			<span id="jdt" style="width:0%;background-color: #008000;display: block;border-radius: 0.1875rem;height: 0.3125rem;"></span>
+		</div>
+		<script src="../../js/jquery-1.12.0.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: false
+				});
+				var w, ws, typename, name, sort, img, tstr, gml, xml, filepath, ispage = true,
+					isxiazai = false,
+					ptask = null;
+				mui.plusReady(function() {
+					//alert(window.screen.height+"/"+window.screen.width);
+					ws = plus.webview.currentWebview();
+					ws.setStyle(YiRu.viewstyle());
+					YiRu.UserLogin();
+					typename = ws.typename;
+					img = ws.img;
+					name = ws.name;
+					sort = ws.sort;
+					tstr = typename.split("-");
+					gml = tstr[0];
+					xml = tstr[0] + "-" + tstr[1];
+					filepath = "/pages/" + gml + "/" + xml + "/" + typename;
+					$("#name").html(sort + "." + name);
+					$("#miniimg").attr("src", img);
+					$("#miniimg2").attr("src", img);
+					$("#wrapper").fadeIn(200);
+					//console.log(typename);
+
+					//预加载
+					plus.io.resolveLocalFileSystemURL("file://" + plus.io.convertLocalFileSystemURL(filepath + ".html"), function() {
+						ispage = true;
+					}, function(e) {
+						//alert(JSON.stringify(e));
+						//alert("file://" + plus.io.convertLocalFileSystemURL(filepath + ".html"));
+						ispage = false;
+					});
+
+					//typename=DHR-1A-1,DHR-1A-2,DHR-1A-3,DHR-1A-4... ...
+					//console.log(typename);
+					mui('body').on('tap', '#huib', function() {
+						// YiRu.openVW("/pages/DHP/DHP-L1/DHP-L1-1.html", {
+						// 	typename: typename
+						// });
+						kaishixiazai(function() {
+							//YiRu.preload({
+							//	url: filepath + ".html",
+							//	extras: {
+							//		typename: typename
+							//	}
+							//});
+							//setTimeout(function() {
+							YiRu.openVW(filepath + ".html", {
+								typename: typename
+							});
+							//}, 300);
+						});
+					});
+					mui('body').on('tap', '#yuedu', function() {
+						kaishixiazai(function() {
+							YiRu.openVW("/pages/picture/Y.html", {
+								typename: typename,
+								name: name,
+								filename: (tstr[1].substring(1) + tstr[1].substring(0, 1) + tstr[2]).toLowerCase() + "_media.mp3" //a11_media.mp3
+							});
+						});
+					});
+					mui('body').on('tap', '#let-read', function() {
+						kaishixiazai(function() {
+							YiRu.openVW("/pages/picture/C.html", {
+								typename: typename,
+								name: name,
+								filename: "read_" + (tstr[1] + tstr[2]).toLowerCase() + ".mp3"
+							});
+						});
+					});
+
+					function kaishixiazai(callback) {
+						if (isxiazai) {
+							mui.toast("正在下载中，请稍候...");
+							return;
+						}
+						if (ptask != null) plus.downloader.clear();
+						if (ispage) {
+							//开始先下载所有资源
+							var loadUrl = PvUrl + "/picture/" + gml + "/" + typename + "/" + typename + ".zip";
+							var filename = loadUrl.substring(loadUrl.lastIndexOf("/") + 1, loadUrl.length);
+							var relativePath = "_doc/" + typename + "/" + filename;
+							var IsrelativePath = "_doc/" + typename + "/index.txt";
+							//检查是否已存在
+							plus.io.resolveLocalFileSystemURL(IsrelativePath, function(entry) {
+								//压缩包已经存在
+								//console.log("压缩包已经存在");
+								return callback();
+
+
+							}, function(e) {
+								//压缩包还没有下载则开始下载
+								//创建下载任务
+								plus.nativeUI.confirm('需要下载绘本相关内容资源,请耐心等待一会哦.', function(event) {
+									if (0 == event.index) {
+										isxiazai = true;
+										//console.log("创建下载任务:" + loadUrl);
+										$("#jdtbox").fadeIn(300);
+										ptask = plus.downloader.createDownload(loadUrl, {
+											filename: relativePath
+										}, function(d, status) {
+											//console.log(status);
+											isxiazai = false;
+											$("#jdtbox").fadeOut(300);
+											if (status == 200) {
+												//console.log("下载成功");
+												plus.downloader.clear();
+												//ptask.removeEventListener();
+												//开始解压缩
+												plus.zip.decompress(relativePath, "_doc/" + typename + "/", function() {
+													//解压成功了
+													//w.close();
+													delFile(relativePath);
+													return callback();
+
+												}, function(e) {
+													//解压失败
+													//w.close();
+													//console.log(JSON.stringify(e));
+													delFile(relativePath);
+													mui.toast("文件解压失败");
+												});
+
+											} else {
+												if (relativePath != null) delFile(relativePath);
+												mui.toast("下载失败，请重试");
+											}
+										});
+										ptask.addEventListener("statechanged", function(download, status) {
+											//console.log(JSON.stringify(download));
+											if (download.state != 4) {
+												//console.log(download.downloadedSize);
+												//console.log(download.totalSize);
+												//console.log(download.state);
+												var bfb = parseInt((download.downloadedSize / download.totalSize) * 100);
+												if (bfb) {
+													$("#jdt").css("width", bfb + "%");
+													$("#bfb").html(bfb + "%(" + parseFloat(download.totalSize / 1024 / 1024).toFixed(2) + "MB)");
+												}
+											}
+										}, false);
+										//启动下载任务 
+										ptask.start();
+									}
+								}, '', ["好的", "取消"]);
+							});
+							//YiRu.openVW(filepath + ".html");
+						} else {
+							mui.toast("资源整理中");
+							return;
+						};
+					}
+					var oldback = mui.back;
+					mui.back = function() {
+						if (ptask != null) plus.downloader.clear();
+						oldback();
+					}
+				});
+			})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,918 @@
+html,
+body {
+	height: 100%;
+}
+
+#bd12 .text {
+	background-size: 100% 100%;
+}
+
+/* 1 */
+.Y-DHR-pic_1 {
+	position: absolute;
+	top: 38%;
+	left: 20%;
+	width: 10%;
+	height: 30%;
+}
+
+.Y-DHR-pic_2 {
+	position: absolute;
+	top: 35%;
+	left: 28%;
+	width: 8%;
+	height: 20%;
+}
+
+.Y-DHR-pic_3 {
+	position: absolute;
+	top: 43%;
+	left: 36%;
+	width: 6%;
+	height: 15%;
+}
+
+.Y-DHR-pic_4 {
+	position: absolute;
+	top: 31%;
+	left: 40%;
+	width: 10%;
+	height: 25%;
+}
+
+.Y-DHR-pic_5 {
+	position: absolute;
+	top: 60%;
+	left: 34%;
+	width: 15%;
+	height: 20%;
+}
+
+.Y-DHR-pic_6 {
+	position: absolute;
+	top: 56%;
+	left: 48%;
+	width: 4%;
+	height: 10%;
+}
+
+.Y-DHR-pic_7 {
+	position: absolute;
+	top: 12%;
+	left: 54%;
+	width: 8%;
+	height: 10%;
+}
+
+.Y-DHR-pic_8 {
+	position: absolute;
+	top: 28.5%;
+	left: 50%;
+	width: 20%;
+	height: 35%;
+}
+
+/* 2 */
+.Y-DHR-pic_B1 {
+	position: absolute;
+	top: 35%;
+	left: 17%;
+	width: 16%;
+	height: 34%;
+}
+
+.Y-DHR-pic_B2 {
+	position: absolute;
+	top: 23%;
+	left: 21%;
+	width: 7%;
+	height: 10%;
+}
+
+.Y-DHR-pic_B3 {
+	position: absolute;
+	top: 27%;
+	left: 28%;
+	width: 10%;
+	height: 24%;
+}
+
+.Y-DHR-pic_B4 {
+	position: absolute;
+	top: 44%;
+	left: 36%;
+	width: 12%;
+	height: 25%;
+}
+
+.Y-DHR-pic_B5 {
+	position: absolute;
+	top: 62%;
+	left: 32%;
+	width: 14%;
+	height: 18%;
+}
+
+.Y-DHR-pic_B6 {
+	position: absolute;
+	top: 26%;
+	left: 39%;
+	width: 10%;
+	height: 26%;
+}
+
+.Y-DHR-pic_B7 {
+	position: absolute;
+	top: 39%;
+	left: 50%;
+	width: 7%;
+	height: 20%;
+}
+
+.Y-DHR-pic_B8 {
+	position: absolute;
+	top: 58%;
+	left: 47%;
+	width: 6%;
+	height: 10%;
+}
+
+/* 3 */
+.Y-DHR-pic_C1 {
+	position: absolute;
+	top: 10%;
+	left: 5%;
+	width: 16%;
+	/* height: 34%; */
+}
+
+
+.Y-DHR-pic_C2 {
+	position: absolute;
+	top: 64%;
+	left: 14%;
+	width: 4%;
+	height: 8%;
+}
+
+.Y-DHR-pic_C3 {
+	position: absolute;
+	top: 47%;
+	left: 20%;
+	width: 7%;
+	height: 18%;
+}
+
+.Y-DHR-pic_C4 {
+	position: absolute;
+	top: 46%;
+	left: 27%;
+	width: 18%;
+	height: 35%;
+}
+
+.Y-DHR-pic_C5 {
+	position: absolute;
+	top: 54%;
+	left: 46%;
+	width: 11%;
+	height: 24%;
+}
+
+.Y-DHR-pic_C6 {
+	position: absolute;
+	top: 64%;
+	left: 58%;
+	width: 4%;
+	height: 10%;
+}
+
+.Y-DHR-pic_C7 {
+	position: absolute;
+	top: 51%;
+	left: 65%;
+	width: 12%;
+	height: 30%;
+}
+
+.Y-DHR-pic_C8 {
+	position: absolute;
+	top: 32%;
+	left: 63%;
+	width: 26%;
+	height: 40%;
+}
+
+.Y-DHR-pic_C9 {
+	position: absolute;
+	top: 45%;
+	left: 49%;
+	width: 7%;
+	height: 8%;
+}
+
+/* 4 */
+
+.Y-DHR-pic_D1 {
+	position: absolute;
+	bottom: 17%;
+	left: 3%;
+	width: 24%;
+	height: 42%;
+}
+
+.Y-DHR-pic_D2 {
+	position: absolute;
+	top: 28%;
+	left: 22%;
+	width: 10%;
+	height: 28%;
+}
+
+.Y-DHR-pic_D3 {
+	position: absolute;
+	top: 40%;
+	left: 32%;
+	width: 12%;
+	height: 38%;
+}
+
+.Y-DHR-pic_D4 {
+	position: absolute;
+	top: 54%;
+	left: 44%;
+	width: 7%;
+	height: 12%;
+}
+
+.Y-DHR-pic_D5 {
+	position: absolute;
+	top: 40%;
+	left: 51%;
+	width: 6%;
+	height: 10%;
+}
+
+.Y-DHR-pic_D6 {
+	position: absolute;
+	top: 69%;
+	left: 59%;
+	width: 5%;
+	height: 11%;
+}
+
+.Y-DHR-pic_D7 {
+	position: absolute;
+	top: 27%;
+	left: 54%;
+	width: 20%;
+	height: 40%;
+}
+
+.Y-DHR-pic_D8 {
+	position: absolute;
+	top: 55%;
+	left: 75%;
+	width: 14%;
+	height: 26%
+}
+
+.Y-DHR-pic_D9 {
+	position: absolute;
+	top: 14%;
+	left: 78%;
+	width: 18%;
+	/* height: 8%; */
+}
+
+/* 5 */
+
+.Y-DHR-pic_E1 {
+	position: absolute;
+	top: 27%;
+	left: 3%;
+	width: 16%;
+	/* height: 42%; */
+}
+
+.Y-DHR-pic_E2 {
+	position: absolute;
+	top: 42%;
+	left: 10%;
+	width: 22%;
+	height: 36%;
+}
+
+.Y-DHR-pic_E3 {
+	position: absolute;
+	top: 54%;
+	left: 33%;
+	width: 6%;
+	height: 22%;
+}
+
+.Y-DHR-pic_E4 {
+	position: absolute;
+	top: 42%;
+	left: 40%;
+	width: 12%;
+	height: 38%;
+}
+
+.Y-DHR-pic_E5 {
+	position: absolute;
+	top: 54%;
+	left: 62%;
+	width: 10%;
+	height: 28%;
+}
+
+.Y-DHR-pic_E6 {
+	position: absolute;
+	top: 40%;
+	left: 59%;
+	width: 6%;
+	height: 10%;
+}
+
+.Y-DHR-pic_E7 {
+	position: absolute;
+	top: 63%;
+	left: 54%;
+	width: 5%;
+	height: 13%;
+}
+
+.Y-DHR-pic_E8 {
+	position: absolute;
+	top: 68%;
+	left: 89%;
+	width: 5%;
+	height: 12%;
+}
+
+.Y-DHR-pic_E9 {
+	position: absolute;
+	top: 20%;
+	left: 72%;
+	width: 22%;
+	height: 45%;
+}
+
+/* 6 */
+
+.Y-DHR-pic_F1 {
+	position: absolute;
+	bottom: 17%;
+	left: 0%;
+	width: 20%;
+	height: 22%;
+}
+
+.Y-DHR-pic_F2 {
+	position: absolute;
+	top: 72%;
+	left: 22%;
+	width: 5%;
+	height: 10%;
+}
+
+.Y-DHR-pic_F3 {
+	position: absolute;
+	top: 16%;
+	left: 6%;
+	width: 20%;
+	height: 44%;
+}
+
+.Y-DHR-pic_F4 {
+	position: absolute;
+	top: 38%;
+	left: 23%;
+	width: 9%;
+	height: 30%;
+}
+
+.Y-DHR-pic_F5 {
+	position: absolute;
+	top: 49%;
+	left: 36%;
+	width: 8%;
+	height: 24%;
+}
+
+.Y-DHR-pic_F6 {
+	position: absolute;
+	top: 22%;
+	left: 38%;
+	width: 8%;
+	height: 32%;
+}
+
+.Y-DHR-pic_F7 {
+	position: absolute;
+	top: 24%;
+	left: 52%;
+	width: 6%;
+	height: 9%;
+}
+
+.Y-DHR-pic_F8 {
+	position: absolute;
+	top: 39%;
+	left: 58%;
+	width: 19%;
+	height: 36%;
+}
+
+.Y-DHR-pic_F9 {
+	position: absolute;
+	top: 11%;
+	left: 68%;
+	width: 20%;
+	/* height: 45%; */
+}
+
+/* 7 */
+
+.Y-DHR-pic_G1 {
+	position: absolute;
+	top: 37%;
+	left: 5%;
+	width: 15%;
+	height: 38%;
+}
+
+.Y-DHR-pic_G2 {
+	position: absolute;
+	top: 33%;
+	left: 19%;
+	width: 18%;
+	height: 38%;
+}
+
+.Y-DHR-pic_G3 {
+	position: absolute;
+	top: 67%;
+	left: 26%;
+	width: 12%;
+	height: 12%;
+}
+
+.Y-DHR-pic_G4 {
+	position: absolute;
+	top: 45%;
+	left: 38%;
+	width: 9%;
+	height: 28%;
+}
+
+.Y-DHR-pic_G5 {
+	position: absolute;
+	top: 36%;
+	left: 47%;
+	width: 5%;
+	height: 10%;
+}
+
+.Y-DHR-pic_G6 {
+	position: absolute;
+	top: 71%;
+	left: 54%;
+	width: 10%;
+	height: 12%;
+}
+
+.Y-DHR-pic_G7 {
+	position: absolute;
+	top: 33%;
+	left: 51%;
+	width: 18%;
+	height: 38%;
+}
+
+.Y-DHR-pic_G8 {
+	position: absolute;
+	top: 65%;
+	left: 70%;
+	width: 4%;
+	height: 10%;
+}
+
+.Y-DHR-pic_G9 {
+	position: absolute;
+	top: 14%;
+	left: 72%;
+	width: 20%;
+	/* height: 45%; */
+}
+
+/* 8 */
+
+.Y-DHR-pic_H1 {
+	position: absolute;
+	top: 6%;
+	left: 8%;
+	width: 22%;
+	/* height: 38%; */
+}
+
+.Y-DHR-pic_H2 {
+	position: absolute;
+	top: 39%;
+	left: 26%;
+	width: 17%;
+	height: 38%;
+}
+
+.Y-DHR-pic_H3 {
+	position: absolute;
+	top: 45%;
+	left: 44%;
+	width: 12%;
+	height: 28%;
+}
+
+.Y-DHR-pic_H4 {
+	position: absolute;
+	top: 32%;
+	left: 57%;
+	width: 11%;
+	height: 32%;
+}
+
+.Y-DHR-pic_H5 {
+	position: absolute;
+	top: 64%;
+	left: 57%;
+	width: 10%;
+	height: 16%;
+}
+
+.Y-DHR-pic_H6 {
+	position: absolute;
+	top: 53%;
+	left: 70%;
+	width: 7%;
+	height: 19%;
+}
+
+.Y-DHR-pic_H7 {
+	position: absolute;
+	top: 70%;
+	left: 82%;
+	width: 4%;
+	height: 10%;
+}
+
+.Y-DHR-pic_H8 {
+	position: absolute;
+	top: 57%;
+	left: 79%;
+	width: 5%;
+	height: 12%;
+}
+
+.Y-DHR-pic_H9 {
+	position: absolute;
+	top: 41%;
+	left: 84%;
+	width: 12%;
+	height: 32%;
+}
+
+/* 9 */
+
+.Y-DHR-pic_I1 {
+	position: absolute;
+	top: 26%;
+	left: 0%;
+	width: 15%;
+	height: 46%;
+}
+
+.Y-DHR-pic_I2 {
+	position: absolute;
+	top: 36%;
+	left: 19%;
+	width: 12%;
+	height: 34%;
+
+}
+
+.Y-DHR-pic_I3 {
+	position: absolute;
+	top: 68%;
+	left: 12%;
+	width: 20%;
+	height: 15%;
+}
+
+.Y-DHR-pic_I4 {
+	position: absolute;
+	top: 65%;
+	left: 35%;
+	width: 6%;
+	height: 12%
+}
+
+.Y-DHR-pic_I5 {
+	position: absolute;
+	top: 31%;
+	left: 34%;
+	width: 10%;
+	height: 33%;
+}
+
+.Y-DHR-pic_I6 {
+	position: absolute;
+	top: 46%;
+	left: 44%;
+	width: 9%;
+	height: 22%;
+}
+
+.Y-DHR-pic_I7 {
+	position: absolute;
+	top: 29%;
+	left: 54%;
+	width: 22%;
+	height: 47%;
+}
+
+.Y-DHR-pic_I8 {
+	position: absolute;
+	top: 18%;
+	left: 75%;
+	width: 19%;
+	/* height: 12%; */
+}
+
+/* 10 */
+
+.Y-DHR-pic_J1 {
+	position: absolute;
+	top: 53%;
+	left: 4%;
+	width: 28%;
+	height: 30%;
+}
+
+.Y-DHR-pic_J2 {
+	position: absolute;
+	top: 36%;
+	left: 33%;
+	width: 10%;
+	height: 32%;
+}
+
+.Y-DHR-pic_J3 {
+	position: absolute;
+	top: 60%;
+	left: 42%;
+	width: 8%;
+	height: 15%;
+}
+
+.Y-DHR-pic_J4 {
+	position: absolute;
+	top: 39%;
+	left: 45%;
+	width: 4%;
+	height: 8%;
+}
+
+.Y-DHR-pic_J5 {
+	position: absolute;
+	top: 40%;
+	left: 51%;
+	width: 10%;
+	height: 33%;
+}
+
+.Y-DHR-pic_J6 {
+	position: absolute;
+	top: 53%;
+	left: 64%;
+	width: 7%;
+	height: 16%;
+
+}
+
+.Y-DHR-pic_J7 {
+	position: absolute;
+	top: 67%;
+	left: 71%;
+	width: 4%;
+	height: 10%;
+}
+
+.Y-DHR-pic_J8 {
+	position: absolute;
+	top: 45%;
+	left: 72%;
+	width: 27%;
+	height: 38%;
+}
+
+
+.Y-DHR-pic_J1 img,
+.Y-DHR-pic_J2 img,
+.Y-DHR-pic_J3 img,
+.Y-DHR-pic_J4 img,
+.Y-DHR-pic_J5 img,
+.Y-DHR-pic_J6 img,
+.Y-DHR-pic_J7 img,
+.Y-DHR-pic_J8 img,
+.Y-DHR-pic_I1 img,
+.Y-DHR-pic_I2 img,
+.Y-DHR-pic_I3 img,
+.Y-DHR-pic_I4 img,
+.Y-DHR-pic_I5 img,
+.Y-DHR-pic_I6 img,
+.Y-DHR-pic_I7 img,
+.Y-DHR-pic_I8 img,
+.Y-DHR-pic_H1 img,
+.Y-DHR-pic_H2 img,
+.Y-DHR-pic_H3 img,
+.Y-DHR-pic_H4 img,
+.Y-DHR-pic_H5 img,
+.Y-DHR-pic_H6 img,
+.Y-DHR-pic_H7 img,
+.Y-DHR-pic_H8 img,
+.Y-DHR-pic_H9 img,
+.Y-DHR-pic_G1 img,
+.Y-DHR-pic_G2 img,
+.Y-DHR-pic_G3 img,
+.Y-DHR-pic_G4 img,
+.Y-DHR-pic_G5 img,
+.Y-DHR-pic_G6 img,
+.Y-DHR-pic_G7 img,
+.Y-DHR-pic_G8 img,
+.Y-DHR-pic_G9 img,
+.Y-DHR-pic_F1 img,
+.Y-DHR-pic_F2 img,
+.Y-DHR-pic_F3 img,
+.Y-DHR-pic_F4 img,
+.Y-DHR-pic_F5 img,
+.Y-DHR-pic_F6 img,
+.Y-DHR-pic_F7 img,
+.Y-DHR-pic_F8 img,
+.Y-DHR-pic_F9 img,
+.Y-DHR-pic_E1 img,
+.Y-DHR-pic_E2 img,
+.Y-DHR-pic_E3 img,
+.Y-DHR-pic_E4 img,
+.Y-DHR-pic_E5 img,
+.Y-DHR-pic_E6 img,
+.Y-DHR-pic_E7 img,
+.Y-DHR-pic_E8 img,
+.Y-DHR-pic_E9 img,
+.Y-DHR-pic_D1 img,
+.Y-DHR-pic_D2 img,
+.Y-DHR-pic_D3 img,
+.Y-DHR-pic_D4 img,
+.Y-DHR-pic_D5 img,
+.Y-DHR-pic_D6 img,
+.Y-DHR-pic_D7 img,
+.Y-DHR-pic_D8 img,
+.Y-DHR-pic_D9 img,
+.Y-DHR-pic_C1 img,
+.Y-DHR-pic_C2 img,
+.Y-DHR-pic_C3 img,
+.Y-DHR-pic_C4 img,
+.Y-DHR-pic_C5 img,
+.Y-DHR-pic_C6 img,
+.Y-DHR-pic_C7 img,
+.Y-DHR-pic_C8 img,
+.Y-DHR-pic_C9 img,
+.Y-DHR-pic_B1 img,
+.Y-DHR-pic_B2 img,
+.Y-DHR-pic_B3 img,
+.Y-DHR-pic_B4 img,
+.Y-DHR-pic_B5 img,
+.Y-DHR-pic_B6 img,
+.Y-DHR-pic_B7 img,
+.Y-DHR-pic_B8 img,
+.Y-DHR-pic_1 img,
+.Y-DHR-pic_2 img,
+.Y-DHR-pic_3 img,
+.Y-DHR-pic_4 img,
+.Y-DHR-pic_5 img,
+.Y-DHR-pic_6 img,
+.Y-DHR-pic_7 img,
+.Y-DHR-pic_8 img {
+	width: 100%;
+	height: 100%;
+}
+
+
+/* 底部样式 */
+.Y-DHR-pic_but_J1,
+.Y-DHR-pic_but_J2,
+.Y-DHR-pic_but_I1,
+.Y-DHR-pic_but_I2,
+.Y-DHR-pic_but_H1,
+.Y-DHR-pic_but_H2,
+.Y-DHR-pic_but_G1,
+.Y-DHR-pic_but_G2,
+.Y-DHR-pic_but_F1,
+.Y-DHR-pic_but_F2,
+.Y-DHR-pic_but_E1,
+.Y-DHR-pic_but_E2,
+.Y-DHR-pic_but_D1,
+.Y-DHR-pic_but_D2,
+.Y-DHR-pic_but_C1,
+.Y-DHR-pic_but_C2,
+.Y-DHR-pic_but_B1,
+.Y-DHR-pic_but_B2,
+.Y-DHR-pic_but_1,
+.Y-DHR-pic_but_2 {
+	position: absolute;
+	bottom: 0;
+	height: 15%;
+	width: 50%;
+}
+
+.Y-DHR-pic_but_J1,
+.Y-DHR-pic_but_I1,
+.Y-DHR-pic_but_H1,
+.Y-DHR-pic_but_G1,
+.Y-DHR-pic_but_F1,
+.Y-DHR-pic_but_E1,
+.Y-DHR-pic_but_D1,
+.Y-DHR-pic_but_C1,
+.Y-DHR-pic_but_B1,
+.Y-DHR-pic_but_1 {
+	left: 0;
+}
+
+.Y-DHR-pic_but_J2,
+.Y-DHR-pic_but_I2,
+.Y-DHR-pic_but_H2,
+.Y-DHR-pic_but_G2,
+.Y-DHR-pic_but_F2,
+.Y-DHR-pic_but_E2,
+.Y-DHR-pic_but_D2,
+.Y-DHR-pic_but_C2,
+.Y-DHR-pic_but_B2,
+.Y-DHR-pic_but_2 {
+	right: 0;
+}
+
+.Y-DHR-pic_but_J1 img,
+.Y-DHR-pic_but_J2 img,
+.Y-DHR-pic_but_I1 img,
+.Y-DHR-pic_but_I2 img,
+.Y-DHR-pic_but_H1 img,
+.Y-DHR-pic_but_H2 img,
+.Y-DHR-pic_but_G1 img,
+.Y-DHR-pic_but_G2 img,
+.Y-DHR-pic_but_F1 img,
+.Y-DHR-pic_but_F2 img,
+.Y-DHR-pic_but_E1 img,
+.Y-DHR-pic_but_E2 img,
+.Y-DHR-pic_but_D1 img,
+.Y-DHR-pic_but_D2 img,
+.Y-DHR-pic_but_C1 img,
+.Y-DHR-pic_but_C2 img,
+.Y-DHR-pic_but_B1 img,
+.Y-DHR-pic_but_B2 img,
+.Y-DHR-pic_but_1 img,
+.Y-DHR-pic_but_2 img {
+	width: 85%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.Y-DHR-pic_but_J2 img,
+.Y-DHR-pic_but_1 img,
+.Y-DHR-pic_but_2 img {
+	width: 80%;
+}
+
+.Y-DHR-pic_but_F1 img,
+.Y-DHR-pic_but_G1 img {
+	width: 75%;
+}
+
+.Y-DHR-pic_but_J1 img, 
+.Y-DHR-pic_but_H1 img,
+.Y-DHR-pic_but_C1 img {
+	width: 65%;
+}
+
+.Y-DHR-pic_but_I1 img,
+.Y-DHR-pic_but_E1 img,
+.Y-DHR-pic_but_D1 img {
+	width: 60%;
+}
+
+.Y-DHR-pic_but_B1 img {
+	width: 55%;
+}
+
+.Y-DHR-pic_but_B2 img {
+	width: 45%;
+}

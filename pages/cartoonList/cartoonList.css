@@ -1,0 +1,137 @@
+html {
+	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	background-image: url(../../img/cartoon.jpg);
+	height: 100%;
+	overflow: hidden;
+}
+
+.catalog-inita {
+	width: 88%;
+	height: 80%;
+	margin: 8% auto auto auto;
+
+}
+.catalog-title {
+	width: 100%;
+	height: 14%;
+	border: 0.0625rem solid #8222DB;
+	color: #8222DB;
+	font-size: 1rem;
+	padding-left: 1.25rem;	
+	background-color: #FFFFFF;
+	border-radius: 0.25rem;
+	box-sizing: border-box;
+	line-height: 240%;
+}
+.catalog-title p {
+	float: right;
+	margin-right: 0.625rem;
+	height: 2.1875rem;
+	font-size: 0.75rem;
+}
+
+.catalog {
+	/* 	position: absolute;
+	top: 2.1875rem;
+	bottom: 0; */
+	height: 84%;
+	border: 0.0625rem solid #8222DB;
+	width: 96%;
+	margin-left: 2%;
+	border-bottom-left-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+	background-color: #F7EEFF;
+	box-sizing: border-box;
+	padding: 1% 2%;
+	display: none;
+}
+
+.catalog ul {
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	box-sizing: border-box;
+	padding: 0 0rem 0 0rem;
+}
+
+.catalog ul::-webkit-scrollbar {
+	width: 0.3125rem;
+}
+
+.catalog ul::-webkit-scrollbar-track {
+	background-color: #8222DB;
+	border-radius: 0.25rem;
+}
+
+.catalog ul::-webkit-scrollbar-thumb {
+	background-color: #DEBBFF;
+	border-radius: 0.25rem;
+}
+
+.catalog li {
+	width: 29.333333333333333%;
+	height: 12rem;
+	padding: 1%;
+	box-shadow: 0.125rem 0.125rem 0.25rem #ADAAB1;
+	border-radius: 0.25rem;
+	background-color: #FFFFFF;
+	margin: 1%;
+	color: #6E6E6E;
+	float: left;
+
+}
+
+.catalog .catalog-active {
+	box-shadow: 0.125rem 0.125rem 0.25rem #B782ED;
+	color: #8222DB;
+}
+
+.catalog-img {
+	width: 100%;
+	height: 76%;
+	margin-bottom:2%;
+}
+
+.catalog-img img {
+	width: 100%;
+	height: 100%;
+}
+
+.catalog-active .catalog-img img:nth-of-type(2),
+.catalog-img img:nth-of-type(1) {
+	display: none;
+}
+
+.catalog-active .catalog-img img:nth-of-type(1) {
+	display: block;
+}
+
+.catalog li p {
+	position: relative;
+	line-height: 1.25rem;
+	font-size: 0.8125rem;
+	padding: 0 1.25rem 0 0;
+	height: 22%;
+}
+.catalog li p span{
+	height: 100%;
+	display: block;
+	overflow: hidden;
+	}
+.catalog-icon {
+	width: 1.25rem;
+	height: 1.25rem;
+	display: inline-block;
+	background-image: url(../../img/icon_51.png);
+	background-size: 80% 80%;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
