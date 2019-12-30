@@ -765,7 +765,7 @@
 							d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost)
 						}
 					}
-					let res = (1 - d[n][m] / l);
+					var res = (1 - d[n][m] / l);
 					return res.toFixed(f);
 
 				}
