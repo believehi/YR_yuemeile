@@ -325,8 +325,9 @@ function DataActionClick(_typename) {
 				if (Audio != null) Audio.stop();
 				Audio.setStyles({
 					src: YiRu.getpicture(this.getAttribute("data-audio"), _typename)
+					// src: this.getAttribute("data-audio")  // 测试
 				});
-				console.log(this.getAttribute("data-audio"))
+				console.log(YiRu.getpicture(this.getAttribute("data-audio"), _typename))
 				Audio.play(function() {
 					pic_aa = true;
 				}, function(e) {

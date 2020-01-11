@@ -15,312 +15,339 @@ body {
 .bd-DHR div {
 	position: absolute;
 }
-#d15915{
+
+#d15915 {
 	width: 16rem;
 	right: 1rem;
 	top: 5rem;
 }
-#d15916{
+
+#d15916 {
 	width: 8rem;
 	height: 10rem;
 	left: 3rem;
 	bottom: 1rem;
 }
 
-#d15917{
+#d15917 {
 	width: 8rem;
 	height: 5rem;
-	left:12rem;
+	left: 12rem;
 	bottom: 3rem;
 }
 
-#d15918{
+#d15918 {
 	width: 8rem;
 	height: 5rem;
-	left:18rem;
+	left: 18rem;
 	top: 0rem;
 }
 
 
-#d15919{
+#d15919 {
 	width: 10rem;
 	height: 8rem;
-	right:7rem;
+	right: 7rem;
 	top: 11rem;
 }
 
-#d15922{
+#d15922 {
 	width: 19rem;
-	right:2rem;
+	right: 2rem;
 	top: 6rem;
 }
 
-#d15925{
+#d15925 {
 	width: 19rem;
 	height: 11rem;
-	
-	left:0rem;
+
+	left: 0rem;
 	top: 0rem;
 }
 
-#d15924{
+#d15924 {
 	width: 5rem;
 	height: 5rem;
-	
-	left:20rem;
+
+	left: 20rem;
 	top: 0rem;
 }
 
-#d15923{
+#d15923 {
 	width: 10rem;
 	height: 10rem;
-	left:0rem;
+	left: 0rem;
 	bottom: 0rem;
 }
-#d15926{
+
+#d15926 {
 	width: 10rem;
 	height: 8rem;
-	right:5rem;
+	right: 5rem;
 	bottom: 3rem;
 }
 
-#d15929{
+#d15929 {
 	width: 20rem;
-	right:1rem;
+	right: 1rem;
 	bottom: 1rem;
 }
 
-#d15930{
+#d15930 {
 	width: 10rem;
 	height: 13rem;
-	left:8rem;
+	left: 8rem;
 	bottom: 5rem;
 }
-#d15934{
+
+#d15934 {
 	width: 5rem;
 	height: 5rem;
-	right:1rem;
+	right: 1rem;
 	top: 5rem;
 }
-#d15935{
+
+#d15935 {
 	width: 16rem;
-	right:2rem ;
+	right: 2rem;
 	top: 1rem;
 }
-#d15936{
+
+#d15936 {
 	width: 13rem;
 	height: 12rem;
-	left:6rem ;
+	left: 6rem;
 	top: 8rem;
 }
-#d15937{
+
+#d15937 {
 	width: 5rem;
 	height: 5rem;
 	z-index: 2;
-	right:1rem ;
-	bottom:1rem;
-}
-#d15838{
-	width: 18rem;
-	height: 13rem;
-	right:0rem ;
-	bottom:0rem;
+	right: 1rem;
+	bottom: 1rem;
 }
 
-#d15941{
+#d15838 {
+	width: 18rem;
+	height: 13rem;
+	right: 0rem;
+	bottom: 0rem;
+}
+
+#d15941 {
 	width: 17rem;
-	left:1rem ;
+	left: 1rem;
 	top: 8rem;
 }
 
-#d15942{
+#d15942 {
 	width: 10rem;
 	height: 12rem;
 	z-index: 1;
-	left:18rem ;
+	left: 18rem;
 	top: 8rem;
 }
-#d15943{
+
+#d15943 {
 	width: 22rem;
 	height: 14rem;
-	left:17rem ;
+	left: 17rem;
 	top: 8rem;
 }
-#d15946{
+
+#d15946 {
 	width: 16rem;
-	left:17rem ;
+	left: 17rem;
 	top: 1rem;
 }
 
-#d15947{
+#d15947 {
 	width: 11rem;
 	height: 14rem;
-	left:2rem ;
+	left: 2rem;
 	z-index: 1;
 	top: 4rem;
 }
 
-#d15948{
+#d15948 {
 	width: 2.5rem;
 	height: 8rem;
-	left:13rem ;
+	left: 13rem;
 	top: 6rem;
 }
-#d15949{
+
+#d15949 {
 	width: 5rem;
 	height: 5rem;
-	right:0rem ;
+	right: 0rem;
 	top: 2rem;
 }
 
-#d15950{
+#d15950 {
 	width: 100%;
 	height: 8rem;
-	right:0rem ;
+	right: 0rem;
 	bottom: 0rem;
 }
-#d15953{
+
+#d15953 {
 	width: 18rem;
-	left:1rem ;
+	left: 1rem;
 	top: 5rem;
 	z-index: 1;
 }
 
-#d15954{
+#d15954 {
 	width: 5rem;
 	height: 7rem;
-	left:1rem ;
+	left: 1rem;
 	bottom: 0rem;
 }
 
-#d15955{
+#d15955 {
 	width: 5rem;
 	height: 7rem;
-	left:10rem ;
+	left: 10rem;
 	bottom: 0rem;
 }
-#d15956{
+
+#d15956 {
 	width: 2rem;
 	height: 7rem;
-	left:22rem ;
+	left: 22rem;
 	bottom: 0rem;
 }
-#d15957{
+
+#d15957 {
 	width: 2rem;
 	height: 9rem;
-	left:24rem ;
+	left: 24rem;
 	bottom: 6rem;
 	z-index: 1;
 }
 
-#d15958{
+#d15958 {
 	width: 8rem;
 	height: 13rem;
-	left:26rem ;
+	left: 26rem;
 	bottom: 5rem;
 	z-index: 1;
 }
-#d15959{
+
+#d15959 {
 	width: 25rem;
 	height: 13rem;
-	right:0rem ;
+	right: 0rem;
 	top: 0rem;
 }
-#d15962{
+
+#d15962 {
 	width: 17rem;
-	right:2rem ;
+	right: 2rem;
 	top: 3rem;
 	z-index: 1;
 }
-#d15963{
+
+#d15963 {
 	width: 8rem;
 	height: 12rem;
-	right:21rem ;
+	right: 21rem;
 	top: 6rem;
 	z-index: 1;
 }
 
-#d15964{
+#d15964 {
 	width: 2rem;
 	height: 6rem;
-	right:19rem ;
+	right: 19rem;
 	top: 9rem;
 	z-index: 1;
 }
 
-#d15965{
+#d15965 {
 	width: 90%;
 	height: 13rem;
 	left: 0;
 	bottom: 0;
 }
 
-#d15966{
+#d15966 {
 	width: 40%;
 	height: 9rem;
 	z-index: 1;
 	left: 0;
 	top: 0;
 }
-#d15969{
+
+#d15969 {
 	width: 16rem;
 	right: 1rem;
 	top: 2rem;
 	z-index: 2;
 }
-#d15970{
+
+#d15970 {
 	width: 2rem;
 	height: 8rem;
 	right: 22rem;
 	z-index: 1;
 	top: 5rem;
 }
-#d15971{
+
+#d15971 {
 	width: 7rem;
 	height: 12rem;
 	z-index: 1;
 	right: 15rem;
 	top: 5rem;
 }
-#d15972{
+
+#d15972 {
 	width: 8rem;
 	height: 3rem;
 	z-index: 1;
 	right: 15rem;
 	top: 17rem;
 }
-#d15973{
+
+#d15973 {
 	width: 100%;
 	height: 13rem;
 	left: 0rem;
 	bottom: 0;
 }
-#d15976{
+
+#d15976 {
 	width: 20rem;
 	bottom: 1rem;
 	left: 2rem;
 }
-#d15977{
+
+#d15977 {
 	width: 8rem;
 	height: 10rem;
-	bottom:7rem;
+	bottom: 7rem;
 	left: 14rem;
 }
-#d15978{
+
+#d15978 {
 	width: 2rem;
 	height: 5rem;
-	bottom:12rem;
+	bottom: 12rem;
 	left: 22rem;
 }
-#d15979{
+
+#d15979 {
 	width: 8rem;
 	height: 5rem;
-	bottom:2rem;
+	bottom: 2rem;
 	right: 1rem;
 }
-#d15980{
+
+#d15980 {
 	width: 14rem;
 	height: 12rem;
-	top:0rem;
+	top: 0rem;
 	left: 0rem;
 }

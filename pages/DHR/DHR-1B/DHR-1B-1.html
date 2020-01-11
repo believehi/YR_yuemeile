@@ -279,7 +279,6 @@
 				<img src="../../../img/fanhui_02.png">
 			</div>
 		</article>
-		
 		<script src="../../../js/jquery-1.12.0.min.js"></script>
 		<script src="../../../js/mui.min.js"></script>
 		<script src="../../../js/app.js"></script>
@@ -302,11 +301,6 @@
 					GetPictureloadImg(typename);
 					//重写返回
 					newback(typename, ws);
-					Audio = plus.audio.createPlayer({});
-					Audioa = plus.audio.createPlayer({});
-					player = plus.audio.createPlayer({});
-					//录音操作
-					actionrecord();
 					$("#bd12").on("swiperight", function() {
 						tishiyin.setStyles({
 							src: '../../../img/fanshu.mp3'
@@ -319,9 +313,14 @@
 						});
 						tishiyin.play();
 					});
+					Audio = plus.audio.createPlayer({});
+					Audioa = plus.audio.createPlayer({});
+					player = plus.audio.createPlayer({});
+					//录音操作
+					actionrecord();
 					//批量绑定通用点击事件
 					DataActionClick(typename);
-
+					
 					picArr_1 = [
 						[
 							"b1101_z3n1.png", "b1101_z3n2.png",
@@ -583,7 +582,7 @@
 							Audio.setStyles({
 								src: YiRu.getpicture("d3355.mp3", typename)
 							});
-							Audio.play(function(a) {
+							Audio.play(function() {
 								pic_aa = true;
 							}, function(e) {
 								pic_aa = true;
